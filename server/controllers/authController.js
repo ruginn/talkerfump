@@ -31,7 +31,8 @@ export const registerUser = asyncHandler(async (req, res) => {
 
     // create user
     const user = await User.create({
-        firstName: req.body.firstName, 
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,  
         email: req.body.email, 
         username: req.body.username,
         password: hashedPassword, 
@@ -42,7 +43,14 @@ export const registerUser = asyncHandler(async (req, res) => {
 
     if (user) {
         res.status(200).json({
-            user, token})
+            firstName: user.firstName, 
+            lastName: user.lastName, 
+            username: user.username, 
+            followers: user.followers, 
+            following: user.following, 
+            email: user.email,
+            id: user._id,
+            token})
     } else {
         res.status(400)
         throw new Error('invalid user data')
@@ -58,8 +66,38 @@ export const loginUser = asyncHandler(async (req, res) => {
     // compare password
     if (user && (await bcrypt.compare(password, user.password))) {
         const token = generateToken(user._id)
-        res.json({user, token})
+        res.json({
+            firstName: user.firstName, 
+            lastName: user.lastName, 
+            username: user.username, 
+            followers: user.followers, 
+            following: user.following, 
+            email: user.email,
+            id: user._id,
+            token})
     } else {
         res.status(400).json('Incorrect username, email or password')
     }
 })
+
+
+export const updateUser = asyncHandler(async (req, res) => {
+    const id =  req.user.id
+    const user = await User.findOne({id})
+    if(user){
+        const token = generateToken(user._id)
+        res.status(200).json({
+            firstName: user.firstName, 
+            lastName: user.lastName, 
+            username: user.username, 
+            followers: user.followers, 
+            following: user.following, 
+            email: user.email,
+            id: user._id, 
+            token
+        })
+    } else {
+        res.status(400).json('Cant find user')
+    }
+})
+

@@ -1,0 +1,58 @@
+.comment{
+    background-color: rgb(216, 216, 216);
+    margin: 1rem;
+    display: flex;
+    padding: .5rem;
+    align-items: center;
+    border-radius: 20px;
+}
+
+.profile--comment{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    align-self: center;
+    border: 2px solid rgb(99, 129, 218);
+}
+
+.comment--content{
+    margin-left: .5rem;
+}
+
+.comment--text{
+    margin: .5rem 0rem;
+}
+
+.comment--heart--container{
+    display: flex;
+    align-items: center;
+}
+
+.comment--like--container {
+    margin-left: .5rem;
+    font-size: 0.8rem;
+}
+
+.comment--like--container > b {
+    font-size: 0.8rem;
+}
+
+.comment--details{
+    font-size: .8rem;
+    margin: 0px;
+}
+
+.comment--heart > svg{
+    fill: black;
+    height: 16px;
+    width: 16px;
+    cursor: pointer;
+}
+
+.black--heart--comment >svg{
+    fill: black;
+}
+
+.red--heart--comment > svg{
+    fill: red;
+}

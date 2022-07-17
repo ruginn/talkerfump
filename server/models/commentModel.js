@@ -7,6 +7,12 @@ const commentSchema = mongoose.Schema({
         ref: 'Post', 
         required: true
     }, 
+    userId: {
+        type: ObjectId, 
+        ref: 'User', 
+        required: true
+    },
+    likes: [{type: ObjectId, ref:'User'}], 
     commentText: {
         type: String, 
         required: true, 

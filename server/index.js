@@ -6,6 +6,7 @@ import cors from 'cors'
 // routes 
 import authRoute from './routes/authRoutes.js'
 import postRoute from './routes/postRoutes.js'
+import userRoute from './routes/userRoutes.js'
 
 dotenv.config();
 connectDB();
@@ -24,3 +25,4 @@ app.listen(port, () =>{
 
 app.use('/api/auth/', authRoute)
 app.use('/api/post/', postRoute)
+app.use('/api/users/', userRoute)

@@ -2,7 +2,15 @@ import React from 'react'
 import { login, reset } from '../features/auth/authSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
+import picture from '../pictures/gymFriends.svg'
+import Login1 from '../pictures/LoginPhotos/login1.jpeg'
+import Login2 from '../pictures/LoginPhotos/login2.jpeg'
+import Login3 from '../pictures/LoginPhotos/login3.jpeg'
+import Login4 from '../pictures/LoginPhotos/login4.jpeg'
+import Login5 from '../pictures/LoginPhotos/login5.jpeg'
+
+import '../styles/pages/Login.css'
 
 
 export default function Login() {
@@ -22,9 +30,9 @@ export default function Login() {
       alert('incorrect password or email') 
     }
     if(isSuccess || user){
-      alert('login Successful')
       navigate('/')
     }
+
   }, [user, isError, isSuccess, message, dispatch])
 
   const onChange = (e) => {
@@ -41,9 +49,38 @@ export default function Login() {
     }
     dispatch(login(userData))
   }
+
+  const [randomNum, setRandomNum] = useState(
+    Math.floor(Math.random() * 5)
+  )
+  
+
+  const loginPic = [Login1, Login2, Login3, Login4, Login5 ]
+  // const randomNum = Math.floor(Math.random() * 5)
+
+  console.log(randomNum)
+
   return (
     <div className='login--page'>
-      <h3>login section</h3>
+      <div className='login--left'>
+        <img src={loginPic[randomNum]} alt="" />
+        <div className='login--left--center'>
+          <h1>Welcome to</h1>
+          <h1>Fitness Friend</h1>
+        </div>
+      </div>
+      <div className="login--right">
+        <h3>Login section</h3>
+        <form onSubmit={onSubmit} >
+          <label htmlFor="email">Email</label>
+          <input type="text" id='email' name='email' value={email} onChange={onChange}/>
+          <label htmlFor="password">Password</label>
+          <input type="password" id='password' name='password' value={password} onChange={onChange} />
+          <button>Login</button>
+        </form>
+        <Link to='/register' >Don't have an account? Register</Link>
+      </div>
+      {/* <h3>Login section</h3>
       <form onSubmit={onSubmit} >
         <label htmlFor="email">Email</label>
         <input type="text" id='email' name='email' value={email} onChange={onChange}/>
@@ -51,7 +88,7 @@ export default function Login() {
         <input type="password" id='password' name='password' value={password} onChange={onChange} />
         <button>Login</button>
       </form>
-      
+      <Link to='/register' >Don't have an account? Register</Link> */}
     </div>
   )
 }

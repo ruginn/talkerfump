@@ -1,0 +1,81 @@
+/* .top{
+    background: linear-gradient(145deg, rgba(205,255,244,1) 0%, rgba(215,155,255,1) 100%);
+    width: 200px;
+    height: 100vh;
+} */
+
+.Nav--bar{
+    display: flex;
+    flex-direction: column;
+    width: 230px;
+    height: 100vh;
+    /* background: linear-gradient(145deg, rgba(205,255,244,1) 0%, rgba(215,155,255,1) 100%); */
+    background-color: rgb(197, 196, 196);
+    position: fixed;
+}
+svg {
+    height: 35px;
+    width: 35px;
+    color: black;
+    fill: black;
+}
+
+.larger--icon> svg {
+    height: 30px;
+    width: 30px;
+    margin-right: 5px;
+}
+
+.Logo{
+    text-decoration: none;
+    font-size: 1.5rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    color: black;
+}
+
+.Logo> svg {
+    height: 50px;
+    width: 50px;
+    margin: .5rem;
+
+}
+
+.Nav--row{
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    font-size: .8rem;
+    padding: .5rem 0; 
+    padding-left: 1rem;
+    width: 100%;
+    background-color: rgb(197, 196, 196);
+    width: 92%;
+}
+
+.Nav--row:hover{
+    filter: brightness(110%);
+    width: 93%;
+    cursor: pointer;
+    /* what is making the width 93% */
+}
+
+.Nav--row> span{
+    color: black;
+    margin-left: 1rem;
+}
+
+.top--nav--item{
+    margin-top: 2rem;
+}
+
+.darker--bg{
+    background-color: #808080;
+    width: 92%;
+    margin: 1px;
+}
+
+.push--bottom{
+    margin-top: 380px;
+}

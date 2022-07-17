@@ -1,6 +1,6 @@
 import React, {useState ,useEffect} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
-import {useNavigate} from 'react-router-dom'
+import {Navigate, useNavigate , Link} from 'react-router-dom'
 import {toast} from 'react-toastify'
 import { register, reset } from '../features/auth/authSlice'
 
@@ -17,7 +17,7 @@ export default function Register() {
 
     const {firstName, lastName, email, username, password, password2} = formData;
 
-    // const navigate = useNavigate()
+    const navigate = useNavigate()
     const dispatch = useDispatch()
 
     const {user, isLoading, isError, isSuccess, message} = useSelector((state) => state.auth)
@@ -27,7 +27,7 @@ export default function Register() {
             alert(message)
         }
         if(isSuccess || user) {
-            alert('register complete')
+            navigate('/')
         }
     }, [user, isError, isSuccess, message, dispatch])
 
@@ -48,7 +48,7 @@ export default function Register() {
         alert('passwords do not match')
         } else {
             const userData = {
-                firstName, email, password, username
+                firstName, email, password, username, lastName
             }
             dispatch(register(userData))
         }
@@ -56,6 +56,7 @@ export default function Register() {
 
   return (
     <div className='Register'>
+    <h3>Register Section</h3>
         <form onSubmit={onSubmit}>
             <label htmlFor="firstName">First Name</label>
             <input type="text" name='firstName' id='firstName' value={firstName} onChange={onChange}/>
@@ -71,6 +72,7 @@ export default function Register() {
             <input type="password" name='password2' id='password2' value={password2} onChange={onChange}/>
             <button type='submit'>Register</button>
         </form>
+        <Link to='/login' >Already have an account? Login</Link>
     </div>
   )
 }
