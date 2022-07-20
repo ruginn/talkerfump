@@ -73,6 +73,7 @@ export const loginUser = asyncHandler(async (req, res) => {
             followers: user.followers, 
             following: user.following, 
             email: user.email,
+            profileImage: user.profileImage,
             id: user._id,
             token})
     } else {
@@ -94,6 +95,7 @@ export const updateUser = asyncHandler(async (req, res) => {
             following: user.following, 
             email: user.email,
             id: user._id, 
+            profileImage: user.profileImage,
             token
         })
     } else {
@@ -101,3 +103,15 @@ export const updateUser = asyncHandler(async (req, res) => {
     }
 })
 
+export const uploadProfilePicture = asyncHandler(async(req, res) => {
+    const userId = req.user.id
+    const profileImage = req.body.profileImage
+    const user = await User.findById(userId)
+    await user.updateOne({profileImage})
+    const updatedUser = await User.findById(userId)
+    console.log(user)
+    if (!user){
+        res.status(400).json('user does not exist')
+    }
+    res.status(200).json(updatedUser)
+})

@@ -2,6 +2,7 @@ import express from 'express'
 import dotenv from 'dotenv'
 import connectDB from './config/db.js'
 import cors from 'cors'
+import {Server} from 'socket.io'
 
 // routes 
 import authRoute from './routes/authRoutes.js'
@@ -19,10 +20,33 @@ app.use(express.urlencoded({extended: true}))
 
 
 
-app.listen(port, () =>{
+const server = app.listen(port, () =>{
     console.log(`listening on ${port}`)
 })
 
 app.use('/api/auth/', authRoute)
 app.use('/api/post/', postRoute)
 app.use('/api/users/', userRoute)
+
+const io = new Server(server, {
+    cors: {
+        origin: 'http://localhost:3000',
+        methods: ['GET', 'POST'] 
+    }
+})
+
+io.on('connection', (socket) => {
+    console.log((`user ${socket.id} connected`))
+
+    socket.on('join_room', (data) => {
+        socket.join(data)
+        console.log(`User with ID ${socket.id} joined room ${data}`)
+    })
+    socket.on('send_message', (data) => {
+        console.log(data.message)
+        socket.to(data.room).emit('recieve_message', data)
+    })
+    socket.on('disconnect', ()=> {
+        console.log('user disconnected ' + socket.id )
+    })
+})

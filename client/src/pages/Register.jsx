@@ -1,8 +1,7 @@
 import React, {useState ,useEffect} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
-import {Navigate, useNavigate , Link} from 'react-router-dom'
-import {toast} from 'react-toastify'
-import { register, reset } from '../features/auth/authSlice'
+import { useNavigate , Link} from 'react-router-dom'
+import { register } from '../features/auth/authSlice'
 
 
 export default function Register() {

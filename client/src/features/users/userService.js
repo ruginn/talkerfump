@@ -41,13 +41,26 @@ const unfollowUser = async(userId, token) => {
 }
 
 
+const findFollowers = async(userId) => {
+    console.log(userId)
+    const response = await API.get(`/api/users/${userId}/findfollowers`)
+    return response.data
+}
+
+const findFollowing = async(userId) => {
+    console.log(userId)
+    const response = await API.get(`/api/users/${userId}/findfollowing`)
+    return response.data
+}
 
 
 const userService = {
     getUsers, 
     getUser, 
     followUser,
-    unfollowUser
+    unfollowUser, 
+    findFollowers, 
+    findFollowing, 
 }
 
 export default userService

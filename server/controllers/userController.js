@@ -80,3 +80,25 @@ export const unfollowUser = asyncHandler(async(req, res)=> {
         }
     }
 })
+
+export const findFollowers = asyncHandler(async (req, res) => {
+    const userId = req.params.id 
+    const user = await User.findById(userId).populate('followers', '-password' )
+    if(!user) {
+        res.status(400).json(`Followers not found ${userId}`)
+    } 
+    res.status(200).json(user)
+
+})
+
+export const findFollowing = asyncHandler(async (req, res) => {
+    const userId = req.params.id 
+    const user = await User.findById(userId).populate('following', '-password' )
+    if(!user) {
+        res.status(400).json(`Following not found ${userId}`)
+    } 
+    res.status(200).json(user)
+
+})
+
+

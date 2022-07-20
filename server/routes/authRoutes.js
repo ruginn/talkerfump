@@ -1,5 +1,5 @@
 import express from 'express'
-import { registerUser, loginUser, updateUser } from '../controllers/authController.js'
+import { registerUser, loginUser, updateUser, uploadProfilePicture } from '../controllers/authController.js'
 import protect from '../middleware/authMiddleware.js'
 
 const router = express.Router()
@@ -7,6 +7,8 @@ const router = express.Router()
 router.post('/register', registerUser)
 router.post('/login', loginUser)
 router.get('/update', protect, updateUser)
+router.post('/uploadProfilePicture', protect, uploadProfilePicture)
+
 
 export default router
 

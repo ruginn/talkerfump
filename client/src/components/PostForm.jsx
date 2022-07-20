@@ -1,8 +1,7 @@
 import {useSelector, useDispatch} from 'react-redux'
 import {useState} from 'react'
 import {createPost} from '../features/posts/postSlice'
-import { getPosts } from '../features/posts/postSlice'
-import { getTimeline} from '../features/posts/postSlice'
+
 
 import React from 'react'
 
@@ -25,7 +24,6 @@ export default function PostForm() {
         }
         dispatch(createPost(postData))
         setPostText('')
-        dispatch(getTimeline(user.id))
 
     }
   return (

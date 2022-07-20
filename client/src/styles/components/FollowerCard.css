@@ -1,0 +1,25 @@
+.followCard--container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 90%;
+    border: 1px solid black;
+    border-radius: 20px;
+    margin: 0.5rem;
+}
+
+
+.followCard--container > a{
+    display: flex;
+    align-items: center;
+}
+
+
+
+.profile--pic--Fcard{
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-left: 1rem;
+}

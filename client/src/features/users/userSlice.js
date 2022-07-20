@@ -54,6 +54,24 @@ export const unfollowUser = createAsyncThunk('user/unfollow', async (userId, thu
 })
 
 
+export const findFollowers = createAsyncThunk('user/findFollowers', async (userId, thunkAPI) => {
+    try {
+        return await userService.findFollowers(userId)
+    } catch(error) {
+        const message = error.toString()
+        return thunkAPI.rejectWithValue(message)
+    }
+})
+
+export const findFollowing = createAsyncThunk('user/findFollowing', async (userId, thunkAPI) => {
+    try {
+        return await userService.findFollowing(userId)
+    } catch(error) {
+        const message = error.toString()
+        return thunkAPI.rejectWithValue(message)
+    }
+})
+
 export const userSlice = createSlice({
     name: 'users', 
     initialState, 
@@ -107,6 +125,30 @@ export const userSlice = createSlice({
             state.user = action.payload
         })
         .addCase(unfollowUser.rejected, (state, action) => {
+            state.isError = true
+            state.message = action.payload
+        })
+        .addCase(findFollowers.pending, (state) => {
+            state.isLoading = true
+        })
+        .addCase(findFollowers.fulfilled, (state, action) => {
+            state.isLoading = false
+            state.isSuccess = true
+            state.users = action.payload.followers
+        })
+        .addCase(findFollowers.rejected, (state, action) => {
+            state.isError = true
+            state.message = action.payload
+        })
+        .addCase(findFollowing.pending, (state) => {
+            state.isLoading = true
+        })
+        .addCase(findFollowing.fulfilled, (state, action) => {
+            state.isLoading = false
+            state.isSuccess = true
+            state.users = action.payload.following
+        })
+        .addCase(findFollowing.rejected, (state, action) => {
             state.isError = true
             state.message = action.payload
         })

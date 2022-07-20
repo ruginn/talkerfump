@@ -1,0 +1,6 @@
+.profile--pic--home{
+    height: 5rem; 
+    width: 5rem;
+    object-fit: cover;
+    border-radius: 50%;
+}

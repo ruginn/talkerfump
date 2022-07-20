@@ -1,9 +1,8 @@
 import React from 'react'
-import { login, reset } from '../features/auth/authSlice'
+import { login } from '../features/auth/authSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { useState, useEffect } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
-import picture from '../pictures/gymFriends.svg'
 import Login1 from '../pictures/LoginPhotos/login1.jpeg'
 import Login2 from '../pictures/LoginPhotos/login2.jpeg'
 import Login3 from '../pictures/LoginPhotos/login3.jpeg'
@@ -23,7 +22,7 @@ export default function Login() {
   const navigate = useNavigate()
   const {email, password} = formData
 
-  const {user, isLoading, isSuccess, isError, message} = useSelector((state)=> state.auth)
+  const {user, isSuccess, isError, message} = useSelector((state)=> state.auth)
 
   useEffect(() => {
     if(isError){
@@ -56,7 +55,6 @@ export default function Login() {
   
 
   const loginPic = [Login1, Login2, Login3, Login4, Login5 ]
-  // const randomNum = Math.floor(Math.random() * 5)
 
   console.log(randomNum)
 
@@ -80,15 +78,6 @@ export default function Login() {
         </form>
         <Link to='/register' >Don't have an account? Register</Link>
       </div>
-      {/* <h3>Login section</h3>
-      <form onSubmit={onSubmit} >
-        <label htmlFor="email">Email</label>
-        <input type="text" id='email' name='email' value={email} onChange={onChange}/>
-        <label htmlFor="password">Password</label>
-        <input type="password" id='password' name='password' value={password} onChange={onChange} />
-        <button>Login</button>
-      </form>
-      <Link to='/register' >Don't have an account? Register</Link> */}
     </div>
   )
 }

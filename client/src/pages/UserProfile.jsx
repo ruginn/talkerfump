@@ -1,14 +1,15 @@
-import React, {useState} from 'react'
 import {useParams} from 'react-router-dom'
 import {useSelector, useDispatch} from 'react-redux'
-import { useEffect } from 'react'
-import { getUser, followUser, unfollowUser } from '../features/users/userSlice'
+import { useEffect, useState } from 'react'
+import { getUser, followUser, unfollowUser, findFollowers, findFollowing } from '../features/users/userSlice'
 import profilePic from '../pictures/defaultCat.jpeg'
-import { getPosts } from '../features/posts/postSlice'
 import Spinner from '../components/Spinner'
 import { getUserPosts } from '../features/posts/postSlice'
 import Post from '../components/Post'
-import { updateAuth, following, unfollowing} from '../features/auth/authSlice'
+import {  following, unfollowing} from '../features/auth/authSlice'
+import FollowersModal from '../components/FollowersModal'
+import FollowingModal from '../components/FollowingModal'
+
 
 export default function UserProfile() {
     const params = useParams()
@@ -42,19 +43,33 @@ export default function UserProfile() {
       dispatch(unfollowing(userId))
     }
 
-    // if (isLoading) {
-    //   return <Spinner />
-    // }
+
+    const [followersModal, setFollowersModal] = useState(false)
+    const [followingModal, setFollowingModal] = useState(false)
+    
+
+    const openFollowersModal = () => {
+      dispatch(findFollowers(userId))
+      setFollowersModal(true)
+    }
+
+    const openFollowingModal = () => {
+      dispatch(findFollowing(userId))
+      setFollowingModal(true)
+      
+    }
+
 
   return (
     <div>
       {user && 
         <div>
-          <img src={profilePic} alt="" className='profile--pic'/>
+          <img src= {user.profileImage? user.profileImage: profilePic} alt="" className='profile--pic'/>
+          
           <h3>@{user && user.username}</h3>
           <p>{posts&& posts.length} posts</p>
-          <span>{user && user.followers.length} followers </span>
-          <span>{user && user.following.length} following</span> 
+          <span onClick={openFollowersModal}>{user && user.followers.length} followers </span>
+          <span onClick={openFollowingModal}>{user && user.following.length} following</span> 
 
           <br />
           {auth.id !== params.userId?
@@ -76,9 +91,10 @@ export default function UserProfile() {
             )}
          </section>
         </div> 
-        
-      }
 
+      }
+      {user && <FollowersModal followersModal={followersModal} setFollowersModal={setFollowersModal} username= {user.username}/>}
+      {user && <FollowingModal followingModal={followingModal} setFollowingModal={setFollowingModal} username= {user.username}/>}
     </div>
   )
 }

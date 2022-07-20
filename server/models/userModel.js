@@ -29,6 +29,9 @@ const userSchema = mongoose.Schema({
     profileImage: {
         type: String
     },
+    buddy: {
+        type: ObjectId, ref:"Users"
+    },
     followers: [{type: ObjectId, ref:"User"}], 
     following: [{type: ObjectId, ref:"User"}]
 }, 

@@ -72,13 +72,13 @@ export const likePost = asyncHandler(async(req, res) =>{
     }
     if (post.likes.includes(userId)) {
         await post.updateOne({$pull: {likes: userId}});
-        const unlikedPost = await Post.findById(id).populate("userId","firstName username")
+        const unlikedPost = await Post.findById(id).populate("userId","firstName username profileImage")
         .populate({path: 'comments', populate: {path: 'userId', select: '-password'}})
 
         res.status(200).json(unlikedPost)
     } else {
         await post.updateOne({$push: {likes: userId}})
-        const likedPost = await Post.findById(id).populate("userId","firstName username")
+        const likedPost = await Post.findById(id).populate("userId","firstName username profileImage")
         .populate({path: 'comments', populate: {path: 'userId', select: '-password'}})
         res.status(200).json(likedPost)
     }
@@ -100,7 +100,7 @@ export const commentPost = asyncHandler(async(req, res) => {
     })
     const post = await Post.findById(postId)
     await post.updateOne({$push : {comments: comment._id,}}, {new: true})
-    const updatedPost = await Post.findById(postId).populate("userId","firstName username")
+    const updatedPost = await Post.findById(postId).populate("userId","firstName username profileImage")
     .populate({path: 'comments', populate: {path: 'userId', select: '-password'}})
     res.status(200).json(updatedPost)
 })
@@ -113,7 +113,7 @@ export const deleteComment = asyncHandler(async(req, res)=> {
     const id = req.body.commentId;
     const userId = req.user.id
     const comment = await Comment.findById(id)
-    const post = await Post.findById(postId).populate("userId","firstName username")
+    const post = await Post.findById(postId).populate("userId","firstName username profileImage")
 
     if(!comment){
         res.status(400).json('comment not found')
@@ -121,7 +121,7 @@ export const deleteComment = asyncHandler(async(req, res)=> {
     
     if(userId.toString() === post.userId._id.toString() || userId.toString() === comment.userId._id.toString()){
         comment.remove()
-        const updatedpost = await Post.findById(postId).populate("userId","firstName username")
+        const updatedpost = await Post.findById(postId).populate("userId","firstName username profileImage")
         .populate({path: 'comments', populate: {path: 'userId', select: '-password'}})
         res.status(200).json(updatedpost) 
     } else {
@@ -143,13 +143,13 @@ export const likeComment = asyncHandler(async(req, res) => {
     } 
     if (comment.likes.includes(userId)) {
         await comment.updateOne({$pull: {likes: userId}});
-        const unlikedComment = await Post.findById(postId).populate("userId","firstName username")
+        const unlikedComment = await Post.findById(postId).populate("userId","firstName username profileImage")
         .populate({path: 'comments', populate: {path: 'userId', select: '-password'}})
 
         res.status(200).json(unlikedComment)
     } else {
         await comment.updateOne({$push: {likes: userId}})
-        const likedComment = await Post.findById(postId).populate("userId","firstName username")
+        const likedComment = await Post.findById(postId).populate("userId","firstName username profileImage")
         .populate({path: 'comments', populate: {path: 'userId', select: '-password'}})
         res.status(200).json(likedComment)
     }
@@ -223,7 +223,7 @@ export const getTimelinePosts = async (req,res) =>{
             {userId:{$in:req.user.following}},
             {userId: req.user._id}
         ]
-    }).populate("userId","firstName username")
+    }).populate("userId","firstName username profileImage")
     .populate({path: 'comments', populate: {path: 'userId', select: '-password'}})
     .sort('-createdAt')
     

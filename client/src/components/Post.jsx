@@ -27,15 +27,16 @@ export default function Post({ post}) {
     // if (isLoading) {
     //   return <Spinner />
     // }
-    
+    const  [expandComments, setExpandCommment] = useState(false)
 
     return (
     <div className='post--container'> 
     {/* {isLoading? <Spinner /> : ( */}
       <div className='user--container'>
         <div className='profile--pic--container'>
-          <Link to={`/users/${post.userId._id}`} ><img src={profileCat} alt="" className='profile--post'/></Link>
+          <Link to={`/users/${post.userId._id}`} ><img src={post.userId.profileImage? post.userId.profileImage: profileCat} alt="" className='profile--post'/></Link>
         </div>
+
         <div>
           <p className='post--text'>{post.postText}</p>
           <div className='like--container'>
@@ -51,7 +52,9 @@ export default function Post({ post}) {
         {user.id=== post.userId._id && <div onClick={onDeletePost}>X</div>}
       </div>
       <div className='post--comment--container'>
-        <Comment post={post} key={post._id}/>
+        <p onClick={()=>{setExpandCommment((prev)=>!prev)}}>see comments</p>
+        {expandComments && <Comment post={post} key={post._id}/>}
+        {expandComments && <h1 onClick={()=>{setExpandCommment((prev)=>!prev)}}>Hide comments</h1>}
       </div>
       {/* )} */}
     </div>

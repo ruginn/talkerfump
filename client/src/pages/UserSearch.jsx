@@ -2,8 +2,6 @@ import {useDispatch, useSelector} from 'react-redux'
 import { useEffect } from 'react'
 import {getUsers} from '../features/users/userSlice'
 import UserCard from '../components/UserCard'
-import postService from '../features/posts/postService'
-import {Link} from 'react-router-dom'
 
 export default function UserSearch() {
     const {users} = useSelector((state) => state.users)

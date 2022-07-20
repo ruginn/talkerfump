@@ -1,7 +1,6 @@
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import {ToastContainer} from 'react-toastify'
-import {BrowserRouter as Router, Routes, Route, useSearchParams} from 'react-router-dom'
+import {  Routes, Route} from 'react-router-dom'
 import Home from './pages/Home'
 import UserSearch from "./pages/UserSearch";
 import UserProfile from "./pages/UserProfile";
