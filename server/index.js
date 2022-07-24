@@ -3,11 +3,13 @@ import dotenv from 'dotenv'
 import connectDB from './config/db.js'
 import cors from 'cors'
 import {Server} from 'socket.io'
+import cloudinary from './utils/cloudinary.js'
 
 // routes 
 import authRoute from './routes/authRoutes.js'
 import postRoute from './routes/postRoutes.js'
 import userRoute from './routes/userRoutes.js'
+import chatRoute from './routes/chatRoutes.js'
 
 dotenv.config();
 connectDB();
@@ -15,8 +17,8 @@ const app = express();
 const port = process.env.PORT
 
 app.use(cors())
-app.use(express.json({extended: true}))
-app.use(express.urlencoded({extended: true}))
+app.use(express.json({extended: true, limit: '10000kb'}))
+app.use(express.urlencoded({extended: true, limit: '10000kb'}))
 
 
 
@@ -27,6 +29,21 @@ const server = app.listen(port, () =>{
 app.use('/api/auth/', authRoute)
 app.use('/api/post/', postRoute)
 app.use('/api/users/', userRoute)
+app.use('/api/chat/', chatRoute)
+app.post('/api/upload', async (req, res)=> {
+    try {
+        const fileStr = req.body.data;
+        console.log(req.body.userId)
+        const uploadedResponse = await cloudinary.uploader.upload(fileStr, {upload_preset: 'dev_setups'})
+        console.log(uploadedResponse)
+        console.log(uploadedResponse.url)
+        res.status(200).json(uploadedResponse.url)
+    }catch(error) {
+        console.log(error)
+    }
+})
+
+
 
 const io = new Server(server, {
     cors: {

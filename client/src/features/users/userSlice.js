@@ -72,6 +72,24 @@ export const findFollowing = createAsyncThunk('user/findFollowing', async (userI
     }
 })
 
+export const getPostLikes = createAsyncThunk('post/getLikes', async (postId, thunkAPI) => {
+    try {
+        return await userService.getPostLikes(postId)
+    }catch (error) {
+        const message = error.toString()
+        return thunkAPI.rejectWithValue(message)
+    }
+})
+
+export const getCommentLikes = createAsyncThunk('comment/getLikes', async (commentId, thunkAPI) => {
+    try {
+        return await userService.getCommentLikes(commentId)
+    } catch(error){
+        const message = error.toString()
+        return thunkAPI.rejectWithValue(message)
+    }
+})
+
 export const userSlice = createSlice({
     name: 'users', 
     initialState, 
@@ -149,6 +167,32 @@ export const userSlice = createSlice({
             state.users = action.payload.following
         })
         .addCase(findFollowing.rejected, (state, action) => {
+            state.isError = true
+            state.message = action.payload
+        })
+        .addCase(getPostLikes.pending, (state) => {
+            state.isLoading = true
+        })
+        .addCase(getPostLikes.fulfilled, (state, action) => {
+            state.isLoading = false
+            state.isSuccess = true
+            state.users = action.payload
+            
+        })
+        .addCase(getPostLikes.rejected, (state, action) => {
+            state.isError = true
+            state.message = action.payload
+        })
+        .addCase(getCommentLikes.pending, (state) => {
+            state.isLoading = true
+        })
+        .addCase(getCommentLikes.fulfilled, (state, action) => {
+            state.isLoading = false
+            state.isSuccess = true
+            state.users = action.payload
+            
+        })
+        .addCase(getCommentLikes.rejected, (state, action) => {
             state.isError = true
             state.message = action.payload
         })

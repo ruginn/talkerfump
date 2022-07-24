@@ -2,6 +2,7 @@ import User from "../models/userModel.js";
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import asyncHandler from 'express-async-handler'
+import cloudinary from "../utils/cloudinary.js";
 
 
 
@@ -115,3 +116,19 @@ export const uploadProfilePicture = asyncHandler(async(req, res) => {
     }
     res.status(200).json(updatedUser)
 })
+
+
+export const updateProfilePicture = asyncHandler(async (req, res) => {
+    const userId = req.user.id
+    const fileStr = req.body.data;
+    const uploadedResponse = await cloudinary.uploader.upload(fileStr, {upload_preset: 'dev_setups'})
+
+    if(!uploadedResponse) {
+        res.status(400).json('Image not uploaded')
+    } 
+    const user = await User.findById(userId)
+    await user.updateOne({profileImage:uploadedResponse.url})
+    res.status(200).json(uploadedResponse.url)
+})
+
+

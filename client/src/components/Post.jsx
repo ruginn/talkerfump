@@ -8,13 +8,15 @@ import {useState } from 'react'
 import Spinner from '../components/Spinner'
 import {Link} from 'react-router-dom'
 import {AiOutlineHeart, AiFillHeart } from 'react-icons/ai'
+import LikesModal from './LikesModal'
+import { getPostLikes } from '../features/users/userSlice'
 
 export default function Post({ post}) {
     const dispatch = useDispatch()
     const user = useSelector((state)=> state.auth.user)
 
     const { isLoading, isError, isSuccess} = useSelector((state)=> state.post) 
-  
+    const [likesModal, setLikesModal] = useState(false)
 
     const onDeletePost = () => {
       dispatch(deletePost(post._id))
@@ -29,6 +31,11 @@ export default function Post({ post}) {
     // }
     const  [expandComments, setExpandCommment] = useState(false)
 
+    const openLikes = () => {
+      dispatch(getPostLikes(post._id))
+      setLikesModal((prev) => !prev)
+    }
+
     return (
     <div className='post--container'> 
     {/* {isLoading? <Spinner /> : ( */}
@@ -41,7 +48,7 @@ export default function Post({ post}) {
           <p className='post--text'>{post.postText}</p>
           <div className='like--container'>
             <span className='heart--svg' onClick={onLikePost}>{post.likes.includes(user.id)? <AiFillHeart/>: <span className='black--heart'><AiOutlineHeart /></span>}</span>
-            <span className='like--value'><b>{post.likes.length}</b> {post.likes.length === 1? 'Like': 'Likes'}</span>
+            <span className='like--value' onClick={openLikes}><b>{post.likes.length}</b> {post.likes.length === 1? 'Like': 'Likes'}</span>
             <span className='comment--counter'><b>{post.comments.length}</b> comments</span>
           </div>  
           <div>
@@ -56,7 +63,7 @@ export default function Post({ post}) {
         {expandComments && <Comment post={post} key={post._id}/>}
         {expandComments && <h1 onClick={()=>{setExpandCommment((prev)=>!prev)}}>Hide comments</h1>}
       </div>
-      {/* )} */}
+      <LikesModal likesModal={likesModal} setLikesModal={setLikesModal}/> 
     </div>
   )
 }

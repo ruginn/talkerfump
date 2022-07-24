@@ -2,6 +2,7 @@ import {useParams} from 'react-router-dom'
 import {useSelector, useDispatch} from 'react-redux'
 import { useEffect, useState } from 'react'
 import { getUser, followUser, unfollowUser, findFollowers, findFollowing } from '../features/users/userSlice'
+import {createChat} from '../features/chat/chatSlice'
 import profilePic from '../pictures/defaultCat.jpeg'
 import Spinner from '../components/Spinner'
 import { getUserPosts } from '../features/posts/postSlice'
@@ -59,6 +60,10 @@ export default function UserProfile() {
       
     }
 
+    const onCreateChat = () => {
+      const chatData = {userId: userId}
+      dispatch(createChat(chatData))
+    }
 
   return (
     <div>
@@ -78,6 +83,7 @@ export default function UserProfile() {
               <button onClick={onFollow}>Follow</button>  : 
               <button>Edit Profile</button>
           }
+          <button onClick={onCreateChat}>Message</button>
           <section className='content'>
           {isLoading && <Spinner />}
             {posts.length > 0 ? (

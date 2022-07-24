@@ -1,11 +1,12 @@
 import io from 'socket.io-client'
 import {useState} from 'react'
 import Chat from '../components/Chat'
+import { useSelector } from 'react-redux'
 
 const socket = io.connect('http://localhost:8080')
 
 export default function Messages() {
-  const [username, setUsername] = useState('')
+  const username = useSelector((state) => state.auth.user.username)
   const [room, setRoom] = useState('')
   const [showChat, setShowChat] = useState(false)
 
@@ -23,7 +24,7 @@ export default function Messages() {
       <div className='container'>
         <h3>Join a room</h3>
         <label htmlFor="name">Name</label>
-        <input type="text" id='name' placeholder='Name' onChange={(e) => {setUsername(e.target.value)}}/>
+        {/* <input type="text" id='name' placeholder='Name' onChange={(e) => {setUsername(e.target.value)}}/> */}
         <label htmlFor="room">Room</label>
         <input type="text"  id='room' placeholder='Room' onChange={(e) => {setRoom(e.target.value)}}/>
         <button onClick={joinRoom}>Join</button>

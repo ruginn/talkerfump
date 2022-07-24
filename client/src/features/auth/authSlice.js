@@ -65,7 +65,11 @@ export const authSlice = createSlice({
             console.log(newList)
             state.user.following = newList
             localStorage.setItem('auth', JSON.stringify(state.user))
-        }
+        }, 
+        updateProfilePic : (state, action) => {
+            state.user.profileImage = action.payload
+            localStorage.setItem('auth', JSON.stringify(state.user))
+        },
     }, 
     extraReducers: (builder) => {
         builder
@@ -117,5 +121,5 @@ export const authSlice = createSlice({
     }
 })
 
-export const {reset, following, unfollowing} = authSlice.actions;
+export const {reset, following, unfollowing, updateProfilePic} = authSlice.actions
 export default authSlice.reducer

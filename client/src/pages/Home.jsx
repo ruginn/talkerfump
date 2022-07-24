@@ -8,6 +8,7 @@ import { getTimeline} from '../features/posts/postSlice'
 import Post from '../components/Post'
 import FollowersModal from '../components/FollowersModal'
 import FollowingModal from '../components/FollowingModal'
+import ImageUploader from '../components/ImageUploader'
 import '../styles/pages/Home.css'
 
 import { reset as reset2 } from '../features/posts/postSlice'
@@ -45,7 +46,7 @@ export default function Home() {
     
     const [followersModal, setFollowersModal] = useState(false)
     const [followingModal, setFollowingModal] = useState(false)
-    
+    const [ImageUploaderModal, setImageUploaderModal] = useState(false)
 
     const openFollowersModal = () => {
       dispatch(findFollowers(user.id))
@@ -58,13 +59,17 @@ export default function Home() {
       setFollowingModal(true)
     }
 
+    const openImageUploader = () =>{
+      setImageUploaderModal(true)
+    }
 
   return (
     <div>
     {/* Need to see if user exist before using, as it will say user is null and can not retrieve user.${whatever} */}
         {/* <button onClick={onLogout}>Logout</button> */}
         <h3>Welcome {user && user.firstName}</h3>
-        {/* {user && <img src={user.profileImage} className='profile--pic--home' />} */}
+        {user && <img src={user.profileImage} className='profile--pic--home' />}
+        <span onClick={openImageUploader}>Upload new profile image</span>
         <p><b>{user && posts.filter((post) => (post.userId._id === user.id)).length}</b> posts</p>
         <span onClick={openFollowersModal}><b>{user && user.followers.length}</b> followers </span>
         <span onClick={openFollowingModal}><b>{user && user.following.length}</b> following</span>
@@ -82,6 +87,7 @@ export default function Home() {
         </section>
         {user && <FollowersModal followersModal={followersModal} setFollowersModal={setFollowersModal} username= {user.username}/>}
         {user && <FollowingModal followingModal={followingModal} setFollowingModal={setFollowingModal} username= {user.username}/>}
+        {user && <ImageUploader ImageUploaderModal={ImageUploaderModal} setImageUploaderModal={setImageUploaderModal}/>}
     </div>
     
   )

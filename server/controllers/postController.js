@@ -14,7 +14,8 @@ export const createPost = asyncHandler(async (req, res) => {
         postText, 
         userId
     })
-    res.status(200).json(post)
+    const updatedPost = await Post.findById(post._id).populate('userId')
+    res.status(200).json(updatedPost)
     if (!postText) {
         res.status(400).json('Please enter a post')
     }
@@ -210,7 +211,7 @@ export const getTimelinePosts2 = async(req, res) => {
 }
 
 
-export const getTimelinePosts = async (req,res) =>{
+export const getTimelinePosts = asyncHandler(async (req,res) =>{
     // const currentUserPosts = await Post.find({userId: req.user._id})
     // .populate("userId","firstName username")
     // .sort('-createdAt')
@@ -232,4 +233,23 @@ export const getTimelinePosts = async (req,res) =>{
     } else {
         res.status(200).json(poster)
     }   
-}
+})
+
+export const getPostLikes = asyncHandler(async(req, res) => {
+    const postId = req.params.id
+    const likedUsers = await Post.findById(postId).populate('likes', 'profileImage username firstName _id')
+    if (!likedUsers) {
+        res.status(400).json('Post does not exist')
+    }
+    res.status(200).json(likedUsers)
+})
+
+export const getCommentLikes = asyncHandler(async(req, res) => {
+    const commentId = req.params.id
+    const likedUsers = await Comment.findById(commentId).populate('likes', 'profileImage username firstName _id')
+    if(!commentId) {
+        res.status(400).json('Could not find comment')
+    }
+    res.status(200).json(likedUsers)
+
+})

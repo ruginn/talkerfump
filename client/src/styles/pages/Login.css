@@ -16,7 +16,7 @@
     align-items: center;
     justify-content: center;
     position: relative;
-    /* background-color: #1f1f1f; */
+    background-color: #1f1f1f;
 }
 
 .login--left--center{
@@ -30,8 +30,9 @@
     justify-content: center;
     align-items: center;
     color: white;
-}
+    background-color: #1f1f1fa0;
 
+}
 
 
 .login--right{

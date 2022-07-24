@@ -42,17 +42,26 @@ const unfollowUser = async(userId, token) => {
 
 
 const findFollowers = async(userId) => {
-    console.log(userId)
     const response = await API.get(`/api/users/${userId}/findfollowers`)
     return response.data
 }
 
 const findFollowing = async(userId) => {
-    console.log(userId)
     const response = await API.get(`/api/users/${userId}/findfollowing`)
     return response.data
 }
 
+
+const getPostLikes = async(postId) => {
+    const response = await API.get(`/api/post/${postId}/getLikes`)
+    return response.data.likes
+}
+
+const getCommentLikes = async(commentId) => {
+    const response = await API.get(`/api/post/${commentId}/comment/getlikes`)
+    console.log(response.data)
+    return response.data.likes
+}
 
 const userService = {
     getUsers, 
@@ -61,6 +70,8 @@ const userService = {
     unfollowUser, 
     findFollowers, 
     findFollowing, 
+    getPostLikes, 
+    getCommentLikes,
 }
 
 export default userService

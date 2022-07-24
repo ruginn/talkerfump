@@ -8,7 +8,7 @@ export default function UserCard({user}) {
     <div>
       <Link to={`/users/${user._id}`} key={user._id}>
         <div className='profile--container'>
-            <img src={profileCat} alt="" className='profile--pic' /> 
+            <img src={user.profileImage ? user.profileImage : profileCat} alt="" className='profile--pic' /> 
         </div>
         <h1>{user.firstName}</h1>
         <h2>@{user.username}</h2>
