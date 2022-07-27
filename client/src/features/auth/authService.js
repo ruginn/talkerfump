@@ -45,6 +45,7 @@ const updateAuth = async (token) => {
     return response.data
 }
 
+
 const authService = {
     register, 
     login, 

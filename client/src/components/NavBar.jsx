@@ -28,7 +28,7 @@ export default function NavBar() {
   return (
     <div className="top">
         <div className='Nav--bar'>
-            <div><Link to='/' className='Logo'><CgGym /> <span>Fitness Friend</span></Link></div> 
+            <div><Link to='/' className='Logo'><CgGym /> <span>Keep Me Accountable</span></Link></div> 
             <div><Link to='/' className='Nav--row top--nav--item' title='Home'><AiOutlineHome /> <span>Home</span></Link></div> 
             <div><Link to='/users' className='Nav--row' title='Users'><AiOutlineUser/><span>Users</span></Link></div> 
             <div><Link to='/achievements' className='Nav--row larger--icon' title='Achievements'><BsTrophy /><span>Achievements</span></Link></div>

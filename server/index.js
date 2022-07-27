@@ -30,18 +30,18 @@ app.use('/api/auth/', authRoute)
 app.use('/api/post/', postRoute)
 app.use('/api/users/', userRoute)
 app.use('/api/chat/', chatRoute)
-app.post('/api/upload', async (req, res)=> {
-    try {
-        const fileStr = req.body.data;
-        console.log(req.body.userId)
-        const uploadedResponse = await cloudinary.uploader.upload(fileStr, {upload_preset: 'dev_setups'})
-        console.log(uploadedResponse)
-        console.log(uploadedResponse.url)
-        res.status(200).json(uploadedResponse.url)
-    }catch(error) {
-        console.log(error)
-    }
-})
+// app.post('/api/upload', async (req, res)=> {
+//     try {
+//         const fileStr = req.body.data;
+//         console.log(req.body.userId)
+//         const uploadedResponse = await cloudinary.uploader.upload(fileStr, {upload_preset: 'dev_setups'})
+//         console.log(uploadedResponse)
+//         console.log(uploadedResponse.url)
+//         res.status(200).json(uploadedResponse.url)
+//     }catch(error) {
+//         console.log(error)
+//     }
+// })
 
 
 
@@ -58,6 +58,10 @@ io.on('connection', (socket) => {
     socket.on('join_room', (data) => {
         socket.join(data)
         console.log(`User with ID ${socket.id} joined room ${data}`)
+    })
+    socket.on('leave_room', (data) => {
+        socket.leave(data)
+        console.log(`User with ${socket.id} left room ${data}`)
     })
     socket.on('send_message', (data) => {
         console.log(data.message)

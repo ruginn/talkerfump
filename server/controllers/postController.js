@@ -8,11 +8,13 @@ import mongoose from "mongoose";
 
 export const createPost = asyncHandler(async (req, res) => {
     const {postText} = req.body
+    const {createdAt} = req.body
     const userId = req.user.id
 
     const post = await Post.create({
         postText, 
-        userId
+        userId,
+        createdAt,
     })
     const updatedPost = await Post.findById(post._id).populate('userId')
     res.status(200).json(updatedPost)
@@ -89,6 +91,7 @@ export const likePost = asyncHandler(async(req, res) =>{
 
 export const commentPost = asyncHandler(async(req, res) => {
     const {commentText} = req.body
+    const createdAt = req.body.createdAt
     const postId = req.params.id
     const userId = req.user.id
     if (!commentText) {
@@ -97,7 +100,8 @@ export const commentPost = asyncHandler(async(req, res) => {
     const comment = await Comment.create({
         commentText, 
         postId, 
-        userId
+        userId,
+        createdAt,
     })
     const post = await Post.findById(postId)
     await post.updateOne({$push : {comments: comment._id,}}, {new: true})

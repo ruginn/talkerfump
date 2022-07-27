@@ -10,7 +10,10 @@ const MessageSchema = mongoose.Schema({
     }, 
     message: {
         type: String,
-    }, 
+    },
+    timeSent: {
+        type: Date, 
+    },
     createdAt: {
         type: Date, 
         default: new Date()

@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import profileCat from '../pictures/defaultCat.jpeg'
 import {Link} from 'react-router-dom'
-import { commentOnPost, deleteComment, likeComment } from '../features/posts/postSlice'
+import { deleteComment, likeComment } from '../features/posts/postSlice'
 import {useDispatch, useSelector} from 'react-redux'
 import {AiOutlineHeart, AiFillHeart } from 'react-icons/ai'
 import LikesModal from './LikesModal'

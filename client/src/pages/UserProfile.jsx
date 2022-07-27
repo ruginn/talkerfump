@@ -83,7 +83,8 @@ export default function UserProfile() {
               <button onClick={onFollow}>Follow</button>  : 
               <button>Edit Profile</button>
           }
-          <button onClick={onCreateChat}>Message</button>
+          {auth.id === params.userId? '':
+          <button onClick={onCreateChat}>Message</button>}
           <section className='content'>
           {isLoading && <Spinner />}
             {posts.length > 0 ? (

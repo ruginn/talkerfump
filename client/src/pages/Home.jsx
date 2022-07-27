@@ -3,6 +3,7 @@ import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate} from 'react-router-dom'
 import { logout, reset} from '../features/auth/authSlice'
+import {getUserChats} from '../features/chat/chatSlice'
 import PostForm from '../components/PostForm'
 import { getTimeline} from '../features/posts/postSlice'
 import Post from '../components/Post'
@@ -10,6 +11,7 @@ import FollowersModal from '../components/FollowersModal'
 import FollowingModal from '../components/FollowingModal'
 import ImageUploader from '../components/ImageUploader'
 import '../styles/pages/Home.css'
+import defaultCat from '../pictures/defaultCat.jpeg'
 
 import { reset as reset2 } from '../features/posts/postSlice'
 import { findFollowers, findFollowing } from '../features/users/userSlice'
@@ -27,6 +29,7 @@ export default function Home() {
         navigate('/login')
        }
        dispatch(getTimeline())
+       dispatch(getUserChats())
     }, [navigate, onLoading])
     
     // user, navigate, isError
@@ -68,7 +71,7 @@ export default function Home() {
     {/* Need to see if user exist before using, as it will say user is null and can not retrieve user.${whatever} */}
         {/* <button onClick={onLogout}>Logout</button> */}
         <h3>Welcome {user && user.firstName}</h3>
-        {user && <img src={user.profileImage} className='profile--pic--home' />}
+        {user && <img src={user.profileImage ? user.profileImage:defaultCat} className='profile--pic--home' />}
         <span onClick={openImageUploader}>Upload new profile image</span>
         <p><b>{user && posts.filter((post) => (post.userId._id === user.id)).length}</b> posts</p>
         <span onClick={openFollowersModal}><b>{user && user.followers.length}</b> followers </span>

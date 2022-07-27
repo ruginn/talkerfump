@@ -22,6 +22,7 @@ export default function Comment({post}) {
         e.preventDefault()
         const commentData = {
             commentText, 
+            createdAt: new Date(),
             postId: post._id
         }
         dispatch(commentOnPost(commentData))

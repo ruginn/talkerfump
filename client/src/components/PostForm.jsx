@@ -20,7 +20,8 @@ export default function PostForm() {
         e.preventDefault()
         const postData = {
             postText, 
-            userId: user.id
+            userId: user.id, 
+            createdAt: new Date()
         }
         dispatch(createPost(postData))
         setPostText('')

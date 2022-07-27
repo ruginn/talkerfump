@@ -12,8 +12,8 @@ export default function UserCard({user}) {
         </div>
         <h1>{user.firstName}</h1>
         <h2>@{user.username}</h2>
-        <span>{user.followers.length} followers </span>
-        <span>{user.following.length} following</span>
+        <span>{user.followers ? user.followers.length: ''} followers </span>
+        <span>{user.following? user.following.length: ''} following</span>
         <br></br>
       </Link>
     </div>

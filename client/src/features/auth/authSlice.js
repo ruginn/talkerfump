@@ -61,8 +61,6 @@ export const authSlice = createSlice({
         }, 
         unfollowing: (state, action) => {
             const newList = state.user.following.filter(id => id !== action.payload)
-            console.log(action.payload)
-            console.log(newList)
             state.user.following = newList
             localStorage.setItem('auth', JSON.stringify(state.user))
         }, 
