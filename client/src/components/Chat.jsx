@@ -2,6 +2,9 @@ import { useEffect } from 'react'
 import {useState} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { createMessage, addChatMessage } from '../features/chat/chatSlice'
+import profileCat from '../pictures/defaultCat.jpeg'
+import ScrollToBottom from 'react-scroll-to-bottom'
+import '../styles/components/Chat.css'
 
 
 export default function Chat({socket, username, room, messageList, setMessageList}) {
@@ -19,6 +22,7 @@ export default function Chat({socket, username, room, messageList, setMessageLis
         if(message !== ''){
             const messageData = {
                 room: activeChat._id, 
+                userId: authId, 
                 username, 
                 message, 
                 createdAt: new Date()
@@ -28,7 +32,8 @@ export default function Chat({socket, username, room, messageList, setMessageLis
             // dispatch(addChatMessage(messageData))
         }
         const chatData = {
-            chatId: activeChat._id, 
+            chatId: activeChat._id,
+            userId: authId, 
             createdAt: new Date(),  
             message
         }
@@ -54,31 +59,40 @@ export default function Chat({socket, username, room, messageList, setMessageLis
 
     return (
     <div className='chat'>
-        <div>Chat with {user? user.username:''}</div>
-        <div>
-            {!previousMessages?'':
-                previousMessages.map((item) => (
-                    <div key={item._id || item.message}>
-                        <span>{item.username||item.userId.username} :</span>
-                        <span> {item.message}</span>   
+        {user ? <div>
+                    <div className='chat--box--header'>
+                        <img src={user.profileImage? user.profileImage : profileCat} alt="" className='chat--box--profile--image' />
+                        <h3>{user? user.username:''}</h3>
                     </div>
-                ))
-            }
-        </div>
-        <div className='chat--body'>
-            {messageList.map((data) => {
-                return <div key={data.message}>
-                <span>{data.username} :</span>
-                <span> {data.message}</span >
+                <ScrollToBottom className='chat--body'>
+                {/* <div className='chat--body'> */}
+                <div>
+                    {!previousMessages?'':
+                        previousMessages.map((item) => (
+                            <div key={item._id || item.message} className={authId === item.userId._id? 'chat--message reciever': 'chat--message sender'}>
+                                {/* <span>{item.username||item.userId.username} :</span> */}
+                                <span  className={authId === item.userId._id? 'text--container gray': 'text--container blue'}> {item.message}</span>   
+                            </div>
+                        ))
+                    }
                 </div>
-            })}
-        </div>
-        <div className="chat--footer">
-            <form type='submit'>
-                <input type="text" placeholder='what up'  onChange={(e)=> {setMessage(e.target.value)}} value={message}/>
-                <button onClick={onClick}>Send</button>
-            </form>
-        </div>
+                <div >
+                    {messageList.map((data) => {
+                        return <div key={new Date() + Math.random()} className={authId === data.userId? 'chat--message reciever': 'chat--message sender'}>
+                        {/* <span>{data.username} :</span> */}
+                        <span  className={authId === data.userId? 'text--container gray': 'text--container blue'}> {data.message}</span >
+                        </div>
+                    })}
+                </div>
+            {/* </div> */}
+            </ScrollToBottom >
+            <div className="chat--footer">
+                <form type='submit'>
+                    <input type="text" placeholder='what up'  onChange={(e)=> {setMessage(e.target.value)}} value={message}/>
+                    <button onClick={onClick}>Send</button>
+                </form>
+            </div> 
+        </div> : <h1>Choose someone to chat with</h1>}
     </div>
   )
 }
