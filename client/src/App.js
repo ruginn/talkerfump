@@ -13,6 +13,7 @@ import PageNotFound from './pages/PageNotFound'
 import Messages from "./pages/Messages";
 import Calculations from "./pages/Calculations";
 import Achievements from "./pages/Achievements";
+import Rules from "./pages/Rules";
 
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
           <Route path='/register' element={<Register />} />
           <Route path='/schedule' element = {<Schedule /> }/>
           <Route path='/messages' element = {<Messages /> }/>
+          <Route path='/rules' element = {<Rules />}/>
           <Route path='/calculations' element = {<Calculations /> }/>
           <Route path='/achievements' element = {<Achievements /> }/>
           <Route path='/users' element={<UserSearch />} />

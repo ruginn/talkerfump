@@ -20,7 +20,20 @@ export default function PostForm() {
         e.preventDefault()
         const postData = {
             postText, 
-            userId: user.id, 
+            userId: user.id,
+            book: {
+                title: 'is this working', 
+                author: 'hello', 
+                pages: 1,
+            }, 
+            workout1: 'this is work out 1', 
+            workout2: 'this is work out2', 
+            progressPhoto: {
+                photo: 'string', 
+                private: true
+            }, 
+            alcohol: false,
+            cleanEat: false, 
             createdAt: new Date()
         }
         dispatch(createPost(postData))

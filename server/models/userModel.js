@@ -29,6 +29,15 @@ const userSchema = mongoose.Schema({
     profileImage: {
         type: String
     },
+    day:{
+        streak:{
+            type: Number, 
+            default: 0, 
+        }, 
+        date: {
+            type: Date
+        }
+    }, 
     buddy: {
         type: ObjectId, ref:"Users"
     },

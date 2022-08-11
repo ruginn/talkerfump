@@ -3,20 +3,32 @@ import User from "../models/userModel.js";
 import Comment from '../models/commentModel.js'
 import asyncHandler from "express-async-handler";
 import mongoose from "mongoose";
+import cloudinary from "../utils/cloudinary.js";
 
 
 
 export const createPost = asyncHandler(async (req, res) => {
-    const {postText} = req.body
-    const {createdAt} = req.body
+    const {postText, createdAt, book, workout1, workout2, progressPhoto, alcohol, cleanEat, water, datatron, privatePhoto} = req.body
     const userId = req.user.id
-
+    const uploadedResponse = await cloudinary.uploader.upload(datatron, {upload_preset: 'dev_setups'})
     const post = await Post.create({
         postText, 
         userId,
         createdAt,
+        book, 
+        workout1, 
+        workout2, 
+        progressPhoto: {
+            photo: uploadedResponse.url, 
+            privatePhoto: privatePhoto 
+        }, 
+        alcohol, 
+        cleanEat,
+        water, 
     })
     const updatedPost = await Post.findById(post._id).populate('userId')
+    const user = await User.findById(req.user.id)
+    await user.updateOne({day: {streak: user.day.streak + 1, date: createdAt }})
     res.status(200).json(updatedPost)
     if (!postText) {
         res.status(400).json('Please enter a post')

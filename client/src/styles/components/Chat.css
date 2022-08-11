@@ -2,6 +2,7 @@
     height: 100vh;
     /* display: flex; */
     /* justify-content: space-evenly; */
+    width: 50%;
     position: relative;
 }
 .chat--box--header{
@@ -24,24 +25,30 @@
     flex-direction: column;
     /* overflow: scroll; */
     overflow-x: hidden;
+    padding-bottom: .5rem;
 }
 
 .chat--message{
     display: flex;
     margin: 0 1rem;
+    /* width: 80%; */
 }
-
+.sender{
+    margin-right: 6rem;
+}
 .reciever{
     justify-content: flex-end;
+    margin-left: 6rem;
 }
 
 .text--container{
     margin: .3rem;
-    padding: .5rem;
-    border-radius: 20px;
+    padding: .6rem;
+    border-radius: 15px;
 }
 
 .blue{
+    color: white;
     background-color: dodgerblue;
 }
 
@@ -49,9 +56,14 @@
     background-color: lightgray;
 }
 
-.chat--footer{
+/* .chat--footer{
     position: absolute;
     bottom: 0px;
     margin-bottom: 1rem;
-}
+} */
 
+.chat--input{
+    margin: 1rem 0;
+    width: 80%;
+    outline: none;
+}

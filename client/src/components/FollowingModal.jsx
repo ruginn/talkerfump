@@ -16,7 +16,7 @@ export default function FollowingModal({followingModal, setFollowingModal, usern
         onClose={()=>setFollowingModal(false)}
       >
           <div className='followers--modal--container'>
-              <h1>{username}'s Followers</h1>
+              <h1>Following</h1>
               {users.map((user) => (
                   <FollowerCard user={user} key={user._id} setFollowingModal={setFollowingModal}/>
               ))}

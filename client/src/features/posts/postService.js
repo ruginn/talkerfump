@@ -7,6 +7,7 @@ const API = axios.create({baseURL: 'http://localhost:8080/'})
 const createPost = async (postData, token) => {
     const config = {
         headers: {
+            'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`, 
         }, 
     }

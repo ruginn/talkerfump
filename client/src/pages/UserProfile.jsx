@@ -10,7 +10,13 @@ import Post from '../components/Post'
 import {  following, unfollowing} from '../features/auth/authSlice'
 import FollowersModal from '../components/FollowersModal'
 import FollowingModal from '../components/FollowingModal'
+import { Link } from 'react-router-dom'
+import io from 'socket.io-client'
+import '../styles/pages/UserProfile.css'
+import { getChatMessages } from '../features/chat/chatSlice'
+import UserProgress from '../components/UserProgress'
 
+const socket = io.connect('http://localhost:8080')
 
 export default function UserProfile() {
     const params = useParams()
@@ -20,7 +26,7 @@ export default function UserProfile() {
     const auth = useSelector((state) => state.auth.user)
     const {user, isLoading} = useSelector((state) => state.users)
     const {posts} = useSelector((state) => state.post)
-    
+    const activeChat = useSelector((state) => state.chats.activeChat)
     
 
     useEffect(() => {
@@ -60,21 +66,41 @@ export default function UserProfile() {
       
     }
 
-    const onCreateChat = () => {
+    const onCreateChat = async () => {
+      if(activeChat){
+        socket.emit('leave_room', activeChat._id)
+      }
       const chatData = {userId: userId}
-      dispatch(createChat(chatData))
+      dispatch(createChat(chatData)).unwrap().then((data)=>{
+        // const chatId = {}
+        // if(data[0]){
+        // chatId = {
+        //   chatId: data[0]._id
+        // }
+        // }
+        console.log(data)
+        // socket.emit('join_room', data[0]._id)
+        if(data[0]){
+          socket.emit('join_room', data[0]._id)
+          dispatch(getChatMessages({chatId: data[0]._id}))
+        } else{
+          socket.emit('join_room', data._id)
+        }
+        // dispatch(getChatMessages({chatId: data[0]._id}))
+      })
     }
 
   return (
     <div>
       {user && 
-        <div>
-          <img src= {user.profileImage? user.profileImage: profilePic} alt="" className='profile--pic'/>
-          
+        <div className='user--profile--container'>
+        <div className='user--profile--card'>
+          <img src= {user.profileImage? user.profileImage: profilePic} alt="" className='user--profile--image'/>
           <h3>@{user && user.username}</h3>
-          <p>{posts&& posts.length} posts</p>
-          <span onClick={openFollowersModal}>{user && user.followers.length} followers </span>
-          <span onClick={openFollowingModal}>{user && user.following.length} following</span> 
+          <p>{user.firstName} {user.lastName}</p>
+          <p><b>{posts&& posts.length}</b> posts</p>
+          <span onClick={openFollowersModal} className='pointer'><b>{user && user.followers.length}</b> followers </span>
+          <span onClick={openFollowingModal} className='pointer'><b>{user && user.following.length}</b> following</span> 
 
           <br />
           {auth.id !== params.userId?
@@ -84,8 +110,13 @@ export default function UserProfile() {
               <button>Edit Profile</button>
           }
           {auth.id === params.userId? '':
-          <button onClick={onCreateChat}>Message</button>}
-          <section className='content'>
+          <Link to='/messages'><button onClick={onCreateChat}>Message</button></Link>}
+          
+        </div>
+        <div>
+            {/* <UserProgress /> */}
+        </div>
+          <section className='user--profile--content'>
           {isLoading && <Spinner />}
             {posts.length > 0 ? (
               <div >
@@ -96,9 +127,8 @@ export default function UserProfile() {
             ) : (
               <h3>You have not set any post</h3>
             )}
-         </section>
-        </div> 
-
+         </section> 
+         </div> 
       }
       {user && <FollowersModal followersModal={followersModal} setFollowersModal={setFollowersModal} username= {user.username}/>}
       {user && <FollowingModal followingModal={followingModal} setFollowingModal={setFollowingModal} username= {user.username}/>}

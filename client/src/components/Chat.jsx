@@ -1,20 +1,21 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import {useState} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { createMessage, addChatMessage } from '../features/chat/chatSlice'
 import profileCat from '../pictures/defaultCat.jpeg'
 import ScrollToBottom from 'react-scroll-to-bottom'
 import '../styles/components/Chat.css'
+import {Link} from 'react-router-dom'
 
 
-export default function Chat({socket, username, room, messageList, setMessageList}) {
+export default function Chat({socket, username, room, messageList, setMessageList, chatRef}) {
     const dispatch = useDispatch()
     const [message, setMessage] = useState('')
     // const [messageList, setMessageList] = useState([])
     const activeChat =  useSelector((state) => state.chats.activeChat)
     const previousMessages = useSelector((state) => state.chats.chatMessages)
     const authId = useSelector((state)=> state.auth.user.id)
-    const user = useSelector((state) => state.chats.otherUser)
+    const user = useSelector((state) => state.users.user)
     
 
     const onClick = async (e) => {
@@ -46,10 +47,12 @@ export default function Chat({socket, username, room, messageList, setMessageLis
             addChatMessage(data)
             setMessageList((prev) => [...prev, data])
         })
-        
+
     }, [socket])
 
-    
+    // useEffect(()=> {
+    //     chatRef.current.focus()
+    // }, [])
     
     if(previousMessages){
         const prevMessages = previousMessages.map((items) => {
@@ -60,10 +63,12 @@ export default function Chat({socket, username, room, messageList, setMessageLis
     return (
     <div className='chat'>
         {user ? <div>
-                    <div className='chat--box--header'>
-                        <img src={user.profileImage? user.profileImage : profileCat} alt="" className='chat--box--profile--image' />
-                        <h3>{user? user.username:''}</h3>
-                    </div>
+                    <Link to={`/users/${user._id}`}>
+                        <div className='chat--box--header'>
+                            <img src={user.profileImage? user.profileImage : profileCat} alt="" className='chat--box--profile--image' />
+                            <h3>{user? user.username:''}</h3>
+                        </div>
+                    </Link>
                 <ScrollToBottom className='chat--body'>
                 {/* <div className='chat--body'> */}
                 <div>
@@ -88,7 +93,7 @@ export default function Chat({socket, username, room, messageList, setMessageLis
             </ScrollToBottom >
             <div className="chat--footer">
                 <form type='submit'>
-                    <input type="text" placeholder='what up'  onChange={(e)=> {setMessage(e.target.value)}} value={message}/>
+                    <input ref={chatRef} type="text" placeholder='what up'  onChange={(e)=> {setMessage(e.target.value)}} value={message} className='chat--input'/>
                     <button onClick={onClick}>Send</button>
                 </form>
             </div> 

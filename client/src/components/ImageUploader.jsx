@@ -10,6 +10,7 @@ export default function ImageUploader({ImageUploaderModal, setImageUploaderModal
     const auth = useSelector((state) => state.auth.user)
     const dispatch = useDispatch()
     const theme = useMantineTheme();
+
     const [fileInputState, setFileInputState] = useState('');
     const [selectedFile, setselectedFile] = useState('')
     const [previewSource, setPreviewSource] = useState('')
@@ -43,6 +44,7 @@ export default function ImageUploader({ImageUploaderModal, setImageUploaderModal
         reader.onerror = () => {
             console.error('oh no')
         }
+        setImageUploaderModal(false)
     }
 
     const uploadImage = async (base64EncodedImage, userId, token) => {
@@ -69,11 +71,16 @@ export default function ImageUploader({ImageUploaderModal, setImageUploaderModal
         overlayBlur={3}
         size="30%"
         opened={ImageUploaderModal}
-        onClose={()=>setImageUploaderModal(false)}
+        onClose={()=>{
+            setImageUploaderModal(false)
+            setselectedFile('')
+            setFileInputState('')
+            setPreviewSource('')
+            }}
       >
           <div className='image--uploader'>
             <form type='submit'>
-                <input type="file" name="image" accept='image/' onChange={handleFileChange} placeholder='upload an image' isRequired={true} value={fileInputState} />
+                <input type="file" name="image" accept='image/' onChange={handleFileChange} placeholder='upload an image' value={fileInputState} />
                 <button onClick={handleSubmitFile}>Submit</button>
             </form>
             {previewSource && <img src={previewSource} alt='image'

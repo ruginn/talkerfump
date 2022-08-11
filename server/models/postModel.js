@@ -6,6 +6,50 @@ const postSchema = mongoose.Schema({
         type: String, 
         required: true
     }, 
+    book: {
+        title:{ 
+            type: String, 
+        },
+        author: {
+            type: String, 
+        },
+        pages: {
+          type: Number,   
+        }
+    }, 
+    workout1: {
+        exercise:{
+            type: String, 
+        },
+        duration: {
+            type: Number,
+        }
+    }, 
+    workout2: {
+        exercise:{
+            type: String, 
+        },
+        duration: {
+            type: Number,
+        }
+    }, 
+    progressPhoto: {
+        photo: {
+            type: String, 
+        }, 
+        privatePhoto: {
+            type: Boolean
+        }
+    }, 
+    alcohol: {
+        type: Boolean, 
+    }, 
+    cleanEat: {
+        type: Boolean, 
+    },
+    water: {
+        type: Boolean
+    }, 
     userId: {
         type: ObjectId, 
         ref:'User',

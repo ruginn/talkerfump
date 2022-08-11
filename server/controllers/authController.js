@@ -123,6 +123,7 @@ export const updateProfilePicture = asyncHandler(async (req, res) => {
     const fileStr = req.body.data;
     const uploadedResponse = await cloudinary.uploader.upload(fileStr, {upload_preset: 'dev_setups'})
 
+
     if(!uploadedResponse) {
         res.status(400).json('Image not uploaded')
     } 

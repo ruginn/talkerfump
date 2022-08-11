@@ -1,0 +1,15 @@
+.outer--circle{
+    height: 100px;
+    width: 100px;
+    background: conic-gradient(red 170deg, rgb(241, 166, 166) 170deg );
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+.inner--circle{
+    height: 90px;
+    width: 90px;
+    background-color: white;
+    border-radius: 50%;
+}

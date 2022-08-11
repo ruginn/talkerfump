@@ -2,10 +2,20 @@ import {useDispatch, useSelector} from 'react-redux'
 import { useEffect } from 'react'
 import {getUsers} from '../features/users/userSlice'
 import UserCard from '../components/UserCard'
+import { useNavigate } from 'react-router-dom'
 
 export default function UserSearch() {
     const {users} = useSelector((state) => state.users)
     const dispatch = useDispatch()
+
+    const {user} = useSelector((state)=> state.auth)
+    const navigate = useNavigate()
+
+    useEffect(()=> {
+        if(!user){
+        navigate('/login')
+        }
+    }, [])
 
     useEffect(() => {
         dispatch(getUsers())

@@ -93,6 +93,9 @@ export const chatSlice = createSlice({
                 state.chats = [action.payload[0], ...filteredChats]
                 state.activeChat = action.payload[0]
             } else{
+                const id = action.payload._id 
+                const filteredChats = state.chats.filter(chat => chat._id !== id)
+                state.chats = [action.payload, ...filteredChats]
                 state.activeChat = action.payload
             }
             // console.log(action.payload[0])

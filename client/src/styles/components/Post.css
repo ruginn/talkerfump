@@ -1,11 +1,12 @@
 .post--container{
     display: flex;
     flex-direction: column;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     margin: .5rem;
     padding: .5rem; 
     border-radius: 20px;
     width: 60vw;
+    box-shadow: 1px 1px 30px 1px rgb(119, 119, 119);
 }
 
 .user--container{
@@ -17,7 +18,7 @@
 .profile--pic--container{
     display: flex;
     justify-content: center;
-    align-items: center;
+    /* align-items: center; */
     margin: 1rem;
 }
 
@@ -69,4 +70,20 @@
 
 .comment--counter{
     margin-left: 1rem;
+}
+
+.progress--photo{
+    height: 300px;
+}
+
+.beer{
+    fill: transparent;
+}
+
+.water{
+    color: rgb(70, 192, 232);
+}
+
+.fork{
+    fill: gray;
 }

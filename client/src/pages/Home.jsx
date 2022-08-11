@@ -12,6 +12,7 @@ import FollowingModal from '../components/FollowingModal'
 import ImageUploader from '../components/ImageUploader'
 import '../styles/pages/Home.css'
 import defaultCat from '../pictures/defaultCat.jpeg'
+import PostModal from '../components/PostModal'
 
 import { reset as reset2 } from '../features/posts/postSlice'
 import { findFollowers, findFollowing } from '../features/users/userSlice'
@@ -66,6 +67,7 @@ export default function Home() {
       setImageUploaderModal(true)
     }
 
+    const [postModal, setPostModal] = useState(false)
   return (
     <div>
     {/* Need to see if user exist before using, as it will say user is null and can not retrieve user.${whatever} */}
@@ -76,6 +78,8 @@ export default function Home() {
         <p><b>{user && posts.filter((post) => (post.userId._id === user.id)).length}</b> posts</p>
         <span onClick={openFollowersModal}><b>{user && user.followers.length}</b> followers </span>
         <span onClick={openFollowingModal}><b>{user && user.following.length}</b> following</span>
+        <button onClick={()=>setPostModal(true)}>Create a Post</button>
+        <PostModal postModal={postModal} setPostModal={setPostModal}/>
         <PostForm />
         <section className='content'>
           {posts.length > 0 ? (
