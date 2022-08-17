@@ -10,6 +10,7 @@ import authRoute from './routes/authRoutes.js'
 import postRoute from './routes/postRoutes.js'
 import userRoute from './routes/userRoutes.js'
 import chatRoute from './routes/chatRoutes.js'
+import notificationsRoute from './routes/notificationsRoute.js'
 
 dotenv.config();
 connectDB();
@@ -30,6 +31,7 @@ app.use('/api/auth/', authRoute)
 app.use('/api/post/', postRoute)
 app.use('/api/users/', userRoute)
 app.use('/api/chat/', chatRoute)
+app.use('/api/notifications', notificationsRoute)
 // app.post('/api/upload', async (req, res)=> {
 //     try {
 //         const fileStr = req.body.data;
@@ -54,6 +56,15 @@ const io = new Server(server, {
 
 io.on('connection', (socket) => {
     console.log((`user ${socket.id} connected`))
+
+    socket.on('user_loggedIn', (data) => {
+        socket.join(data)
+        console.log(`User ${data} logged in`)
+    })
+    socket.on('send_notifications', (data) => {
+        console.log(data.message)
+        socket.to(data.room).emit('recieve_notification', data)
+    })
 
     socket.on('join_room', (data) => {
         socket.join(data)

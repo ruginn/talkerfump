@@ -82,3 +82,24 @@ svg {
     margin-bottom: 1rem;
     width: 100%;
 }
+
+.notification--bell{
+    position: relative;
+}
+
+
+
+.notification--count{
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: red;
+    width: 1.2rem;
+    height: 1.2rem;
+    border-radius: 50%;
+    color: white;
+}
+

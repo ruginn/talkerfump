@@ -4,11 +4,12 @@ import Comment from '../models/commentModel.js'
 import asyncHandler from "express-async-handler";
 import mongoose from "mongoose";
 import cloudinary from "../utils/cloudinary.js";
+import Notification from '../models/notificationsModel.js'
 
 
 
 export const createPost = asyncHandler(async (req, res) => {
-    const {postText, createdAt, book, workout1, workout2, progressPhoto, alcohol, cleanEat, water, datatron, privatePhoto} = req.body
+    const {postText, createdAt, book, workout1, workout2, alcohol, cleanEat, water, datatron, privatePhoto, streak, mDate} = req.body
     const userId = req.user.id
     const uploadedResponse = await cloudinary.uploader.upload(datatron, {upload_preset: 'dev_setups'})
     const post = await Post.create({
@@ -25,10 +26,17 @@ export const createPost = asyncHandler(async (req, res) => {
         alcohol, 
         cleanEat,
         water, 
+        streak: streak.streak,
     })
+    console.log(streak)
     const updatedPost = await Post.findById(post._id).populate('userId')
     const user = await User.findById(req.user.id)
-    await user.updateOne({day: {streak: user.day.streak + 1, date: createdAt }})
+    await user.updateOne({day: streak})
+    await user.updateOne({currentBook: book})
+    // if (user.currentBook && user.currentBook.title === !book.title) {
+    //     await user.updateOne({currentBook: book})
+    // }
+
     res.status(200).json(updatedPost)
     if (!postText) {
         res.status(400).json('Please enter a post')
@@ -93,8 +101,17 @@ export const likePost = asyncHandler(async(req, res) =>{
         res.status(200).json(unlikedPost)
     } else {
         await post.updateOne({$push: {likes: userId}})
-        const likedPost = await Post.findById(id).populate("userId","firstName username profileImage")
+        const likedPost = await Post.findById(id).populate("userId","_id firstName username profileImage")
         .populate({path: 'comments', populate: {path: 'userId', select: '-password'}})
+        
+        await Notification.create({
+            sender: userId, 
+            userId: likedPost.userId._id, 
+            event: 'Liked', 
+            content: `liked your post!`,
+            postId: id,
+            createdAt,
+        })
         res.status(200).json(likedPost)
     }
 })
@@ -117,8 +134,16 @@ export const commentPost = asyncHandler(async(req, res) => {
     })
     const post = await Post.findById(postId)
     await post.updateOne({$push : {comments: comment._id,}}, {new: true})
-    const updatedPost = await Post.findById(postId).populate("userId","firstName username profileImage")
+    const updatedPost = await Post.findById(postId).populate("userId","_id firstName username profileImage")
     .populate({path: 'comments', populate: {path: 'userId', select: '-password'}})
+    await Notification.create({
+        sender: userId, 
+        userId: updatedPost.userId._id, 
+        event: 'Commented',
+        postId, 
+        content: `commented on you post!`,
+        createdAt
+    })
     res.status(200).json(updatedPost)
 })
 
@@ -166,8 +191,16 @@ export const likeComment = asyncHandler(async(req, res) => {
         res.status(200).json(unlikedComment)
     } else {
         await comment.updateOne({$push: {likes: userId}})
-        const likedComment = await Post.findById(postId).populate("userId","firstName username profileImage")
+        const likedComment = await Post.findById(postId).populate("userId","_id firstName username profileImage")
         .populate({path: 'comments', populate: {path: 'userId', select: '-password'}})
+        await Notification.create({
+            sender: userId, 
+            userId: likedComment.userId._id, 
+            event: 'Liked', 
+            content: `liked your comment!`, 
+            postId: postId, 
+            createdAt, 
+        })
         res.status(200).json(likedComment)
     }
 })

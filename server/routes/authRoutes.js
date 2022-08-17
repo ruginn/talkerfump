@@ -6,7 +6,7 @@ const router = express.Router()
 
 router.post('/register', registerUser)
 router.post('/login', loginUser)
-router.get('/update', protect, updateUser)
+router.put('/update', protect, updateUser)
 router.post('/uploadProfilePicture', protect, uploadProfilePicture)
 router.post('/updateprofilepic', protect, updateProfilePicture)
 

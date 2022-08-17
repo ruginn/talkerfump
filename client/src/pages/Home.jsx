@@ -13,6 +13,7 @@ import ImageUploader from '../components/ImageUploader'
 import '../styles/pages/Home.css'
 import defaultCat from '../pictures/defaultCat.jpeg'
 import PostModal from '../components/PostModal'
+import {getNotifications} from '../features/notifications/notificationsSlice'
 
 import { reset as reset2 } from '../features/posts/postSlice'
 import { findFollowers, findFollowing } from '../features/users/userSlice'
@@ -25,12 +26,15 @@ export default function Home() {
     const {user} = useSelector((state)=> state.auth)
     const {posts, onLoading} = useSelector((state)=> state.post) 
 
+
     useEffect(()=> {
        if(!user){
         navigate('/login')
        }
        dispatch(getTimeline())
        dispatch(getUserChats())
+       dispatch(getNotifications())
+      //  dispatch(notificationCount())
     }, [navigate, onLoading])
     
     // user, navigate, isError

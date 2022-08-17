@@ -49,6 +49,7 @@ export default function Post({ post}) {
         </div>
 
         <div>
+          <p>{post.streak && `Day ${post.streak}`}</p>
           <p className='post--text'>{post.postText}</p>
           {post.progressPhoto && !post.progressPhoto.privatePhoto && <img src={post.progressPhoto.photo} className='progress--photo'/>}
           {post.workout1 && <p>Exercise 1: {post.workout1.exercise} for {post.workout1.duration} Minutes </p>}

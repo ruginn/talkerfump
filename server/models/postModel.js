@@ -55,11 +55,17 @@ const postSchema = mongoose.Schema({
         ref:'User',
         required: true
     }, 
+    streak: {
+        type: Number,
+    }, 
     likes: [{type: ObjectId, ref:'User'}], 
     comments: [{type: ObjectId, ref: 'Comment'}], 
     createdAt : {
         type: Date, 
         default: new Date()
+    }, 
+    mDate: {
+        type: Date, 
     }
 }, 
 {

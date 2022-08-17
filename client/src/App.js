@@ -14,6 +14,7 @@ import Messages from "./pages/Messages";
 import Calculations from "./pages/Calculations";
 import Achievements from "./pages/Achievements";
 import Rules from "./pages/Rules";
+import Notifications from "./pages/Notifications";
 
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
         <Routes >
           <Route path='/' element={<Home />} />
           <Route path='/login' element={<Login />} />
+          <Route path='/notifications' element={<Notifications />} />
           <Route path='/register' element={<Register />} />
           <Route path='/schedule' element = {<Schedule /> }/>
           <Route path='/messages' element = {<Messages /> }/>

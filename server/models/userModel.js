@@ -25,7 +25,7 @@ const userSchema = mongoose.Schema({
     }, 
     aboutMe: {
         type: String
-    },
+    }, 
     profileImage: {
         type: String
     },
@@ -40,6 +40,17 @@ const userSchema = mongoose.Schema({
     }, 
     buddy: {
         type: ObjectId, ref:"Users"
+    },
+    currentBook: {
+        title:{ 
+            type: String, 
+        },
+        author: {
+            type: String, 
+        },
+        pages: {
+          type: Number,   
+        },
     },
     followers: [{type: ObjectId, ref:"User"}], 
     following: [{type: ObjectId, ref:"User"}]

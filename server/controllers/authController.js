@@ -76,6 +76,8 @@ export const loginUser = asyncHandler(async (req, res) => {
             email: user.email,
             profileImage: user.profileImage,
             id: user._id,
+            day: user.day,
+            aboutMe: user.aboutMe, 
             token})
     } else {
         res.status(400).json('Incorrect username, email or password')
@@ -85,20 +87,32 @@ export const loginUser = asyncHandler(async (req, res) => {
 
 export const updateUser = asyncHandler(async (req, res) => {
     const id =  req.user.id
-    const user = await User.findOne({id})
+    const {firstName, lastName, username, email, aboutMe} = req.body
+    const user = await User.findById(id)
+    if(user.username.toString() === username.toString()) {
+        await user.updateOne({firstName, lastName , aboutMe})  
+    } else{
+        await user.updateOne({firstName, lastName, aboutMe, username})
+    }
+    if(user.email.toString() !== email.toString()){
+        await user.updateOne({email})
+    }
+    const updatedUser = await User.findById(id)
     if(user){
         const token = generateToken(user._id)
         res.status(200).json({
-            firstName: user.firstName, 
-            lastName: user.lastName, 
-            username: user.username, 
-            followers: user.followers, 
-            following: user.following, 
-            email: user.email,
-            id: user._id, 
-            profileImage: user.profileImage,
-            token
-        })
+            firstName: updatedUser.firstName, 
+            lastName: updatedUser.lastName, 
+            username: updatedUser.username,
+            followers: updatedUser.followers, 
+            following: updatedUser.following, 
+            email: updatedUser.email,
+            profileImage: updatedUser.profileImage,
+            id: updatedUser._id,
+            day: updatedUser.day,
+            aboutMe: updatedUser.aboutMe,
+            currentBook: updatedUser.currentBook,
+            token})
     } else {
         res.status(400).json('Cant find user')
     }

@@ -114,7 +114,7 @@ export default function UserProfile() {
           
         </div>
         <div>
-            {/* <UserProgress /> */}
+            <UserProgress />
         </div>
           <section className='user--profile--content'>
           {isLoading && <Spinner />}

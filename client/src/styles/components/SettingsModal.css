@@ -1,0 +1,4 @@
+.settings--form--container{
+    display: grid;
+    grid-template-columns: 6rem 10rem ;
+}

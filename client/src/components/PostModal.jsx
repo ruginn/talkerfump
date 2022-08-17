@@ -2,6 +2,7 @@ import { Modal, useMantineTheme } from '@mantine/core';
 import {useSelector, useDispatch} from 'react-redux'
 import {useState} from 'react'
 import {createPost} from '../features/posts/postSlice'
+import { streak as updateStreak} from '../features/auth/authSlice';
 
 
 
@@ -74,17 +75,52 @@ export default function PostModal({postModal, setPostModal}) {
         }
     }
 
+   const compareDates = (mDate, createdAt) => {
+   // checks if user is still in streak 
+    // takes last day entered and converts to the begining of the day
+    const streakDate = new Date(user.day.date)
+    const streakDateNoTime = streakDate.setHours(0, 0, 0, 0)
+
+    // sets the post day to the beginning of the day
+    let postDateM = new Date(mDate)
+    postDateM  = new Date(postDateM.setHours(0, 0, 0, 0))
+    
+
+    // converts post day yesterday without setting the mDate into the yesterday
+    let yesterdayYear = postDateM.getFullYear()
+    let yesterdayDate = postDateM.getDate() - 1
+    let yesterdayMonth = postDateM.getMonth()
+    let yesterday = new Date(yesterdayYear, yesterdayMonth, yesterdayDate)
+
+
+    // compares to see if post day is the same as last post, yesterday, or another day breaking streak
+    if(yesterday.toString() === new Date(streakDateNoTime).toString()){
+        console.log('yesterday')
+        return {day: {streak: user.day.streak + 1, date: createdAt }}
+    } else if(postDateM.toString() === new Date(streakDateNoTime).toString()){
+        console.log('same day')
+        return {day: {streak: user.day.streak,  date: createdAt }}
+    } else{
+        console.log('streak broken')
+        return {day: {streak: 1, date: createdAt }}
+    } 
+   }
+
+
+
 
     const onSubmit = async(base64EncodedImage) => {
         const alcoholVal = alcohol === 'Yes'? true: false 
         const eatVal = cleanEat === 'Yes'? true: false
         const waterVal = water === 'Yes' ? true: false 
         const photoVal = privatePhoto  === 'Yes' ? true: false
-        const date = new Date()
-        const dateYMD = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`
         const reader = new FileReader()
         reader.readAsDataURL(selectedFile)
-        // e.preventDefault()
+        const createdAt = new Date()
+        const mDate = new Date()
+        const streak = compareDates(mDate, createdAt)
+
+
         const postData = {
             datatron: base64EncodedImage, 
             postText: post, 
@@ -106,13 +142,18 @@ export default function PostModal({postModal, setPostModal}) {
                 photo: 'string', 
                 private: photoVal
             }, 
+            streak: streak.day,
+            streakDay : streak.day.streak, 
             alcohol: alcoholVal,
             cleanEat: eatVal, 
             water: waterVal, 
             privatePhoto: photoVal,
-            createdAt: dateYMD
+            createdAt, 
+            mDate,
+
         }
         dispatch(createPost(postData))
+        dispatch(updateStreak(streak.day))
         setPostModal(false)
         // setFormData({
         //     duration1: 45, 
@@ -153,6 +194,7 @@ export default function PostModal({postModal, setPostModal}) {
             setPreviewSource('')}}
       >
           <div className='settings--container'>
+            <button onClick={compareDates}>compare dates</button>
             <h1>Journal Your Daily Entry</h1>
             <form onSubmit={handleSubmit}>
                 {blockOne && <div>

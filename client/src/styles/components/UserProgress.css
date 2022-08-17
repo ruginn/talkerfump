@@ -1,7 +1,7 @@
 .outer--circle{
     height: 100px;
     width: 100px;
-    background: conic-gradient(red 170deg, rgb(241, 166, 166) 170deg );
+    /* background: conic-gradient(rgb(0, 255, 17) 170deg, rgb(94, 189, 0) 170deg ); */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -12,4 +12,12 @@
     width: 90px;
     background-color: white;
     border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.M0{
+    margin: 0;
 }

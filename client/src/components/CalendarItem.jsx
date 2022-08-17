@@ -34,6 +34,8 @@ export default function CalendarItem() {
     }
     let yesterday = `${newDate.getFullYear()}-${yesterdayMonth}-${yesterdayDay}`
     console.log(newDate.toLocaleString())
+    const createdAt = new Date()
+    console.log(createdAt.getDate())
 
     const [events, setEvents] = useState([
         {title: 'event69', date: '2022-07-01'}, 

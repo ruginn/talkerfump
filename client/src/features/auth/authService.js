@@ -31,13 +31,13 @@ const logout = async (userData) => {
 
 
 // update user
-const updateAuth = async (token) => {
+const updateAuth = async (userInfo, token) => {
     const config = {
         headers: {
             Authorization: `Bearer ${token}`, 
         }, 
     }
-    const response = await API.get(`/api/auth/update`, config)
+    const response = await API.put(`/api/auth/update`, userInfo, config)
     if(response.data) {
         localStorage.setItem('auth', JSON.stringify(response.data))
         localStorage.setItem('user', JSON.stringify(response.data))

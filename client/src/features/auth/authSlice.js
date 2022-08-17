@@ -35,10 +35,10 @@ export const logout = createAsyncThunk('auth/logout', async () => {
 
 
 // update auth on follow and unfollow
-export const updateAuth = createAsyncThunk('auth/update', async(_, thunkAPI) => {
+export const updateAuth = createAsyncThunk('auth/update', async(userInfo, thunkAPI) => {
     try {
         const token = thunkAPI.getState().auth.user.token
-        return await authService.updateAuth(token)
+        return await authService.updateAuth(userInfo, token)
     } catch (error) {
         const message = error.toString()
         return thunkAPI.rejectWithValue(message)
@@ -68,6 +68,10 @@ export const authSlice = createSlice({
             state.user.profileImage = action.payload
             localStorage.setItem('auth', JSON.stringify(state.user))
         },
+        streak: (state, action) => {
+            state.user.day.date = action.payload.date
+            state.user.day.streak = action.payload.streak
+        }
     }, 
     extraReducers: (builder) => {
         builder
@@ -119,5 +123,5 @@ export const authSlice = createSlice({
     }
 })
 
-export const {reset, following, unfollowing, updateProfilePic} = authSlice.actions
+export const {reset, following, unfollowing, updateProfilePic, streak} = authSlice.actions
 export default authSlice.reducer

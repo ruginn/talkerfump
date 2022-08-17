@@ -2,6 +2,7 @@ import Post from "../models/postModel.js";
 import User from "../models/userModel.js";
 import Comment from '../models/commentModel.js'
 import asyncHandler from "express-async-handler";
+import Notification from '../models/notificationsModel.js'
 import mongoose from "mongoose";
 
 
@@ -51,6 +52,12 @@ export const followUser = asyncHandler(async(req, res)=> {
             await followingUser.updateOne({$push: {followers: currentId}})
             await currentUser.updateOne({$push: {following: followerId}})
             const returnMe = await User.findById(followerId) 
+            await Notification.create({
+                sender: currentId, 
+                userId: followerId, 
+                event: 'Followed', 
+                content: `is now following you!`, 
+            })
             res.status(200).json(returnMe)
         } else {
             res.status(400).json('You are already following this user')
