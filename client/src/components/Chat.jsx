@@ -1,14 +1,14 @@
 import { useEffect, useRef } from 'react'
 import {useState} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { createMessage, addChatMessage } from '../features/chat/chatSlice'
+import { createMessage, addChatMessage, setMessageSeen } from '../features/chat/chatSlice'
 import profileCat from '../pictures/defaultCat.jpeg'
 import ScrollToBottom from 'react-scroll-to-bottom'
 import '../styles/components/Chat.css'
 import {Link} from 'react-router-dom'
+import { IoIosArrowBack } from "react-icons/io";
 
-
-export default function Chat({socket, username, room, messageList, setMessageList, chatRef}) {
+export default function Chat({socket, username, room, messageList, setMessageList, chatRef, setMobileChat, mobileChat}) {
     const dispatch = useDispatch()
     const [message, setMessage] = useState('')
     // const [messageList, setMessageList] = useState([])
@@ -54,21 +54,38 @@ export default function Chat({socket, username, room, messageList, setMessageLis
     //     chatRef.current.focus()
     // }, [])
     
-    if(previousMessages){
-        const prevMessages = previousMessages.map((items) => {
-        return items.message
-        })
+    useEffect(() => {
+        if (previousMessages){
+            previousMessages.map(message => {
+                if(!message.seen && message.userId._id !== authId){
+                    dispatch(setMessageSeen(message._id))
+                    console.log('set to true')
+                }
+            })
+        } 
+    }, [previousMessages])
+
+
+
+    let chatMobileBox = mobileChat? 'chat--mobile': ''
+
+    const chatMobileBack = () => {
+        setMobileChat(false)
     }
 
+
+    
+
     return (
-    <div className='chat'>
+    <div className={`chat ${chatMobileBox}`}>
         {user ? <div>
-                    <Link to={`/users/${user._id}`}>
                         <div className='chat--box--header'>
+                        {mobileChat && <IoIosArrowBack className='chat--back' onClick={chatMobileBack}/>}
+                        <Link to={`/users/${user._id}`} className='chat--box--user'>
                             <img src={user.profileImage? user.profileImage : profileCat} alt="" className='chat--box--profile--image' />
                             <h3>{user? user.username:''}</h3>
+                        </Link>
                         </div>
-                    </Link>
                 <ScrollToBottom className='chat--body'>
                 {/* <div className='chat--body'> */}
                 <div>

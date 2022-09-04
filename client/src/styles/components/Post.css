@@ -12,15 +12,39 @@
 .user--container{
     /* padding: 1rem; */
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 }
+
 
 .profile--pic--container{
     display: flex;
-    justify-content: center;
-    /* align-items: center; */
-    margin: 1rem;
+    display: row;
+    margin: 0px;
 }
+
+.post--user--link{
+    display: flex;
+    flex-direction: row;
+    text-decoration: none;
+    color: black;
+}
+
+.post--user--date{
+    margin-left: .5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.post--user--date> p{
+    margin: 0px;
+}
+
+.post--username{
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
 
 .profile--post {
     width: 50px;
@@ -29,13 +53,19 @@
     border-radius: 50%;
 }
 
+.post--streak{
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0px;
+}
+
 .post--text {
-    font-size: 2.5rem;
+    font-size: 1rem;
     margin: 0px;
 }
 
 .post--comment--container{
-    margin-left: 6rem;
+    margin-left: 1rem;
 }
 
 .like--container{
@@ -86,4 +116,16 @@
 
 .fork{
     fill: gray;
+}
+
+@media screen and (max-width: 600px){
+    .post--container{
+        margin: 1rem;
+        width: 90vw;
+    }
+    .progress--photo{
+        height: 300px;
+        width: 85vw;
+        object-fit: cover;
+    }
 }

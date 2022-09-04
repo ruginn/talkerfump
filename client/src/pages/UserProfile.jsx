@@ -13,7 +13,7 @@ import FollowingModal from '../components/FollowingModal'
 import { Link } from 'react-router-dom'
 import io from 'socket.io-client'
 import '../styles/pages/UserProfile.css'
-import { getChatMessages } from '../features/chat/chatSlice'
+import { getChatMessages, resetChatMessages } from '../features/chat/chatSlice'
 import UserProgress from '../components/UserProgress'
 
 const socket = io.connect('http://localhost:8080')
@@ -85,6 +85,7 @@ export default function UserProfile() {
           dispatch(getChatMessages({chatId: data[0]._id}))
         } else{
           socket.emit('join_room', data._id)
+          dispatch(resetChatMessages())
         }
         // dispatch(getChatMessages({chatId: data[0]._id}))
       })

@@ -13,6 +13,8 @@ import {GiForkKnifeSpoon} from 'react-icons/gi'
 import {IoWaterOutline} from 'react-icons/io5'
 import LikesModal from './LikesModal'
 import { getPostLikes } from '../features/users/userSlice'
+import moment from 'moment'
+
 
 export default function Post({ post}) {
     const dispatch = useDispatch()
@@ -40,22 +42,29 @@ export default function Post({ post}) {
 
     const  [expandComments, setExpandComment] = useState(false)
 
+
+
     return (
     <div className='post--container'> 
     {/* {isLoading? <Spinner /> : ( */}
       <div className='user--container'>
         <div className='profile--pic--container'>
-          <Link to={`/users/${post.userId._id}`} ><img src={post.userId.profileImage? post.userId.profileImage: profileCat} alt="" className='profile--post'/></Link>
+          <Link to={`/users/${post.userId._id}`} className='post--user--link' >
+            <img src={post.userId.profileImage? post.userId.profileImage: profileCat} alt="" className='profile--post'/>
+            <div className='post--user--date'>
+              <p className='post--username'>{post.userId ? post.userId.username: ''}</p>
+              <p>{moment(post.createdAt).fromNow()}</p>
+            </div>
+          </Link>
         </div>
 
         <div>
-          <p>{post.streak && `Day ${post.streak}`}</p>
+          <p className='post--streak'>{post.streak && `Day ${post.streak}`}</p>
           <p className='post--text'>{post.postText}</p>
           {post.progressPhoto && !post.progressPhoto.privatePhoto && <img src={post.progressPhoto.photo} className='progress--photo'/>}
-          {post.workout1 && <p>Exercise 1: {post.workout1.exercise} for {post.workout1.duration} Minutes </p>}
-          {post.workout2 && <h3>Outside Exercise</h3>}
-          {post.workout2 && <p>Exercise 2: {post.workout2.exercise} for {post.workout2.duration} Minutes </p>}
-          {post.book && <p>Read {post.book.pages} pages from {post.book.title} by {post.book.author}</p>}
+          {post.workout1 && <p><b>Exercise 1</b>: {post.workout1.exercise} for {post.workout1.duration} Minutes </p>}
+          {post.workout2 && <p><b>Outside Exercise</b>: {post.workout2.exercise} for {post.workout2.duration} Minutes </p>}
+          {post.book && <p><b>Reading</b>: {post.book.pages} pages from {post.book.title} by {post.book.author}</p>}
           {post.cleanEat && <GiForkKnifeSpoon className='fork'/>} 
           {post.water && <IoWaterOutline className='water'/>}
           {!post.alcohol && <TbBeerOff className='beer'/>}

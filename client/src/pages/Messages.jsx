@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import UserChatCard from '../components/UserChatCard'
 import { getChatMessages } from '../features/chat/chatSlice'
 import { useNavigate } from 'react-router-dom'
+import '../styles/pages/Messages.css'
 
 
 const socket = io.connect('http://localhost:8080')
@@ -16,9 +17,11 @@ export default function Messages() {
   const [messageList, setMessageList] = useState([])
   const activeChat =  useSelector((state) => state.chats.activeChat)
 
-  if (chats.length === 0){
+
+  const [mobileChat, setMobileChat] = useState(false)
+  useEffect(() => {
     dispatch(getUserChats())
-  }
+  }, [mobileChat])
 
 
   const {user} = useSelector((state)=> state.auth)
@@ -46,15 +49,16 @@ export default function Messages() {
   //   socket.emit('join_room', activeChat._id)
   //   dispatch(getChatMessages(chatData))
   // }, [])
-
+ 
+  
+  let toggleMobileChat = mobileChat ? 'toggle--mobile--user' : ''
 
   return (
     <div className="App">
       <div className='container'>
-        <h3>Join a room</h3>
-        <section>
+        <section className={`mobile--user--chat--container ${toggleMobileChat}`} >
           {chats.map((chat) => ( 
-            <UserChatCard chat={chat} key={chat._id} socket={socket} setShowChat={setShowChat} messageList={messageList} setMessageList={setMessageList} chatRef={chatRef}/>
+            <UserChatCard chat={chat} key={chat._id} socket={socket} setShowChat={setShowChat} messageList={messageList} setMessageList={setMessageList} chatRef={chatRef} setMobileChat={setMobileChat} mobileChat={mobileChat}/>
           ))}
         </section>
         {/* <input type="text" id='name' placeholder='Name' onChange={(e) => {setUsername(e.target.value)}}/> */}
@@ -62,7 +66,7 @@ export default function Messages() {
         <input type="text"  id='room' placeholder='Room' onChange={(e) => {setRoom(e.target.value)}}/>
         <button onClick={joinRoom}>Join</button> */}
       </div>
-      {showChat && <Chat socket={socket} username={username} room={room} messageList={messageList} setMessageList={setMessageList} chatRef={chatRef}/>}
+      {showChat && <Chat socket={socket} username={username} room={room} messageList={messageList} setMessageList={setMessageList} chatRef={chatRef} setMobileChat={setMobileChat} mobileChat={mobileChat}/>}
     </div>
   );
 }

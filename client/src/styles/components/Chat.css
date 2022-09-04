@@ -8,8 +8,13 @@
 .chat--box--header{
    display: flex;
    flex-direction: row; 
+   align-items: center;
     /* width: 50vw; */
     background-color: #c4c2c2f1;
+}
+.chat--box--user{
+    display: flex;
+    flex-direction: row;
 }
 .chat--box--profile--image{
     width: 70px;
@@ -66,4 +71,28 @@
     margin: 1rem 0;
     width: 80%;
     outline: none;
+}
+
+@media screen and (max-width: 600px){
+    .chat--body{
+        width: 100vw;
+        height: 80%;
+    }
+    .chat{
+        display: none;
+        width: 100vw;
+        height: calc(100vh - 70px);
+        
+    }
+
+    .chat--back{
+        width: 30px;
+        height: 30px;
+        margin-right: 10px;
+        cursor: pointer;
+    }
+
+    .chat--mobile{
+        display: flex;
+    }
 }

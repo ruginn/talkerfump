@@ -1,19 +1,60 @@
 .user--chat--card--container{
     display: flex;
     flex-direction: row;
+    /* justify-content: space-between; */
     height: 70px;
-    width: 200px;
+    width: 250px;
     cursor: pointer;
     border-radius: 10px;
     background-color: rgb(191, 188, 188);
     margin: .5rem;
-    align-items: center;
+    /* align-items: center; */
+}
+.notification--dot{
+    height: 12px;
+    width: 12px;
+    border-radius: 50%;
+
+    align-self: center;
+    margin: 0 5px; 
+    
 }
 
+.fill--notification--dot{
+    background-color: rgb(94, 94, 94);
+    border: 1.5px solid white;
+}
+
+.chat--card--top{
+    width: 200px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.chat--card--user{
+    font-weight: 700;
+    font-size: 1.2rem;
+    margin: 0px
+}
+
+.chat--card--time{
+    margin: 0px;
+}
+
+.chat--card--message{
+    margin: 0px;
+}
+
+    
 .gray--user{
     background-color: gray;
 }
 
+.chat--card--time{
+    align-self: flex-start;
+}
 
 .chat--profile--image{
     width: 50px;
@@ -21,4 +62,14 @@
     border-radius: 50%;
     object-fit: cover;
     margin: .2rem;
+    align-self: center;
+}
+
+@media screen and (max-width: 600px){
+    .user--chat--card--container{
+        width: 90vw;
+    }
+    .chat--card--top{
+        width: 70vw;
+    }
 }

@@ -3,6 +3,9 @@
     width: 200px;
     height: 100vh;
 } */
+.Mobile--nav{
+    display: none;
+}
 
 .Nav--bar{
     display: flex;
@@ -12,6 +15,12 @@
     /* background: linear-gradient(145deg, rgba(205,255,244,1) 0%, rgba(215,155,255,1) 100%); */
     background-color: rgb(197, 196, 196);
     position: fixed;
+}
+
+.nav--logo{
+    height: 50px;
+    width: 50px;
+    margin:  0 0.5rem;
 }
 svg {
     height: 35px;
@@ -33,6 +42,7 @@ svg {
     display: flex;
     align-items: center;
     color: black;
+    margin-top: 1rem;
 }
 
 .Logo> svg {
@@ -101,5 +111,60 @@ svg {
     height: 1.2rem;
     border-radius: 50%;
     color: white;
+}
+
+@media screen and (max-width: 600px){
+    .Nav--bar{
+        position: fixed;
+        left: -230px;
+        transition-duration: 200ms ;
+    }
+    
+    .Mobile--nav{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100vw;
+        height: 65px;
+        /* background: linear-gradient(145deg, rgba(205,255,244,1) 0%, rgba(215,155,255,1) 100%); */
+        background-color: rgb(197, 196, 196);
+        position: fixed;
+    }
+
+    .Mobile--logo{
+        text-decoration: none;
+        font-size: 1.5rem;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        color: black; 
+    }
+
+    .burger--menu{
+        display: flex;
+        flex-direction: column;
+        cursor: pointer;
+        margin-right: 1rem;
+    }
+    
+    .hamburger{
+        width: 30px;
+        border-bottom: 1px solid black;
+        border-width: 2.8px;
+        margin: 3px;
+    }
+    
+    .nav--x{
+        cursor: pointer;
+        margin-right: 1rem;
+    }
+
+    .display{
+        position: fixed;
+        left: 0px;
+        width: 80vw;
+        z-index: 10;
+    }
+    
 }
 

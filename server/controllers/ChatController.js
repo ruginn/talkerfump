@@ -11,7 +11,7 @@ export const createChat = asyncHandler(async (req, res)=> {
     }
     const existingChat = await Chat.find({
        users:{$all:[userId, secondUser]}
-    }).populate('users', 'username profileImage')
+    }).populate('users', 'username profileImage').populate('messages')
     if(existingChat.length === 0){
         const chat = await Chat.create({
             users: [userId, secondUser]
@@ -29,10 +29,11 @@ export const getUserChats = asyncHandler(async (req, res) => {
     const userId = req.user.id
     const chats = await Chat.find({
         users: {$in:[userId]}
-    }).populate('users', 'username profileImage')
+    }).populate('users', 'username profileImage').populate('messages') 
     if(!chats){
         res.status(400).json('No chats found')
     }
+    console.log(chats)
     res.status(200).json(chats)
 })
 
@@ -40,7 +41,7 @@ export const getUserChats = asyncHandler(async (req, res) => {
 
 export const findChat = asyncHandler(async (req, res) => {
     const chatId = req.params.id
-    const chat = await Chat.findById(chatId).populate('users', 'username profileImage')
+    const chat = await Chat.findById(chatId).populate('users', 'username profileImage').populate('messages')
     if(!chat){
         res.status(400).json('Chat not found')
     }
@@ -59,6 +60,8 @@ export const createMessage = asyncHandler(async (req, res) => {
         message, 
         createdAt
     })
+    const chat = await Chat.findById(chatId)
+    await chat.updateOne({$push: {messages: chatMessage._id}})
     if(!message || !chatId ||!userId) {
         res.status(400).json('Missing information')
     }
@@ -73,4 +76,16 @@ export const getMessages = asyncHandler(async (req, res) => {
         res.status(400).json('No messages')
     }
     res.status(200).json(messages)
+})
+
+
+export const setMessageSeen = asyncHandler(async (req, res) => {
+    const messageId = req.params.id
+    const message = await Message.findById(messageId)
+    console.log(message)
+    await message.updateOne({seen: true,})
+    if(!message){
+        res.status(400).json('No message exist')
+    }
+    res.status(200).json('Message set to read')
 })

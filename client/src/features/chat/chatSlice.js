@@ -1,3 +1,4 @@
+import { ListItem } from '@mantine/core'
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit'
 import chatService from './chatService'
 
@@ -66,6 +67,16 @@ export const getChatMessages = createAsyncThunk('getMessages/chat', async(chatDa
     }
 })
 
+
+export const setMessageSeen = createAsyncThunk('setMessage/seen', async(messageId, thunkAPI) => {
+    try {
+        return await chatService.setMessageSeen(messageId)
+    } catch (error) {
+        const message = error.toString()
+        return thunkAPI.rejectWithValue(message)
+    }
+})
+
 export const chatSlice = createSlice({
     name: 'chats',
     initialState,
@@ -79,6 +90,9 @@ export const chatSlice = createSlice({
         }, 
         addOtherUser: (state, action) => {
             state.otherUser = action.payload
+        }, 
+        resetChatMessages: (state) => {
+            state.chatMessages = ''
         }
     },
     extraReducers: (builder) => {
@@ -116,7 +130,11 @@ export const chatSlice = createSlice({
         .addCase(getUserChats.fulfilled, (state, action) => {
             state.isLoading = false
             state.isSuccess = true
-            state.chats = action.payload
+            console.log(action.payload)
+            const sorted = action.payload.sort(function(a,b) {
+                return new Date(b.messages[b.messages.length - 1]?.createdAt) - new Date(a.messages[a.messages.length - 1]?.createdAt)
+            })
+            state.chats = sorted
         })
         .addCase(getUserChats.rejected, (state, action) => {
             state.isError = true
@@ -157,9 +175,20 @@ export const chatSlice = createSlice({
             state.isError = true
             state.message = action.payload
         })
+        .addCase(setMessageSeen.pending,  (state) =>{
+            state.isLoading = true
+        })
+        .addCase(setMessageSeen.fulfilled, (state, action) => {
+            state.isLoading = false
+            state.isSuccess = true
+        })
+        .addCase(setMessageSeen.rejected, (state, action) => {
+            state.isError = true
+            state.message = action.payload
+        })
     }
 })
 
 
-export const {reset, setActiveChat, addChatMessage, addOtherUser} = chatSlice.actions; 
+export const {reset, setActiveChat, addChatMessage, addOtherUser, resetChatMessages} = chatSlice.actions; 
 export default chatSlice.reducer;

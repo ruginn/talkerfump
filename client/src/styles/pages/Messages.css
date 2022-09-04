@@ -1,0 +1,16 @@
+
+
+@media screen and (max-width: 600px){
+    .mobile--user--chat--container{
+        display: flex;
+        flex-direction: column;
+        width: 100vw;
+        justify-content: center;
+        align-items: center;
+        /* display: none; */
+    }
+    .toggle--mobile--user{
+        display: none;
+    }
+    
+}

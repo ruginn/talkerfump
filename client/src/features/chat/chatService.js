@@ -54,14 +54,18 @@ const getChatMessages = async(chatData, token) => {
     return response.data
 }
 
-
+const setMessageSeen = async(messageId) => {
+    const response = await API.put(`/api/chat/${messageId}/setseen`, messageId)
+    return response
+}
 
 const chatService = {
     createChat,
     getUserChats,
     createActiveChat,
     createMessage,
-    getChatMessages
+    getChatMessages, 
+    setMessageSeen,
 }
 
 export default chatService; 

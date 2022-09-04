@@ -34,7 +34,7 @@ export default function Comment({post, expandComments, setExpandComment}) {
   return (
     <div className='comment--container'>
         {post.comments[0] && <CommentItem comment={post.comments[0]} postUserId={post.userId._id} key={post.comments._id}/>}
-        {!expandComments && post.comments.length > 1 && <p onClick={()=>setExpandComment((prev)=> !prev) } className='pointer'>See more comments</p>}
+        {!expandComments && post.comments.length > 1 && <p onClick={()=>setExpandComment((prev)=> !prev) } className='pointer'>{`View ${post.comments.length - 1} more comments`}</p>}
         {expandComments && post.comments.length > 0 && post.comments.slice(1).map((comment) => 
             <div key={comment._id}>
                 <CommentItem comment={comment} postUserId={post.userId._id} key={comment._id}/>

@@ -11,7 +11,7 @@ export default function FollowingModal({followingModal, setFollowingModal, usern
         overlayColor={theme.colorScheme === 'dark' ? theme.colors.dark[9] : theme.colors.gray[2]}
         overlayOpacity={0.55}
         overlayBlur={3}
-        size="30%"
+        size="lg"
         opened={followingModal}
         onClose={()=>setFollowingModal(false)}
       >

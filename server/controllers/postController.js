@@ -88,7 +88,7 @@ export const updatePost = asyncHandler(async(req, res) => {
 export const likePost = asyncHandler(async(req, res) =>{
     const {id} = req.params;
     const userId = req.user.id;
-
+    const createdAt = new Date()
     const post = await Post.findById(id)
     if(!post){
         res.status(400).json('Post not found')
@@ -178,7 +178,7 @@ export const likeComment = asyncHandler(async(req, res) => {
     const id = req.body.commentId
     const postId = req.params.id
     const userId = req.user.id
-    
+    const createdAt = new Date()
     const comment = await Comment.findById(id)
     if (!comment){
         res.status(400).json('Comment not found')
