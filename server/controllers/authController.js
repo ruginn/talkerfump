@@ -51,6 +51,7 @@ export const registerUser = asyncHandler(async (req, res) => {
             following: user.following, 
             email: user.email,
             id: user._id,
+            buddy: user.buddy,
             token})
     } else {
         res.status(400)
@@ -77,7 +78,8 @@ export const loginUser = asyncHandler(async (req, res) => {
             profileImage: user.profileImage,
             id: user._id,
             day: user.day,
-            aboutMe: user.aboutMe, 
+            aboutMe: user.aboutMe,
+            buddy: user.buddy, 
             token})
     } else {
         res.status(400).json('Incorrect username, email or password')

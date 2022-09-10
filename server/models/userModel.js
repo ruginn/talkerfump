@@ -38,6 +38,10 @@ const userSchema = mongoose.Schema({
             type: Date
         }
     }, 
+    buddySearch:{
+        type: Boolean,
+        default: false
+    },
     buddy: {
         type: ObjectId, ref:"Users"
     },

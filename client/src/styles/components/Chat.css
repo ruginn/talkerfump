@@ -5,6 +5,9 @@
     width: 50%;
     position: relative;
 }
+.chat--back{
+    display: none;
+}
 .chat--box--header{
    display: flex;
    flex-direction: row; 
@@ -86,6 +89,7 @@
     }
 
     .chat--back{
+        display: flex;
         width: 30px;
         height: 30px;
         margin-right: 10px;

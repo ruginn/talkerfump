@@ -108,4 +108,35 @@ export const findFollowing = asyncHandler(async (req, res) => {
 
 })
 
+// connect with accountability buddy
+export const getPartner = asyncHandler(async(req, res) => {
+    const userId = req.user.id 
+    console.log(userId + 'userId')
+    const user = await User.findById(userId)
+    console.log(user + 'user')
+    if (user.buddy){
+        res.status(403).json('Unauthorized, you already have a buddy')
+    } else{
 
+    await user.updateOne({buddySearch: true})
+    const eligibleBuddy = await User.find({buddySearch: true})
+    console.log('this is eb')
+    console.log(eligibleBuddy)
+    console.log('this is end of eb')
+    let partner = ''
+    if (eligibleBuddy.length === 1){
+        res.status(200).json('You have been opted into the buddy search')
+    } else {
+        partner = eligibleBuddy[Math.floor(Math.random() * eligibleBuddy.length)]
+        if (partner._id.toString() === userId){
+            while(userId === partner._id.toString()){
+                partner = eligibleBuddy[Math.floor(Math.random() * eligibleBuddy.length)]
+            }
+        }    
+        const matched = await User.findById(partner._id)
+        await matched.updateOne({buddySearch: false, buddy: user})
+        await user.updateOne({buddySearch: false, buddy: partner}) 
+    }
+    res.status(200).json(partner._id) 
+    }
+})

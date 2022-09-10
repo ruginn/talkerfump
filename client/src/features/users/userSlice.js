@@ -90,6 +90,8 @@ export const getCommentLikes = createAsyncThunk('comment/getLikes', async (comme
     }
 })
 
+
+
 export const userSlice = createSlice({
     name: 'users', 
     initialState, 
@@ -196,7 +198,6 @@ export const userSlice = createSlice({
             state.isError = true
             state.message = action.payload
         })
-
     }
 })
 

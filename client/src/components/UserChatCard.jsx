@@ -42,38 +42,17 @@ export default function UserChatCard({chat, socket, setShowChat, messageList, se
     },[])
     
 
-    // const compareDates = (mDate, createdAt) => {
-    //   // checks if user is still in streak 
-    //    // takes last day entered and converts to the begining of the day
-    //    const streakDate = new Date(user.day.date)
-    //    const streakDateNoTime = streakDate.setHours(0, 0, 0, 0)
-   
-    //    // sets the post day to the beginning of the day
-    //    let postDateM = new Date(mDate)
-    //    postDateM  = new Date(postDateM.setHours(0, 0, 0, 0))
-       
-   
-    //    // converts post day yesterday without setting the mDate into the yesterday
-    //    let yesterdayYear = postDateM.getFullYear()
-    //    let yesterdayDate = postDateM.getDate() - 1
-    //    let yesterdayMonth = postDateM.getMonth()
-    //    let yesterday = new Date(yesterdayYear, yesterdayMonth, yesterdayDate)
-   
-   
-    //    // compares to see if post day is the same as last post, yesterday, or another day breaking streak
-    //    if(yesterday.toString() === new Date(streakDateNoTime).toString()){
-    //        console.log('yesterday')
-    //        return {day: {streak: user.day.streak + 1, date: createdAt }}
-    //    } else if(postDateM.toString() === new Date(streakDateNoTime).toString()){
-    //        console.log('same day')
-    //        return {day: {streak: user.day.streak,  date: createdAt }}
-    //    } else{
-    //        console.log('streak broken')
-    //        return {day: {streak: 1, date: createdAt }}
-    //    } 
-    //   }
 
-
+    moment.locale('en', {
+      calendar : {
+          lastDay : '[Yesterday]',
+          sameDay : 'LT',
+          nextDay : '[Tomorrow at] LT',
+          lastWeek : 'dddd',
+          nextWeek : 'L',
+          sameElse : 'L'
+      }
+  });
 
 
   return (

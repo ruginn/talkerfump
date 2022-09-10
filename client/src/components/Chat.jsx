@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import {useState} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { createMessage, addChatMessage, setMessageSeen } from '../features/chat/chatSlice'
+import { createMessage, addChatMessage, setMessageSeen, getUserChats } from '../features/chat/chatSlice'
 import profileCat from '../pictures/defaultCat.jpeg'
 import ScrollToBottom from 'react-scroll-to-bottom'
 import '../styles/components/Chat.css'
@@ -38,7 +38,9 @@ export default function Chat({socket, username, room, messageList, setMessageLis
             createdAt: new Date(),  
             message
         }
-        dispatch(createMessage(chatData))
+        dispatch(createMessage(chatData)).then(() => {
+            dispatch(getUserChats())
+        })
         setMessage('')
     }
 

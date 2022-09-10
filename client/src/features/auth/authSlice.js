@@ -45,6 +45,16 @@ export const updateAuth = createAsyncThunk('auth/update', async(userInfo, thunkA
     }
 }) 
 
+export const getPartner = createAsyncThunk('get/partner', async(_, thunkAPI) => {
+    try {
+        const token = thunkAPI.getState().auth.user.token
+        return await authService.getPartner(token)
+    } catch(error){
+        const message = error.toString()
+        return thunkAPI.rejectWithValue(message)
+    }
+})
+
 export const authSlice = createSlice({
     name: 'auth', 
     initialState, 
@@ -71,7 +81,8 @@ export const authSlice = createSlice({
         streak: (state, action) => {
             state.user.day.date = action.payload.date
             state.user.day.streak = action.payload.streak
-        }
+        }, 
+
     }, 
     extraReducers: (builder) => {
         builder
@@ -119,6 +130,19 @@ export const authSlice = createSlice({
                 state.isError = true
                 state.message = action.payload
                 state.user = null
+            })
+            .addCase(getPartner.pending, (state) => {
+                state.isLoading = true
+            })
+            .addCase(getPartner.fulfilled, (state, action) => {
+                state.isLoading = false
+                state.isSuccess = true
+                state.user.buddy = action.payload
+                localStorage.setItem('auth', JSON.stringify(state.user))
+            })
+            .addCase(getPartner.rejected, (state, action) => {
+                state.isError = true
+                state.user.buddy = action.payload
             })
     }
 })

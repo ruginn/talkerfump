@@ -45,12 +45,22 @@ const updateAuth = async (userInfo, token) => {
     return response.data
 }
 
+const getPartner = async(token) => {
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    }
+    const response = await API.put(`/api/users/findbuddy`, config, config)
+    return response.data
+}
 
 const authService = {
     register, 
     login, 
     logout, 
     updateAuth,
+    getPartner,
 }
 
 export default authService
