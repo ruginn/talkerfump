@@ -98,7 +98,7 @@ export default function NavBar() {
             <div onClick={toggleNav}><Link to='/' className='Nav--row top--nav--item' title='Home'><AiOutlineHome /> <span>Home</span></Link></div> 
             <div onClick={mobileNotification}><Link to='/notifications' className='Nav--row' title='Notifications'><div className='notification--bell'><BsBell/>{count > 0 ? <span className='notification--count'>{count}</span>: ''}</div><span>Notifications</span></Link></div>
             <div onClick={toggleNav}><Link to='/users' className='Nav--row' title='Users'><AiOutlineUser /><span>Users</span></Link></div>
-            <div onClick={toggleNav}><Link to='/achievements' className='Nav--row larger--icon' title='Achievements'><BsTrophy /><span>Achievements</span></Link></div>
+            {/* <div onClick={toggleNav}><Link to='/achievements' className='Nav--row larger--icon' title='Achievements'><BsTrophy /><span>Achievements</span></Link></div> */}
             <div onClick={toggleNav}><Link to='/accountability' className='Nav--row' title='Gym Buddy'><FaRegHandshake /><span>Accountability Partner</span></Link></div> 
             <div onClick={toggleNav}><Link to='/schedule' className='Nav--row larger--icon' title='Schedule'><BsCalendarDate /><span>Schedule</span></Link></div> 
             <div onClick={toggleNav}><Link to='/rules' className='Nav--row' title='Rules'><BsBook /><span>75 Hard Rules</span></Link></div> 

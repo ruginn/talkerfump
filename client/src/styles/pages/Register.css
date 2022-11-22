@@ -24,7 +24,7 @@
 }
 
 .Register> img{
-    position: absolute;
+    position: fixed;
     width: 100vw;
     height: 100vh;
     object-fit: cover;
@@ -33,7 +33,7 @@
 }
 
 .register--filter{
-    position: absolute;
+    position: fixed;
     width: 100vw;
     height: 100vh;
     object-fit: cover;
@@ -43,7 +43,8 @@
 
 .register--container{
     width: 600px;
-    height: 550px;
+    /* height: 550px; */
+    height: auto;
     background: linear-gradient(145deg, rgba(242,242,242,1) 0%, rgb(210, 210, 210) 64%);
     border-radius: 20px;
     display: flex;
@@ -51,6 +52,7 @@
     justify-content: center;
     align-items: center;
     box-shadow: 0 4px 5px rgba(107, 107, 107, 0.277);
+    padding: 1rem 0;
 }
 
 register--container>h2 {
@@ -77,6 +79,18 @@ register--container>h2 {
     font-family: 'Montserrat', sans-serif;
 }
 
+.red--border{
+    border: .5px solid red;
+}
+
+.register--invalid{
+    margin: 0px;
+    color: red;
+    font-size: .8rem;
+    align-self: flex-start;
+    margin-left: 20px;
+}
+
 .register--input> input{
     outline: none;
     border: none;
@@ -93,7 +107,7 @@ register--container>h2 {
     color: white;
     font-weight: 700;
     margin: 1rem;
-    margin-top: 0px;
+    margin-top: 1rem;
 }
 
 @media screen and (max-width: 820px) {

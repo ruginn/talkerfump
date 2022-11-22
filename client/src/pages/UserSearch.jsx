@@ -3,6 +3,8 @@ import { useEffect } from 'react'
 import {getUsers} from '../features/users/userSlice'
 import UserCard from '../components/UserCard'
 import { useNavigate } from 'react-router-dom'
+import SearchBar from '../components/SearchBar'
+import '../styles/pages/UserSearch.css'
 
 export default function UserSearch() {
     const {users} = useSelector((state) => state.users)
@@ -23,10 +25,10 @@ export default function UserSearch() {
     
   return (
     <div>
-        <h6>This is a list of our users</h6>
-        <section>
+    <SearchBar /> 
+        <section className='userSearch--main'>
             {users.length > 0 ? (
-                <div className='users--container'>
+                <div className='usersearch--container'>
                     {users.map((user) => (
                         <UserCard key={user._id} user={user}/>
             ))}

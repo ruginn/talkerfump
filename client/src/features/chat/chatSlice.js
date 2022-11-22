@@ -10,7 +10,8 @@ const initialState = {
     isSuccess: false,
     isLoading: false, 
     message:'',
-    chatMessages: '', 
+    chatMessages: '',
+    mobileChat: false, 
     otherUser: '',
 }
 
@@ -93,6 +94,12 @@ export const chatSlice = createSlice({
         }, 
         resetChatMessages: (state) => {
             state.chatMessages = ''
+        }, 
+        setMobileChatTrue: (state) => {
+            state.mobileChat = true
+        },
+        setMobileChatFalse: (state) => {
+            state.mobileChat = false 
         }
     },
     extraReducers: (builder) => {
@@ -190,5 +197,5 @@ export const chatSlice = createSlice({
 })
 
 
-export const {reset, setActiveChat, addChatMessage, addOtherUser, resetChatMessages} = chatSlice.actions; 
+export const {reset, setActiveChat, addChatMessage, addOtherUser, resetChatMessages, setMobileChatTrue, setMobileChatFalse} = chatSlice.actions; 
 export default chatSlice.reducer;

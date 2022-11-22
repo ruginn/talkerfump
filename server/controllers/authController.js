@@ -16,12 +16,15 @@ const generateToken = (id) => {
 
 export const registerUser = asyncHandler(async (req, res) => {
     const {password, username, email} =  req.body
+    const lowerCaseEmail = await req.body.email.toLowerCase()
+   
     // hash password with bcrypt
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt)
 
     // check if username or email have been exist in DB
-    const emailExist = await User.findOne({email})
+    const emailExist = await User.findOne({email : lowerCaseEmail})
+    console.log(emailExist)
     if (emailExist) {
         res.status(400).json('An account exist with this email')
     }
@@ -34,7 +37,8 @@ export const registerUser = asyncHandler(async (req, res) => {
     const user = await User.create({
         firstName: req.body.firstName,
         lastName: req.body.lastName,  
-        email: req.body.email, 
+        // email: req.body.email,
+        email: lowerCaseEmail, 
         username: req.body.username,
         password: hashedPassword, 
     })
@@ -49,6 +53,7 @@ export const registerUser = asyncHandler(async (req, res) => {
             username: user.username, 
             followers: user.followers, 
             following: user.following, 
+            day: user.day,
             email: user.email,
             id: user._id,
             buddy: user.buddy,
@@ -64,7 +69,8 @@ export const registerUser = asyncHandler(async (req, res) => {
 
 export const loginUser = asyncHandler(async (req, res) => {
     const { password, email} = req.body
-    const user = await User.findOne({email})
+    const lowerCaseEmail = email.toLowerCase()
+    const user = await User.findOne({email : lowerCaseEmail})
     // compare password
     if (user && (await bcrypt.compare(password, user.password))) {
         const token = generateToken(user._id)
@@ -80,6 +86,7 @@ export const loginUser = asyncHandler(async (req, res) => {
             day: user.day,
             aboutMe: user.aboutMe,
             buddy: user.buddy, 
+            day: user.day,
             token})
     } else {
         res.status(400).json('Incorrect username, email or password')

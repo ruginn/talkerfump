@@ -78,7 +78,7 @@ export default function PostModal({postModal, setPostModal}) {
    const compareDates = (mDate, createdAt) => {
    // checks if user is still in streak 
     // takes last day entered and converts to the begining of the day
-    const streakDate = new Date(user.day.date)
+    const streakDate = new Date(user.day?.date)
     const streakDateNoTime = streakDate.setHours(0, 0, 0, 0)
 
     // sets the post day to the beginning of the day

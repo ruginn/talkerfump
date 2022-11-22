@@ -63,7 +63,11 @@ const getCommentLikes = async(commentId) => {
     return response.data.likes
 }
 
-
+const searchUser = async(para) => {
+    console.log(para)
+    const response = await API.put('/api/users/search', para, para)
+    return response.data
+}
 
 
 
@@ -76,6 +80,7 @@ const userService = {
     findFollowing, 
     getPostLikes, 
     getCommentLikes,
+    searchUser,
 }
 
 export default userService

@@ -14,7 +14,7 @@ import '../styles/pages/Home.css'
 import defaultCat from '../pictures/defaultCat.jpeg'
 import PostModal from '../components/PostModal'
 import {getNotifications} from '../features/notifications/notificationsSlice'
-
+import {AiOutlineCamera} from "react-icons/ai"
 import { reset as reset2 } from '../features/posts/postSlice'
 import { findFollowers, findFollowing } from '../features/users/userSlice'
 
@@ -77,14 +77,17 @@ export default function Home() {
     {/* Need to see if user exist before using, as it will say user is null and can not retrieve user.${whatever} */}
         {/* <button onClick={onLogout}>Logout</button> */}
         <h3>Welcome {user && user.firstName}</h3>
-        {user && <img src={user.profileImage ? user.profileImage:defaultCat} className='profile--pic--home' />}
-        <span onClick={openImageUploader}>Upload new profile image</span>
+        <div className='profile--pic--container--home'>
+          {user && <img src={user.profileImage ? user.profileImage:defaultCat} className='profile--pic--home' />}
+          <div className='profile--pic--uploader' onClick={openImageUploader}><AiOutlineCamera/></div>
+        </div>
         <p><b>{user && posts.filter((post) => (post.userId._id === user.id)).length}</b> posts</p>
         <span onClick={openFollowersModal}><b>{user && user.followers.length}</b> followers </span>
         <span onClick={openFollowingModal}><b>{user && user.following.length}</b> following</span>
+        <br></br>
         <button onClick={()=>setPostModal(true)}>Create a Post</button>
         <PostModal postModal={postModal} setPostModal={setPostModal}/>
-        <PostForm />
+        {/* <PostForm /> */}
         <section className='content'>
           {posts.length > 0 ? (
             <div >

@@ -32,10 +32,11 @@ const userSchema = mongoose.Schema({
     day:{
         streak:{
             type: Number, 
-            default: 0, 
+            default: 1, 
         }, 
         date: {
-            type: Date
+            type: Date,
+            default: new Date(),
         }
     }, 
     buddySearch:{

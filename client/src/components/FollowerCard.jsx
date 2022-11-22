@@ -37,11 +37,11 @@ export default function FollowerCard({user, setFollowersModal, setFollowingModal
             <img src={user.profileImage? user.profileImage : profileCat} alt="" className='profile--pic--Fcard' />
         </div>
         <div>
-            <p>@{user.username}</p>
-            <p>{user.firstName}</p>
+            <p className='followCard--username'>@{user.username}</p>
+            <p className='followCard--name'>{user.firstName}</p>
         </div> </Link>
         {auth.id === userId? '' :
-        isFollowing? <button onClick={onUnfollowUser}>Unfollow</button> : <button onClick={onFollow}>Follow</button>}
+        isFollowing? <button onClick={onUnfollowUser} className='follow--button following'>Unfollow</button> : <button onClick={onFollow} className='follow--button unfollowing'>Follow</button>}
         
     </div>
   )

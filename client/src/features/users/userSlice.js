@@ -90,7 +90,15 @@ export const getCommentLikes = createAsyncThunk('comment/getLikes', async (comme
     }
 })
 
-
+export const searchUsers = createAsyncThunk('user/search', async (para, thunkAPI) => {
+    try {
+        console.log(para)
+        return await userService.searchUser(para)
+    } catch(error){
+        const message = error.toString()
+        return thunkAPI.rejectWithValue(message)
+    }
+})
 
 export const userSlice = createSlice({
     name: 'users', 
@@ -195,6 +203,19 @@ export const userSlice = createSlice({
             
         })
         .addCase(getCommentLikes.rejected, (state, action) => {
+            state.isError = true
+            state.message = action.payload
+        })
+        .addCase(searchUsers.pending, (state) => {
+            state.isLoading = true
+        })
+        .addCase(searchUsers.fulfilled, (state, action) => {
+            state.isLoading = false
+            state.isSuccess = true
+            state.users = action.payload
+            
+        })
+        .addCase(searchUsers.rejected, (state, action) => {
             state.isError = true
             state.message = action.payload
         })

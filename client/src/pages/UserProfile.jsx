@@ -2,7 +2,7 @@ import {useParams} from 'react-router-dom'
 import {useSelector, useDispatch} from 'react-redux'
 import { useEffect, useState } from 'react'
 import { getUser, followUser, unfollowUser, findFollowers, findFollowing } from '../features/users/userSlice'
-import {createChat} from '../features/chat/chatSlice'
+import {addOtherUser, createChat, setMobileChatTrue} from '../features/chat/chatSlice'
 import profilePic from '../pictures/defaultCat.jpeg'
 import Spinner from '../components/Spinner'
 import { getUserPosts } from '../features/posts/postSlice'
@@ -15,13 +15,14 @@ import io from 'socket.io-client'
 import '../styles/pages/UserProfile.css'
 import { getChatMessages, resetChatMessages } from '../features/chat/chatSlice'
 import UserProgress from '../components/UserProgress'
+import { useNavigate } from 'react-router-dom'
 
 const socket = io.connect('http://localhost:8080')
 
 export default function UserProfile() {
     const params = useParams()
     const dispatch = useDispatch()
-
+    const navigate = useNavigate()
     const userId = params.userId
     const auth = useSelector((state) => state.auth.user)
     const {user, isLoading} = useSelector((state) => state.users)
@@ -87,6 +88,9 @@ export default function UserProfile() {
           socket.emit('join_room', data._id)
           dispatch(resetChatMessages())
         }
+        dispatch(setMobileChatTrue())
+        dispatch(addOtherUser(user))
+        navigate('/messages')
         // dispatch(getChatMessages({chatId: data[0]._id}))
       })
     }

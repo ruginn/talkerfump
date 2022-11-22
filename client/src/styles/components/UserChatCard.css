@@ -16,8 +16,8 @@
     border-radius: 50%;
 
     align-self: center;
-    margin-left: 2px;
-    margin-right: 5px;    
+    margin-left: 5px;
+    margin-right: 2px;    
 }
 
 .fill--notification--dot{
@@ -45,6 +45,7 @@
 
 .chat--card--message{
     margin: 0px;
+    width: 220px;
 }
 
     
@@ -68,6 +69,10 @@
 @media screen and (max-width: 600px){
     .user--chat--card--container{
         width: 90vw;
+    }
+    .chat--card--message{
+        margin: 0px;
+        width: 70vw;
     }
     .chat--card--top{
         width: 70vw;

@@ -120,7 +120,7 @@
     width: 20rem;
     height: 3rem;
     background-color: rgb(255, 255, 255);
-    margin: .8rem;
+    margin: .5rem;
     display: flex;
     align-items: center;
     padding-left: 1rem;
@@ -154,7 +154,7 @@
     color: white;
     font-weight: 700;
     margin: 1rem;
-    margin-top: 0px;
+    margin-top: .5rem;
 }
 
 @media screen and (max-width: 1060px) {

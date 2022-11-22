@@ -16,9 +16,10 @@ export default function Messages() {
   const chats = useSelector((state) => state.chats.chats)
   const [messageList, setMessageList] = useState([])
   const activeChat =  useSelector((state) => state.chats.activeChat)
+  const {mobileChat} = useSelector((state) => state.chats)
 
+  // const [mobileChat, setMobileChat] = useState(false)
 
-  const [mobileChat, setMobileChat] = useState(false)
   useEffect(() => {
     dispatch(getUserChats())
   }, [mobileChat])
@@ -58,7 +59,7 @@ export default function Messages() {
       <div className='container'>
         <section className={`mobile--user--chat--container ${toggleMobileChat}`} >
           {chats.map((chat) => ( 
-            <UserChatCard chat={chat} key={chat._id} socket={socket} setShowChat={setShowChat} messageList={messageList} setMessageList={setMessageList} chatRef={chatRef} setMobileChat={setMobileChat} mobileChat={mobileChat}/>
+            <UserChatCard chat={chat} key={chat._id} socket={socket} setShowChat={setShowChat} messageList={messageList} setMessageList={setMessageList} chatRef={chatRef}/>
           ))}
         </section>
         {/* <input type="text" id='name' placeholder='Name' onChange={(e) => {setUsername(e.target.value)}}/> */}
@@ -66,7 +67,7 @@ export default function Messages() {
         <input type="text"  id='room' placeholder='Room' onChange={(e) => {setRoom(e.target.value)}}/>
         <button onClick={joinRoom}>Join</button> */}
       </div>
-      {showChat && <Chat socket={socket} username={username} room={room} messageList={messageList} setMessageList={setMessageList} chatRef={chatRef} setMobileChat={setMobileChat} mobileChat={mobileChat}/>}
+      {showChat && <Chat socket={socket} username={username} room={room} messageList={messageList} setMessageList={setMessageList}/>}
     </div>
   );
 }

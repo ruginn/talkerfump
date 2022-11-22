@@ -140,3 +140,30 @@ export const getPartner = asyncHandler(async(req, res) => {
     res.status(200).json(partner._id) 
     }
 })
+
+// search users
+export const searchUser = asyncHandler(async(req, res) => {
+    const para = req.body.para
+    console.log(req)
+    const regexPara = new RegExp("^"+para, 'i')
+    // const user = await User.find({firstName: para, lastName: para, username: para })
+    const user = await User.find({
+        $or: [
+            {firstName: {$regex:regexPara}},
+            {lastName: {$regex:regexPara}},
+            {username: {$regex:regexPara}},
+        ]
+    })
+    if(!user){
+        res.status(400).json('No users found')
+    }
+    res.status(200).json(user)
+})
+
+
+// const poster = await Post.find({
+//     $or: [
+//         {userId:{$in:req.user.following}},
+//         {userId: req.user._id}
+//     ]
+// })

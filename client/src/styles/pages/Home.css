@@ -4,3 +4,29 @@
     object-fit: cover;
     border-radius: 50%;
 }
+.profile--pic--container--home{
+    height: 5rem;
+    width: 5rem;
+    position: relative;
+}
+
+.profile--pic--uploader{
+    position: absolute;
+    bottom: -3px;
+    right: -3px;
+    background-color: rgba(255, 228, 196, 0.395);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 25px;
+    width: 25px;
+    border: 1px solid black; 
+    border-radius: 50%;
+    cursor: pointer;
+
+}
+
+.profile--pic--uploader svg{
+    height: 18px;
+    width: 18px;
+}

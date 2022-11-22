@@ -7,9 +7,9 @@ export default function UserProgress() {
   let [percentCompleted, setPercentCompleted] = useState(0)
   
   useEffect(() => {
-    if(user.day){
-      if(user.day.streak){
-        setPercentCompleted((user.day.streak/75) * 360)
+    if(user?.day){
+      if(user?.day.streak){
+        setPercentCompleted((user?.day?.streak/75) * 360)
       }
     }
   }, [user])
@@ -18,9 +18,9 @@ export default function UserProgress() {
 
   return (
     <div>
-        {user.day && <div className='outer--circle' style={{background : `conic-gradient(red ${percentCompleted}deg, rgb(221, 221, 221) ${percentCompleted}deg )`}}>
+        {user?.day && <div className='outer--circle' style={{background : `conic-gradient(red ${percentCompleted}deg, rgb(221, 221, 221) ${percentCompleted}deg )`}}>
             <div className='inner--circle'>
-              <b>{user.day ? user.day.streak: 0}/75</b>
+              <b>{user?.day ? user.day.streak: 0}/75</b>
               <p className='M0'>Days</p>
             </div>
           {user.book}

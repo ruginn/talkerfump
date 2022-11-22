@@ -1,6 +1,7 @@
 
 
-@media screen and (max-width: 600px){
+/* @media screen and (max-width: 600px){ */
+@media screen and (max-width: 900px){ 
     .mobile--user--chat--container{
         display: flex;
         flex-direction: column;

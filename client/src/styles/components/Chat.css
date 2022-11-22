@@ -69,14 +69,29 @@
     bottom: 0px;
     margin-bottom: 1rem;
 } */
+.chat--footer{
+    margin: 0 .5rem;
+}
+
 
 .chat--input{
-    margin: 1rem 0;
+    margin: .5rem 0;
     width: 80%;
     outline: none;
 }
 
-@media screen and (max-width: 600px){
+.chat--button{
+    border: none;
+    background-color: black;
+    color: white;
+    padding: .5rem 1rem;
+    margin-left: 1rem;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+/* @media screen and (max-width: 600px){ */
+@media screen and (max-width: 900px){
     .chat--body{
         width: 100vw;
         height: 80%;
