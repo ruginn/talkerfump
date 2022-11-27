@@ -85,7 +85,7 @@ export default function Home() {
         <span onClick={openFollowersModal}><b>{user && user.followers.length}</b> followers </span>
         <span onClick={openFollowingModal}><b>{user && user.following.length}</b> following</span>
         <br></br>
-        <button onClick={()=>setPostModal(true)}>Create a Post</button>
+        <button onClick={()=>setPostModal(true)} className='post--button'>Create a Post</button>
         <PostModal postModal={postModal} setPostModal={setPostModal}/>
         {/* <PostForm /> */}
         <section className='content'>

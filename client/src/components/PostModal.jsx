@@ -185,7 +185,7 @@ export default function PostModal({postModal, setPostModal}) {
         overlayColor={theme.colorScheme === 'dark' ? theme.colors.dark[9] : theme.colors.gray[2]}
         overlayOpacity={0.55}
         overlayBlur={3}
-        size="55%"
+        size="lg"
         opened={postModal}
         onClose={()=>{
             setPostModal(false) 
@@ -194,12 +194,13 @@ export default function PostModal({postModal, setPostModal}) {
             setPreviewSource('')}}
       >
           <div className='settings--container'>
-            <button onClick={compareDates}>compare dates</button>
             <h1>Journal Your Daily Entry</h1>
             <form onSubmit={handleSubmit}>
                 {blockOne && <div>
                 <label htmlFor="post">Whats poping {user && user.firstName}? </label>
+                <br></br>
                 <input type="text" id='post' name='post' onChange={onChange2} value={post}  placeholder="I'm having a good day! :)"/> 
+                <p>Progress Photo</p>
                 <input type="file" name="image" accept='image/' onChange={handleFileChange} placeholder='upload an image'  />
                 {/* value={fileInputState} */}
                 {previewSource && <img src={previewSource} alt='image' value={previewSource}
@@ -213,10 +214,13 @@ export default function PostModal({postModal, setPostModal}) {
                 <p>What did you read today?</p>
                 <label htmlFor="title">Title</label>
                 <input type="text" name='title' onChange={onChange2} value={title} placeholder='The Alchemist' id='title'/>
-                <label htmlFor="author">Title</label>
+                <br></br>
+                <label htmlFor="author">Author</label>
                 <input type="text" name='author' onChange={onChange2} value={author} placeholder='Paulo Coelho' id='author'/>
+                <br></br>
                 <input type="number" id='pages' onChange={onChange2} value={pages} name='pages'/>
                 <label htmlFor="pages">Pages</label>
+                <br></br>
                 <button type='button' onClick={blockOneControl}>Next</button>
                 </div>}
                 {blockTwo  && <div>

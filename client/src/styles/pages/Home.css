@@ -30,3 +30,17 @@
     height: 18px;
     width: 18px;
 }
+
+.post--button{
+    margin: 1rem 0rem;
+    padding: .5rem;
+    color: white;
+    background-color: black;
+    border-radius: 20px;
+    border-style: none;
+    cursor: pointer;
+}
+
+.post--button:hover{
+    transform: scale(1.1);
+}
