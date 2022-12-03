@@ -19,13 +19,13 @@
 }
 
 .nav--logo{
-    height: 50px;
-    width: 50px;
+    height: 40px;
+    width: 40px;
     margin:  0 0.5rem;
 }
 svg {
-    height: 35px;
-    width: 35px;
+    height: 22px;
+    width: 22px;
     color: black;
     fill: black;
 }
@@ -38,7 +38,7 @@ svg {
 
 .Logo{
     text-decoration: none;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     width: 100%;
     display: flex;
     align-items: center;
@@ -131,6 +131,7 @@ svg {
         /* background: linear-gradient(145deg, rgba(205,255,244,1) 0%, rgba(215,155,255,1) 100%); */
         background-color: rgb(197, 196, 196);
         position: fixed;
+        z-index: 11;
     }
 
     .Mobile--logo{

@@ -100,7 +100,7 @@ export default function NavBar() {
             <div onClick={toggleNav}><Link to='/users' className='Nav--row' title='Users'><AiOutlineUser /><span>Users</span></Link></div>
             {/* <div onClick={toggleNav}><Link to='/achievements' className='Nav--row larger--icon' title='Achievements'><BsTrophy /><span>Achievements</span></Link></div> */}
             <div onClick={toggleNav}><Link to='/accountability' className='Nav--row' title='Gym Buddy'><FaRegHandshake /><span>Accountability Partner</span></Link></div> 
-            <div onClick={toggleNav}><Link to='/schedule' className='Nav--row larger--icon' title='Schedule'><BsCalendarDate /><span>Schedule</span></Link></div> 
+            {/* <div onClick={toggleNav}><Link to='/schedule' className='Nav--row larger--icon' title='Schedule'><BsCalendarDate /><span>Schedule</span></Link></div>  */}
             <div onClick={toggleNav}><Link to='/rules' className='Nav--row' title='Rules'><BsBook /><span>75 Hard Rules</span></Link></div> 
             <div onClick={toggleNav}><Link to='/messages' className='Nav--row' title='Messages'><AiOutlineMessage /><span>Messages</span></Link></div> 
             {/* <div className='Nav--row darker--bg push--bottom' onClick={onLogout}><AiOutlineLogout/> <span>Logout</span></div>   */}

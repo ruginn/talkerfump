@@ -1,8 +1,10 @@
 import { Modal, useMantineTheme } from '@mantine/core';
 import {useSelector, useDispatch} from 'react-redux'
+import defaultCat from '../pictures/defaultCat.jpeg'
 import {useState} from 'react'
 import {createPost} from '../features/posts/postSlice'
 import { streak as updateStreak} from '../features/auth/authSlice';
+import '../styles/components/PostModal.css'
 
 
 
@@ -193,15 +195,22 @@ export default function PostModal({postModal, setPostModal}) {
             setFileInputState('')
             setPreviewSource('')}}
       >
-          <div className='settings--container'>
-            <h1>Journal Your Daily Entry</h1>
-            <form onSubmit={handleSubmit}>
+          <div className='Post--Modal--Container'>
+            <hr></hr>
+            {/* <span className='Post--Modal--Span'>span</span> */}
+            <div className='Post--Modal--User'>
+             <img src={user.profileImage?user.profileImage:defaultCat} alt="" className='Post--Modal--PI' />  
+             <p >{user.username}</p>
+            </div>
+            {/* <h1>Journal Your Daily Entry</h1> */}
+            <form className='Post--Form' onSubmit={handleSubmit}>
                 {blockOne && <div>
+                <div className='Post--Modal--Main'>
                 <label htmlFor="post">Whats poping {user && user.firstName}? </label>
                 <br></br>
-                <input type="text" id='post' name='post' onChange={onChange2} value={post}  placeholder="I'm having a good day! :)"/> 
+                <textarea type="text" id='post' name='post' onChange={onChange2} value={post} className='Post-General' placeholder="I'm having a good day! :)"/> 
                 <p>Progress Photo</p>
-                <input type="file" name="image" accept='image/' onChange={handleFileChange} placeholder='upload an image'  />
+                <input type="file" name="image" accept='image/' onChange={handleFileChange} placeholder='upload an image'/>
                 {/* value={fileInputState} */}
                 {previewSource && <img src={previewSource} alt='image' value={previewSource}
                 style={{height: '300px'}}
@@ -221,9 +230,25 @@ export default function PostModal({postModal, setPostModal}) {
                 <input type="number" id='pages' onChange={onChange2} value={pages} name='pages'/>
                 <label htmlFor="pages">Pages</label>
                 <br></br>
-                <button type='button' onClick={blockOneControl}>Next</button>
+                </div>
+                <div className='Post--Progress--Bar'>
+                    <div className='Post-Progress--Line'>
+                        <div className='Progress--Cir Circ-1 Circ--Active'></div>
+                        <div className='Progress--Cir Circ-2'></div>
+                        <div className='Progress--Cir Circ-3'></div>
+                    </div> 
+                </div>
+                {/* <div className='Post-Progress--Line'>
+                    <div className='Progress--Cir Circ-1'></div>
+                    <div className='Progress--Cir Circ-2'></div>
+                    <div className='Progress--Cir Circ-3'></div>
+                </div>  */}
+                <div className='Post--Modal--Bottom'>
+                    <button type='button' onClick={blockOneControl} className='Post--Modal--Button'>Next</button>  
+                </div>
                 </div>}
                 {blockTwo  && <div>
+                <div className='Post--Modal--Main'>
                 <p>What exercises did you do today?</p>
                 <label htmlFor="workout1">Exercise</label>
                 <input type="text" name='workout1' onChange={onChange2} value={workout1} id='workout1' />
@@ -235,10 +260,21 @@ export default function PostModal({postModal, setPostModal}) {
                 <input type="number" name='duration2' onChange={onChange2} value={duration2} id='duration2'/>
                 <label htmlFor="duration2">Minutes</label>
                 <br />
-                <button type='button' onClick={blockOneControl}>Back</button>
-                <button type='button' onClick={blockTwoControl}>Next</button>
+                </div>
+                <div className='Post--Progress--Bar'>
+                    <div className='Post-Progress--Line'>
+                        <div className='Progress--Cir Circ-1 Circ--Active'></div>
+                        <div className='Progress--Cir Circ-2 Circ--Active'></div>
+                        <div className='Progress--Cir Circ-3'></div>
+                    </div> 
+                </div>
+                <div className='Post--Modal--Bottom'>
+                    <button type='button' onClick={blockOneControl} className='Post--Modal--Button'>Back</button>
+                    <button type='button' onClick={blockTwoControl} className='Post--Modal--Button'>Next</button> 
+                </div>
                 </div> }
-                {blockThree && <div>
+                {blockThree && <div >
+                <div className='Post--Modal--Main'>
                 <p>Did you drink alcohol today?</p>
                 <label htmlFor="alcoholYes">Yes</label>
                 {/* <input type="checkbox" value={alcohol} onChange={onChange2} checked={alcohol} name='alcohol'/> */}
@@ -258,8 +294,18 @@ export default function PostModal({postModal, setPostModal}) {
                 <label htmlFor="waterNo">No</label>
                 <input type="radio" name='water' id='waterNo' value='No' onChange={onChange2} checked={water === 'No'}/>
                 <br />
-                <button type='button' onClick={blockTwoControl}>Back</button>
-                <button>Submit</button>
+                </div>
+                <div className='Post--Progress--Bar'>
+                    <div className='Post-Progress--Line'>
+                        <div className='Progress--Cir Circ-1 Circ--Active'></div>
+                        <div className='Progress--Cir Circ-2 Circ--Active'></div>
+                        <div className='Progress--Cir Circ-3 Circ--Active'></div>
+                    </div> 
+                </div>
+                <div className='Post--Modal--Bottom'>
+                    <button type='button' onClick={blockTwoControl} className='Post--Modal--Button'>Back</button>
+                    <button className='Post--Modal--Button'>Submit</button>
+                </div>
                 </div>}
             </form>
           </div>
