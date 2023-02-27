@@ -1,6 +1,7 @@
-import React, {useState} from 'react'
+import React, {useState, useRef} from 'react'
 import { Modal, useMantineTheme } from '@mantine/core';
 import axios from 'axios';
+import { BiPhotoAlbum } from 'react-icons/bi';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateProfilePic } from '../features/auth/authSlice';
 
@@ -10,6 +11,7 @@ export default function ImageUploader({ImageUploaderModal, setImageUploaderModal
     const auth = useSelector((state) => state.auth.user)
     const dispatch = useDispatch()
     const theme = useMantineTheme();
+    const postRef = useRef()
 
     const [fileInputState, setFileInputState] = useState('');
     const [selectedFile, setselectedFile] = useState('')
@@ -80,12 +82,24 @@ export default function ImageUploader({ImageUploaderModal, setImageUploaderModal
       >
           <div className='image--uploader'>
             <form type='submit'>
-                <input type="file" name="image" accept='image/' onChange={handleFileChange} placeholder='upload an image' value={fileInputState} />
+                <p>Change Profile Photo</p>
+                <input type="file" name="image" accept='image/' onChange={handleFileChange} placeholder='upload an image' ref={postRef} value={fileInputState}  className='hide--me'/>
+                {!previewSource && <div className='Blank--Image' onClick={()=>postRef.current.click()}>
+                    <BiPhotoAlbum />
+                    <p>Add a photo</p> 
+                </div>}
+              {previewSource && <img src={previewSource} alt='image'
+                style={{height: '300px'}}
+                  />}
                 <button onClick={handleSubmitFile}>Submit</button>
             </form>
+            {/* {!previewSource && <div className='Blank--Image' onClick={()=>postRef.current.click()}>
+                    <BiPhotoAlbum />
+                    <p>Add a photo</p> 
+                </div>}
             {previewSource && <img src={previewSource} alt='image'
                 style={{height: '300px'}}
-            />}
+            />} */}
           </div>
       </Modal>
     );

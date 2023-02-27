@@ -20,7 +20,7 @@
 }
 
 .Post--Modal--User > p {
-    font-weight: 700;
+    font-weight: 600;
     margin-left: 5px;
 }
 
@@ -43,6 +43,42 @@
     cursor: pointer;
 }
 
+.Blank--Image{
+    height: 300px;
+    width: 100%;
+    background-color: rgb(234, 233, 233);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.Blank--Image:hover{
+    background-color: rgb(223, 223, 223);
+}
+
+.Blank--Image > svg{
+    width: 100px;
+    height: 100px;
+    fill: rgb(172, 172, 172);
+}
+
+.Blank--Image > p{
+    color: rgb(172, 172, 172);
+    font-weight: 700;
+    margin: 0px;
+    font-size: 1.5rem;
+}
+
+
+.Post--Modal--Image{
+    object-fit: cover;
+    height: 300px;
+    width: 300px;
+    /* width: 100%; */
+    align-self: center;
+}
+
 .Post--Modal--Main> textarea{
     margin-top: 10px;
     width: 95%;
@@ -50,9 +86,29 @@
     resize: None;
     font-family: 'Montserrat', sans-serif;
 }
+.Post--Modal--Main> textarea{
+    margin-top: 10px;
+    width: 95%;
+    height: 50px;
+    resize: None;
+    font-family: 'Montserrat', sans-serif;
+
+}.Post--Modal--Main> textarea:focus{
+    outline: none;
+}
+
+
 
 .Post--Modal--Main> input[type=text]{
-    width: 20%;
+    height: 1rem;
+}
+
+.Post--Modal--Main> input[type=text]:focus{
+    outline: none;
+}
+
+.Reading--List> input:focus{
+    outline: none;
 }
 
 input::file-selector-button {
@@ -68,9 +124,11 @@ input::file-selector-button {
 }
 
 .Post--Modal--Main{
-    height: 400px;
+    height: 550px;
     margin: 1rem;
 }
+
+
 
 .Post--Progress--Bar{
     width: 100%;
@@ -117,3 +175,22 @@ input::file-selector-button {
     justify-content: space-around;
     margin-top: 20px; 
 }
+
+.Reading--List{
+    margin: 1rem;
+    margin-top: 2rem;
+    display: grid; 
+    grid-template-columns: .4fr 1fr;
+    grid-gap: 1rem;
+}
+
+.Workout--Block{
+    display: grid;
+    grid-template-columns: 1fr 1fr 50px 1fr;
+    grid-gap: 1rem;
+}
+
+.hide--me{
+    display: none;
+}
+
