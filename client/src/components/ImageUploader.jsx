@@ -4,6 +4,7 @@ import axios from 'axios';
 import { BiPhotoAlbum } from 'react-icons/bi';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateProfilePic } from '../features/auth/authSlice';
+import '../styles/components/ImageUploader.css'
 
 
 
@@ -80,18 +81,20 @@ export default function ImageUploader({ImageUploaderModal, setImageUploaderModal
             setPreviewSource('')
             }}
       >
-          <div className='image--uploader'>
+            <div className='image--uploader'>
             <form type='submit'>
                 <p>Change Profile Photo</p>
                 <input type="file" name="image" accept='image/' onChange={handleFileChange} placeholder='upload an image' ref={postRef} value={fileInputState}  className='hide--me'/>
-                {!previewSource && <div className='Blank--Image' onClick={()=>postRef.current.click()}>
-                    <BiPhotoAlbum />
-                    <p>Add a photo</p> 
-                </div>}
-              {previewSource && <img src={previewSource} alt='image'
-                style={{height: '300px'}}
-                  />}
-                <button onClick={handleSubmitFile}>Submit</button>
+                {!previewSource && 
+                    <div className='Blank--Image' onClick={()=>postRef.current.click()}>
+                        <BiPhotoAlbum />
+                        <p>Add a photo</p> 
+                    </div>}
+                {previewSource && <img src={previewSource} alt='image' style={{height: '300px'}}/>}
+                <div className='image--uploader--submit--container'>
+                    <button onClick={handleSubmitFile} className='Post--Modal--Button'>Submit</button>
+                </div>
+                {/* <button onClick={handleSubmitFile}>Submit</button> */}
             </form>
             {/* {!previewSource && <div className='Blank--Image' onClick={()=>postRef.current.click()}>
                     <BiPhotoAlbum />

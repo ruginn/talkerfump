@@ -1,5 +1,5 @@
 .usersearch--container{
     display: grid;
-    grid-template-columns: 220px 220px 220px;
+    grid-template-columns: 355px 355px 355px;
     overflow-y: hidden;
 }

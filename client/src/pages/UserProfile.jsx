@@ -101,9 +101,27 @@ export default function UserProfile() {
         <div className='user--profile--container'>
         <div className='user--profile--card'>
           <img src= {user.profileImage? user.profileImage: profilePic} alt="" className='user--profile--image'/>
+         <div className='profile--card--outer--container'> 
+         <div className='profile--card--inner--container'>
           <h3>@{user && user.username}</h3>
+            <p>{user.firstName} {user.lastName}</p>
+            <p><b>{posts&& posts.length}</b> {posts.length === 1? 'post':'posts'}</p>
+            <span onClick={openFollowersModal} className='pointer'><b>{user && user.followers.length}</b> followers </span>
+            <span onClick={openFollowingModal} className='pointer'><b>{user && user.following.length}</b> following</span> 
+
+            <br />
+            {auth.id !== params.userId?
+              user && user.followers.includes(auth.id)? 
+                <button onClick={onUnfollow}>Unfollow</button>: 
+                <button onClick={onFollow}>Follow</button>  : 
+                <button>Edit Profile</button>
+            }
+            {auth.id === params.userId? '':
+            <Link to='/messages'><button onClick={onCreateChat}>Message</button></Link>}
+         </div>
+         {/* <h3>@{user && user.username}</h3>
           <p>{user.firstName} {user.lastName}</p>
-          <p><b>{posts&& posts.length}</b> posts</p>
+          <p><b>{posts&& posts.length}</b> {posts.length === 1? 'post':'posts'}</p>
           <span onClick={openFollowersModal} className='pointer'><b>{user && user.followers.length}</b> followers </span>
           <span onClick={openFollowingModal} className='pointer'><b>{user && user.following.length}</b> following</span> 
 
@@ -115,11 +133,11 @@ export default function UserProfile() {
               <button>Edit Profile</button>
           }
           {auth.id === params.userId? '':
-          <Link to='/messages'><button onClick={onCreateChat}>Message</button></Link>}
-          
+          <Link to='/messages'><button onClick={onCreateChat}>Message</button></Link>} */}
+          </div>
         </div>
         <div>
-            <UserProgress />
+            {/* <UserProgress className='up-progress'/> */}
         </div>
           <section className='user--profile--content'>
           {isLoading && <Spinner />}

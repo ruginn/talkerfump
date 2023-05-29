@@ -1,0 +1,14 @@
+.image--uploader{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* align-items: center; */
+}
+
+
+.image--uploader--submit--container{
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+}
+

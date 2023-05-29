@@ -22,3 +22,33 @@
     margin-top: 1rem;
     width: 50%;
 }
+
+.profile--card--outter--container{
+    display: flex;
+    flex-direction: row;
+}
+.up--progress{
+    width: 50%;
+}
+.profile--card--inner--container{
+    width: 50%;
+}
+
+@media screen and (max-width: 900px){ 
+    .user--profile--container{
+        flex-direction: column;
+    }
+    .user--profile--card{
+        width: 95%;
+        height: 500px;
+        align-self: center;
+    }
+
+    .user--profile--image{
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+        border-radius: 20px 20px 0 0;
+    }
+
+}
