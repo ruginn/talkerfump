@@ -1,3 +1,8 @@
+.notification--link{
+    text-decoration: none;
+    color: black;
+}
+
 .notification--item{
     display: flex;
     align-items: center;

@@ -40,7 +40,9 @@ export default function CommentItem({comment, postUserId}) {
   return (
     <div key={comment._id} className='comment'>
         <div>
-        {comment.userId && <Link to={`/users/${comment.userId._id}`} ><img src={comment.userId.profileImage? comment.userId.profileImage: profileCat} alt="" className='profile--comment'/></Link>}
+        {/* {comment.userId && <Link to={`/users/${comment.userId._id}`} ><img src={comment.userId.profileImage? comment.userId.profileImage: profileCat} alt="" className='profile--comment'/></Link>} */}
+        {comment.userId && <Link to={`/users/${comment.userId._id}`} className='text--none'> {comment.userId.profileImage?  <img src= {comment.userId.profileImage} alt="" className='profile--comment'/>:<div className='pp--comment--none'><span>{comment.userId.firstName[0].toUpperCase()}</span><span>{comment.userId.lastName[0].toUpperCase()}</span></div>}</Link>}
+
             {/* <img src={profileCat} alt="" className='profile--comment'/>  */}
         </div>
         <div className='comment--content'>

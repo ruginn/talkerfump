@@ -34,7 +34,8 @@ export default function FollowerCard({user, setFollowersModal, setFollowingModal
     <div className='followCard--container'>
         <Link to={`/users/${userId}`} onClick={onCloseModal}>
         <div >
-            <img src={user.profileImage? user.profileImage : profileCat} alt="" className='profile--pic--Fcard' />
+            {user.profileImage?  <img src= {user.profileImage} alt="" className='profile--pic--Fcard'/>:<div className='pp--Fcard--none'><span>{user.firstName[0].toUpperCase()}</span><span>{user.lastName[0].toUpperCase()}</span></div>}
+            {/* <img src={user.profileImage? user.profileImage : profileCat} alt="" className='profile--pic--Fcard' /> */}
         </div>
         <div>
             <p className='followCard--username'>@{user.username}</p>

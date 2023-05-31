@@ -16,7 +16,7 @@ const generateToken = (id) => {
 
 export const registerUser = asyncHandler(async (req, res) => {
     const {password, username, email} =  req.body
-    const lowerCaseEmail = await req.body.email.toLowerCase()
+    const lowerCaseEmail = await req.body.email.toLowerCase().trimStart().trimEnd()
    
     // hash password with bcrypt
     const salt = await bcrypt.genSalt(10);
@@ -35,11 +35,11 @@ export const registerUser = asyncHandler(async (req, res) => {
 
     // create user
     const user = await User.create({
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,  
+        firstName: req.body.firstName.trimStart().trimEnd(),
+        lastName: req.body.lastName.trimStart().trimEnd(),  
         // email: req.body.email,
         email: lowerCaseEmail, 
-        username: req.body.username,
+        username: req.body.username.trimStart().trimEnd(),
         password: hashedPassword, 
     })
 
@@ -69,7 +69,7 @@ export const registerUser = asyncHandler(async (req, res) => {
 
 export const loginUser = asyncHandler(async (req, res) => {
     const { password, email} = req.body
-    const lowerCaseEmail = email.toLowerCase()
+    const lowerCaseEmail = email.toLowerCase().trimEnd().trimStart()
     const user = await User.findOne({email : lowerCaseEmail})
     // compare password
     if (user && (await bcrypt.compare(password, user.password))) {

@@ -26,12 +26,12 @@ export default function AccountabilityPartner() {
 
   return (
     <div>
-        {auth.buddy.length !== 24 && 
+        {auth.buddy?.length !== 24 &&
         <div>
             <h1>Get an accountability partner</h1>
             <button onClick={clickPartner}>Opt in</button>
         </div>}
-        {auth.buddy.length === 24 && 
+        {auth.buddy?.length === 24 && 
         <div>
             <div className='user--profile--card'>
             <img src= {user?.profileImage? user.profileImage: profileCat} alt="" className='user--profile--image'/>

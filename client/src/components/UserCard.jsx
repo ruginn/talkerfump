@@ -9,7 +9,8 @@ export default function UserCard({user}) {
     <div className='user--search--card'>
       <Link className='user--search--link' to={`/users/${user._id}`} key={user._id}>
         <div className='profile--container'>
-            <img src={user.profileImage ? user.profileImage : profileCat} alt="" className='profile--pic shift-margin' /> 
+          {user.profileImage?  <img src= {user.profileImage} alt="" className='profile--pic shift-margin'/>:<div><span>{user.firstName[0].toUpperCase()}</span><span>{user.lastName[0].toUpperCase()}</span></div>}
+          {/* <img src={user.profileImage ? user.profileImage : profileCat} alt="" className='profile--pic shift-margin' />  */}
         </div>
         <div>
           <h1 className='user--search--cardName'>{user.firstName}</h1>

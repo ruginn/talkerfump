@@ -148,7 +148,7 @@ export default function UserProfile() {
                 ))}
               </div>
             ) : (
-              <h3>You have not set any post</h3>
+              <h3>{user.username} has not set any post</h3>
             )}
          </section> 
          </div> 
