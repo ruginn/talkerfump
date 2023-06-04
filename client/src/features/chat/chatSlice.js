@@ -1,4 +1,3 @@
-import { ListItem } from '@mantine/core'
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit'
 import chatService from './chatService'
 

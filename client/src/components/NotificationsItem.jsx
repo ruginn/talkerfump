@@ -22,11 +22,12 @@ export default function NotificationsItem({notification}) {
     <Link to={`/users/${notification.sender._id}`} className='notification--link' >
         <div className={notification.read? 'notification--item read' : 'notification--item unread'}>
             <div>
-                <img src={notification.sender.profileImage ? notification.sender.profileImage: profileCat } alt="" className='notification--profile--pic'/>
+                {notification.sender.profileImage?<img src= {notification.sender.profileImage} alt="" className='notification--profile--pic'/>:<div className='notification--pp--none'><span>{notification.sender.firstName[0].toUpperCase()}</span><span>{notification.sender?.lastName[0].toUpperCase()}</span></div>}
+                {/* <img src={notification.sender.profileImage ? notification.sender.profileImage: profileCat } alt="" className='notification--profile--pic'/> */}
             </div>
-            <div>
-                <p>{notification.sender.username} {notification.content}</p>
-                <p>{new Date(notification.createdAt).toLocaleString('en-US')}</p> 
+            <div className='notification--text'>
+                <p><b>{notification.sender.username}</b> {notification.content}</p>
+                <p className='notification--text2'>{new Date(notification.createdAt).toLocaleString('en-US')}</p> 
             </div>
         </div>
     </Link> 

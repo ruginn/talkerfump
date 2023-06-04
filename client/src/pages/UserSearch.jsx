@@ -5,6 +5,7 @@ import UserCard from '../components/UserCard'
 import { useNavigate } from 'react-router-dom'
 import SearchBar from '../components/SearchBar'
 import '../styles/pages/UserSearch.css'
+import {setTopBarTrue} from '../features/general/generalSlice'
 
 export default function UserSearch() {
     const {users} = useSelector((state) => state.users)
@@ -17,15 +18,16 @@ export default function UserSearch() {
         if(!user){
         navigate('/login')
         }
+        dispatch(setTopBarTrue())
     }, [])
 
-    useEffect(() => {
-        dispatch(getUsers())
-    }, [dispatch])
+    // useEffect(() => {
+    //     dispatch(getUsers())
+    // }, [dispatch])
     
   return (
     <div>
-    <SearchBar /> 
+    {/* <SearchBar />  */}
         <section className='userSearch--main'>
             {users.length > 0 ? (
                 <div className='usersearch--container'>
@@ -33,7 +35,7 @@ export default function UserSearch() {
                         <UserCard key={user._id} user={user}/>
             ))}
                 </div>
-            ): (<p>there are no users</p>)}
+            ): (<p>We could not find any related users</p>)}
         </section>
     </div>
   )

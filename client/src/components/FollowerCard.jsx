@@ -34,12 +34,12 @@ export default function FollowerCard({user, setFollowersModal, setFollowingModal
     <div className='followCard--container'>
         <Link to={`/users/${userId}`} onClick={onCloseModal}>
         <div >
-            {user.profileImage?  <img src= {user.profileImage} alt="" className='profile--pic--Fcard'/>:<div className='pp--Fcard--none'><span>{user.firstName[0].toUpperCase()}</span><span>{user.lastName[0].toUpperCase()}</span></div>}
+            {user.profileImage?  <img src= {user.profileImage} alt="" className='profile--pic--Fcard'/>:<div className='pp--Fcard--none'><span>{user?.firstName[0].toUpperCase()}</span><span>{user?.lastName[0].toUpperCase()}</span></div>}
             {/* <img src={user.profileImage? user.profileImage : profileCat} alt="" className='profile--pic--Fcard' /> */}
         </div>
         <div>
             <p className='followCard--username'>@{user.username}</p>
-            <p className='followCard--name'>{user.firstName}</p>
+            <p className='followCard--name'>{user.firstName} {user.lastName}</p>
         </div> </Link>
         {auth.id === userId? '' :
         isFollowing? <button onClick={onUnfollowUser} className='follow--button following'>Unfollow</button> : <button onClick={onFollow} className='follow--button unfollowing'>Follow</button>}

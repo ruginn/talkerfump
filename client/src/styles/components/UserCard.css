@@ -36,3 +36,15 @@
     color: red;
     text-decoration: none;
 }
+
+.user--card--pp--null{
+    font-size: 2rem;
+    background-color: rgba(188, 188, 188, 0.657);
+    border-radius: 50%;
+    height: 100px;
+    width: 100px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+

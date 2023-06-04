@@ -3,6 +3,7 @@ import authReducer from '../features/auth/authSlice'
 import postReducer from '../features/posts/postSlice'
 import userReducer from '../features/users/userSlice'
 import chatReducer from '../features/chat/chatSlice'
+import generalReducer from '../features/general/generalSlice'
 import notificationReducer from '../features/notifications/notificationsSlice'
 
 export const store = configureStore({
@@ -11,6 +12,7 @@ export const store = configureStore({
         post: postReducer,
         users: userReducer,
         chats: chatReducer,
-        notifications: notificationReducer, 
+        notifications: notificationReducer,
+        general: generalReducer, 
     }
 })

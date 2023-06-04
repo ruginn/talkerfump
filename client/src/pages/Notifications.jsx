@@ -2,6 +2,7 @@ import React, {useEffect} from 'react'
 import { useDispatch, useSelector} from 'react-redux'
 import {getNotifications} from '../features/notifications/notificationsSlice'
 import NotificationsItem from '../components/NotificationsItem'
+import {setTopBarTrue} from '../features/general/generalSlice'
 
 export default function Notifications() {
     const dispatch = useDispatch()
@@ -9,6 +10,7 @@ export default function Notifications() {
 
     useEffect(() => {
         dispatch(getNotifications())
+        dispatch(setTopBarTrue())
     }, [])
 
 

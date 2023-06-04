@@ -3,9 +3,10 @@ import profileCat from '../pictures/defaultCat.jpeg'
 import {Link} from 'react-router-dom'
 import { deleteComment, likeComment } from '../features/posts/postSlice'
 import {useDispatch, useSelector} from 'react-redux'
-import {AiOutlineHeart, AiFillHeart } from 'react-icons/ai'
+import {AiOutlineHeart, AiFillHeart, AiOutlineClose } from 'react-icons/ai'
 import LikesModal from './LikesModal'
 import { getCommentLikes } from '../features/users/userSlice'
+import moment from 'moment'
 
 
 export default function CommentItem({comment, postUserId}) {
@@ -41,12 +42,13 @@ export default function CommentItem({comment, postUserId}) {
     <div key={comment._id} className='comment'>
         <div>
         {/* {comment.userId && <Link to={`/users/${comment.userId._id}`} ><img src={comment.userId.profileImage? comment.userId.profileImage: profileCat} alt="" className='profile--comment'/></Link>} */}
-        {comment.userId && <Link to={`/users/${comment.userId._id}`} className='text--none'> {comment.userId.profileImage?  <img src= {comment.userId.profileImage} alt="" className='profile--comment'/>:<div className='pp--comment--none'><span>{comment.userId.firstName[0].toUpperCase()}</span><span>{comment.userId.lastName[0].toUpperCase()}</span></div>}</Link>}
+        {comment.userId && <Link to={`/users/${comment.userId._id}`} className='text--none'> {comment.userId.profileImage?  <img src= {comment.userId.profileImage} alt="" className='profile--comment'/>:<div className='pp--comment--none'><span>{comment.userId.firstName[0].toUpperCase()}</span><span>{comment.userId?.lastName[0].toUpperCase()}</span></div>}</Link>}
 
             {/* <img src={profileCat} alt="" className='profile--comment'/>  */}
         </div>
         <div className='comment--content'>
-            <p className='comment--text'>{comment.commentText}</p>
+            <Link to={`/users/${comment.userId._id}`} className='username--comment'><span className="username--comment"><b>{comment.userId.firstName.toLowerCase()} </b></span></Link>
+            <span className='comment--text'>{comment.commentText}</span>
             <div className='comment--heart--container'>
                 <div onClick={onLike}>
                     {comment.likes.includes(auth.id)?
@@ -56,9 +58,13 @@ export default function CommentItem({comment, postUserId}) {
                 </div>
                 <span className='comment--like--container' onClick={openLikes}><b>{comment.likes.length}</b> {comment.likes.length === 1? 'Like': 'Likes'}</span>
             </div>
-            <p className='comment--details'>{comment.userId && comment.userId.username} commented at {new Date(comment.createdAt).toLocaleString('en-US')}</p>
+            {/* <p className='comment--details'>{moment(comment.createdAt).fromNow()}</p> */}
         </div>
-        {auth.id === comment.userId._id  || auth.id === postUserId ? <p onClick={onDelete}>x</p>: ''}
+        <div className='comment--right'>
+            {auth.id === comment.userId._id  || auth.id === postUserId ? <AiOutlineClose onClick={onDelete}/>: ''}
+            <p className='comment--details'>{moment(comment.createdAt).fromNow()}</p>      
+        </div>
+        {/* {auth.id === comment.userId._id  || auth.id === postUserId ? <p onClick={onDelete}>x</p>: ''} */}
         <LikesModal likesModal={likesModal} setLikesModal={setLikesModal}/> 
     </div>
   )

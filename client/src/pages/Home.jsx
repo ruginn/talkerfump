@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { useNavigate} from 'react-router-dom'
+import { useNavigate, Link} from 'react-router-dom'
 import { logout, reset} from '../features/auth/authSlice'
 import {getUserChats} from '../features/chat/chatSlice'
 import PostForm from '../components/PostForm'
@@ -10,6 +10,7 @@ import Post from '../components/Post'
 import FollowersModal from '../components/FollowersModal'
 import FollowingModal from '../components/FollowingModal'
 import ImageUploader from '../components/ImageUploader'
+import SearchBar from '../components/SearchBar'
 import '../styles/pages/Home.css'
 import defaultCat from '../pictures/defaultCat.jpeg'
 import PostModal from '../components/PostModal'
@@ -17,6 +18,7 @@ import {getNotifications} from '../features/notifications/notificationsSlice'
 import {AiOutlineCamera} from "react-icons/ai"
 import { reset as reset2 } from '../features/posts/postSlice'
 import { findFollowers, findFollowing } from '../features/users/userSlice'
+import {setTopBarTrue} from '../features/general/generalSlice'
 
 
 export default function Home() {
@@ -34,6 +36,7 @@ export default function Home() {
        dispatch(getTimeline())
        dispatch(getUserChats())
        dispatch(getNotifications())
+       dispatch(setTopBarTrue())
       //  dispatch(notificationCount())
     }, [navigate, onLoading])
     
@@ -69,22 +72,29 @@ export default function Home() {
 
     const openImageUploader = () =>{
       setImageUploaderModal(true)
-    }
+    } 
 
     const [postModal, setPostModal] = useState(false)
   return (
     <div>
     {/* Need to see if user exist before using, as it will say user is null and can not retrieve user.${whatever} */}
         {/* <button onClick={onLogout}>Logout</button> */}
-        <h3>Welcome {user && user.firstName}</h3>
+        {/* <div className='home--top--bar'>
+          <SearchBar className='margin--left'/>
+          <Link to={`/users/${user.id}`}>
+            {user && <img src={user.profileImage ? user.profileImage:defaultCat} className='profile--pic--top' />}
+            {user && <p>{user.firstName + ' ' + user?.lastName}</p>}
+          </Link>
+        </div> */}
+        {/* <h3>Welcome {user && user.firstName}</h3>
         <div className='profile--pic--container--home'>
-          {user && <img src={user.profileImage ? user.profileImage:defaultCat} className='profile--pic--home' />}
+        {user && <img src={user.profileImage ? user.profileImage:defaultCat} className='profile--pic--home' />}
           <div className='profile--pic--uploader' onClick={openImageUploader}><AiOutlineCamera/></div>
         </div>
         <p><b>{user && posts.filter((post) => (post.userId._id === user.id)).length}</b> posts</p>
         <span onClick={openFollowersModal}><b>{user && user.followers.length}</b> followers </span>
         <span onClick={openFollowingModal}><b>{user && user.following.length}</b> following</span>
-        <br></br>
+        <br></br> */}
         <button onClick={()=>setPostModal(true)} className='post--button'>Create a Post</button>
         <PostModal postModal={postModal} setPostModal={setPostModal}/>
         {/* <PostForm /> */}

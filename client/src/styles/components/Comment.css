@@ -3,13 +3,13 @@
     margin: .5rem .5rem;
     display: flex;
     padding: .5rem;
-    align-items: center;
     border-radius: 20px;
+    margin-left: 0px;
 }
 
 .profile--comment{
-    width: 50px;
-    height: 50px;
+    width: 30px;
+    height: 30px;
     object-fit: cover;
     border-radius: 50%;
     align-self: center;
@@ -17,8 +17,8 @@
 }
 
 .pp--comment--none{
-    width: 50px;
-    height: 50px;
+    width: 30px;
+    height: 30px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -29,12 +29,14 @@
     border-radius: 50%;
 }
 
-/* .pp--comment--none > span{
-    text-decoration: none;
-} */
+.pp--comment--none > span{
+    font-size: 15px;
+}
 
 .comment--content{
     margin-left: .5rem;
+    font-size: 0.8rem;
+    width: 80%;
 }
 
 .comment--text{
@@ -44,19 +46,25 @@
 .comment--heart--container{
     display: flex;
     align-items: center;
+    margin-top: 10px;
 }
 
 .comment--like--container {
     margin-left: .5rem;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
+    cursor: pointer;
 }
 
 .comment--like--container > b {
-    font-size: 0.8rem;
+    font-size: 0.7rem;
+}
+
+.comment--like--container:hover {
+    text-decoration: underline;
 }
 
 .comment--details{
-    font-size: .8rem;
+    font-size: .7rem;
     margin: 0px;
 }
 
@@ -77,4 +85,48 @@
 
 .text--none{
     text-decoration: none;
+}
+
+.comment--right{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.comment--right > svg{
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.comment--bottom--container{
+    display: flex;
+    flex-direction: row;
+}
+
+.comment--form--container{
+    width: 93%;
+    background-color: rgba(227, 227, 227, 0.587);
+    border-radius: 20px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    margin-top: 5px;;
+}
+
+.comment--form--container > input{
+    outline: none;
+    border: none;
+    background-color: transparent;
+    margin-left: 10px;
+}
+
+.comment--form--container > input::placeholder{
+    user-select: none;
+}
+
+.username--comment{
+    text-decoration: none;
+    color: black;
 }

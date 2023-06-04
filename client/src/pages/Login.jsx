@@ -1,7 +1,7 @@
 import React from 'react'
 import { login, reset } from '../features/auth/authSlice'
-import { useDispatch, useSelector } from 'react-redux'
-import { useState, useEffect } from 'react'
+import { useDispatch, useSelector} from 'react-redux'
+import { useState, useEffect, useRef } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import Login1 from '../pictures/LoginPhotos/login1.jpeg'
 import Login2 from '../pictures/LoginPhotos/login2.jpeg'
@@ -91,6 +91,13 @@ export default function Login() {
   
 
   const loginPic = [Login1, Login2, Login3, Login4, Login5 ]
+  
+  const emailSelect = useRef()
+  const passwordSelect = useRef()
+
+  const selectedSection = (inputSelector) => {
+    inputSelector.current.focus()
+  }
 
 
   return (
@@ -113,16 +120,16 @@ export default function Login() {
         <div className='login--container'>
           <h2>Welcome Back</h2>
           <form onSubmit={onSubmit} className='login--form'>
-            <div className={`login--input ${formErrors.email && formErrors.email !== ''? 'red--border' : ' '}`}> 
+            <div onClick={() => selectedSection(emailSelect)} className={`login--input ${formErrors.email && formErrors.email !== ''? 'red--border' : ' '}`}> 
               <AiOutlineMail />
               <label htmlFor="email"></label>
-              <input type="text" id='email' name='email' value={email} onChange={onChange} placeholder='Email'/>
+              <input ref={emailSelect} type="text" id='email' name='email' value={email} onChange={onChange} placeholder='Email'/>
             </div>
             {formErrors.email !== '' && <p className='register--invalid'>{formErrors.email}</p>}
-            <div className={`login--input ${formErrors.password && formErrors.password !== ''? 'red--border' : ' '}`}>
+            <div onClick={() => selectedSection(passwordSelect)} className={`login--input ${formErrors.password && formErrors.password !== ''? 'red--border' : ' '}`}>
             <BsKey /> 
               <label htmlFor="password"></label>
-              <input type="password" id='password' name='password' value={password} onChange={onChange} placeholder='Password' />
+              <input ref={passwordSelect} type="password" id='password' name='password' value={password} onChange={onChange} placeholder='Password' />
             </div>
             {formErrors.password !== '' && <p className='register--invalid'>{formErrors.password}</p>}
             <button className='login--button'>Login</button>

@@ -1,4 +1,4 @@
-import React, {useState ,useEffect} from 'react'
+import React, {useState ,useEffect, useRef} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import { useNavigate , Link} from 'react-router-dom'
 import { register, reset } from '../features/auth/authSlice'
@@ -151,6 +151,17 @@ export default function Register() {
         dispatch(reset())
     }
 
+    const firstNameSelect = useRef()
+    const lastNameSelect = useRef()
+    const usernameSelect = useRef()
+    const emailSelect = useRef()
+    const password1Select = useRef()
+    const password2Select = useRef()
+
+    const clickSelect = (inputSelector) => {
+        inputSelector.current.focus()
+    }
+
 
   return (
     <div className='Register'>
@@ -160,39 +171,39 @@ export default function Register() {
     <div className='register--container'>
         <h2>Register Section</h2>
             <form onSubmit={onSubmit} className='register--form'>
-                <div className= {`register--input ${formErrors.firstName && formErrors.firstName !== ''? 'red--border' : ' '}`}>
+                <div onClick={() => {clickSelect(firstNameSelect)}} className= {`register--input ${formErrors.firstName && formErrors.firstName !== ''? 'red--border' : ' '}`}>
                     <AiOutlineUser/>
                     <label htmlFor="firstName"></label>
-                    <input type="text" name='firstName' id='firstName' value={firstName} onChange={onChange} placeholder='First Name'/> 
+                    <input ref={firstNameSelect} type="text" name='firstName' id='firstName' value={firstName} onChange={onChange} placeholder='First Name'/> 
                 </div>
                 {formErrors.firstName !== '' && <p className='register--invalid'>{formErrors.firstName}</p>}
-                <div className='register--input'>
+                <div onClick={() => {clickSelect(lastNameSelect)}} className='register--input'>
                     <AiOutlineUser/>
                     <label htmlFor="lastName"></label>
-                    <input type="text" name='lastName' id='lastName' value={lastName} onChange={onChange} placeholder='Last Name'/> 
+                    <input ref={lastNameSelect} type="text" name='lastName' id='lastName' value={lastName} onChange={onChange} placeholder='Last Name'/> 
                 </div>
-                <div className={`register--input ${formErrors.username && formErrors.username !== ''? 'red--border' : ' '}`}>
+                <div onClick={() => {clickSelect(usernameSelect)}} className={`register--input ${formErrors.username && formErrors.username !== ''? 'red--border' : ' '}`}>
                     <IoEarthOutline/>
                     <label htmlFor="username"></label>
-                    <input type="text" name='username' id='username' value={username} onChange={onChange} placeholder='Username'/>
+                    <input ref={usernameSelect} type="text" name='username' id='username' value={username} onChange={onChange} placeholder='Username'/>
                 </div>
                 {formErrors.username !== '' && <p className='register--invalid'>{formErrors.username}</p>}
-                <div className={`register--input ${formErrors.email && formErrors.email !== ''? 'red--border' : ' '}`}>
+                <div onClick={() => {clickSelect(emailSelect)}} className={`register--input ${formErrors.email && formErrors.email !== ''? 'red--border' : ' '}`}>
                     <AiOutlineMail /> 
                     <label htmlFor="email"></label>
-                    <input type="text" name='email' id='email' value={email} onChange={onChange} placeholder='Email'/> 
+                    <input ref={emailSelect} type="text" name='email' id='email' value={email} onChange={onChange} placeholder='Email'/> 
                 </div>
                 {formErrors.email !== '' && <p className='register--invalid'>{formErrors.email}</p>}
-                <div className={`register--input ${formErrors.password && formErrors.password !== ''? 'red--border' : ' '}`}>
+                <div onClick={()=>{clickSelect(password1Select)}} className={`register--input ${formErrors.password && formErrors.password !== ''? 'red--border' : ' '}`}>
                     <BsKey />
                     <label htmlFor="password"></label>
-                    <input type="password" name='password' id='password' value={password} onChange={onChange} placeholder='Password'/> 
+                    <input ref={password1Select} type="password" name='password' id='password' value={password} onChange={onChange} placeholder='Password'/> 
                 </div>
                 {formErrors.password !== '' && <p className='register--invalid'>{formErrors.password}</p>}
-                <div className={`register--input ${formErrors.password2 && formErrors.password2 !== ''? 'red--border' : ' '}`}>
+                <div onClick={() => {clickSelect(password2Select)}} className={`register--input ${formErrors.password2 && formErrors.password2 !== ''? 'red--border' : ' '}`}>
                     <BsKey />
                     <label htmlFor="password2"></label>
-                    <input type="password" name='password2' id='password2' value={password2} onChange={onChange} placeholder='Confirm Password'/>   
+                    <input ref={password2Select} type="password" name='password2' id='password2' value={password2} onChange={onChange} placeholder='Confirm Password'/>   
                 </div>
                 {formErrors.password2 !== '' && <p className='register--invalid'>{formErrors.password2}</p>}
                 <button type='submit' className='register--button'>Register</button>

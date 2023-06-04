@@ -3,9 +3,9 @@
     flex-direction: column;
     /* border: 1px solid black; */
     margin: .5rem;
-    padding: .5rem; 
+    padding: .5rem 0; 
     border-radius: 20px;
-    width: 60vw;
+    width: 650px;
     box-shadow: 1px 1px 30px 1px rgb(119, 119, 119);
 }
 
@@ -15,12 +15,25 @@
     flex-direction: column;
 }
 
+.time--post{
+    font-size: .9rem;
+}
 
 .profile--pic--container{
     display: flex;
     display: row;
     margin: 0px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
+
+.profile--pic--container > svg{
+    cursor: pointer;
+    margin-bottom: 15px;
+    margin-right: 10px;
+}
+
 
 .post--user--link{
     display: flex;
@@ -51,12 +64,15 @@
     height: 50px;
     object-fit: cover;
     border-radius: 50%;
+    margin-left: 5px;
 }
 
+
 .post--streak{
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     font-weight: 600;
     margin: 0px;
+    margin-left: 5px;
 }
 
 .post--text {
@@ -71,7 +87,19 @@
 .like--container{
     height: 25px;
     display: flex;
+    justify-content: space-between;
     align-items: center;
+    margin: 0px 35px;
+}
+
+.like--container > div{
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.like--container > div:hover{
+    text-decoration: underline;
 }
 
 .like--value{
@@ -100,14 +128,50 @@
 
 .comment--counter{
     margin-left: 1rem;
+    user-select: none;
+}
+.comment--counter:hover {
+    text-decoration: underline;
 }
 
 .progress--photo{
-    height: 300px;
+    object-fit: cover;
+    height: 650px;
+    width: 650px;
+}
+
+
+.post--achievements{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin: 10px; 
+}
+
+.post--achievements >svg{
+    height: 35px;
+    width: 35px
+}
+
+.run{
+    color: green;
+    fill: green;
+}
+
+.book{
+    fill: red;
+}
+
+
+
+.sun{
+    color: rgb(255, 170, 0);
+    fill: orange;
 }
 
 .beer{
     fill: transparent;
+    color: rgb(209, 155, 47)
 }
 
 .water{
@@ -118,14 +182,20 @@
     fill: gray;
 }
 
+.progress--photo--container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
 @media screen and (max-width: 600px){
     .post--container{
-        margin: 1rem;
+        /* margin: 1rem; */
         width: 90vw;
     }
     .progress--photo{
-        height: 300px;
-        width: 85vw;
+        height: 400px;
+        width: 100%;
         object-fit: cover;
     }
 }

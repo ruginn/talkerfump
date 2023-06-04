@@ -19,6 +19,31 @@
     border-radius: 50%;
 }
 
+.notification--pp--none{
+    margin: 0px 1rem 0px .5rem;
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    background-color: rgb(184, 184, 184);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.notification--pp--none > span{
+    color: black;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.notification--text> p{
+    margin: 0px;
+}
+
+.notification--text2{
+    font-size: 12px;
+}
+
 .unread{
     background-color: rgba(118, 209, 240, 0.425);
 }

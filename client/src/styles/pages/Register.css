@@ -77,6 +77,8 @@ register--container>h2 {
     justify-content: flex-start;
     border-radius: 15px;
     font-family: 'Montserrat', sans-serif;
+    cursor: text;
+    user-select: none;
 }
 
 .red--border{

@@ -1,5 +1,14 @@
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import {setTopBarTrue} from '../features/general/generalSlice'
 
 export default function Rules() {
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(setTopBarTrue())
+  }, )
+
   return (
     <div>
         <h1>75 Hard Program</h1>

@@ -16,6 +16,7 @@ import { checkNotifications } from '../features/notifications/notificationsSlice
 import SettingsModal from '../components/SettingsModal'
 import logo from '../pictures/logokma.svg'
 import io from 'socket.io-client'
+import { getUsers } from '../features/users/userSlice'
 
 
 const socket = io.connect('http://localhost:8080')
@@ -81,6 +82,13 @@ export default function NavBar() {
     }
 
     let navMobile = navDisplay? 'display' : ''
+
+
+    const usersClicked = () => {
+      toggleNav()
+      console.log('usersClicked')
+      dispatch(getUsers())
+    }
    
   return (
     <div className="top">
@@ -97,7 +105,7 @@ export default function NavBar() {
             <div onClick={toggleNav}><Link to='/' className='Logo'> <img src={logo} alt="" className='nav--logo'/><span className='nav--title'>Keep Me Accountable 75</span></Link></div> 
             <div onClick={toggleNav}><Link to='/' className='Nav--row top--nav--item' title='Home'><AiOutlineHome /> <span>Home</span></Link></div> 
             <div onClick={mobileNotification}><Link to='/notifications' className='Nav--row' title='Notifications'><div className='notification--bell'><BsBell/>{count > 0 ? <span className='notification--count'>{count}</span>: ''}</div><span>Notifications</span></Link></div>
-            <div onClick={toggleNav}><Link to='/users' className='Nav--row' title='Users'><AiOutlineUser /><span>Users</span></Link></div>
+            <div onClick={usersClicked}><Link to='/users' className='Nav--row' title='Users'><AiOutlineUser /><span>Users</span></Link></div>
             {/* <div onClick={toggleNav}><Link to='/achievements' className='Nav--row larger--icon' title='Achievements'><BsTrophy /><span>Achievements</span></Link></div> */}
             <div onClick={toggleNav}><Link to='/accountability' className='Nav--row' title='Gym Buddy'><FaRegHandshake /><span>Accountability Partner</span></Link></div> 
             {/* <div onClick={toggleNav}><Link to='/schedule' className='Nav--row larger--icon' title='Schedule'><BsCalendarDate /><span>Schedule</span></Link></div>  */}

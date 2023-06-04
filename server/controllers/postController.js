@@ -95,13 +95,13 @@ export const likePost = asyncHandler(async(req, res) =>{
     }
     if (post.likes.includes(userId)) {
         await post.updateOne({$pull: {likes: userId}});
-        const unlikedPost = await Post.findById(id).populate("userId","firstName username profileImage")
+        const unlikedPost = await Post.findById(id).populate("userId","firstName username profileImage lastName")
         .populate({path: 'comments', populate: {path: 'userId', select: '-password'}})
 
         res.status(200).json(unlikedPost)
     } else {
         await post.updateOne({$push: {likes: userId}})
-        const likedPost = await Post.findById(id).populate("userId","_id firstName username profileImage")
+        const likedPost = await Post.findById(id).populate("userId","_id firstName username profileImage lastName")
         .populate({path: 'comments', populate: {path: 'userId', select: '-password'}})
         
         await Notification.create({
@@ -134,7 +134,7 @@ export const commentPost = asyncHandler(async(req, res) => {
     })
     const post = await Post.findById(postId)
     await post.updateOne({$push : {comments: comment._id,}}, {new: true})
-    const updatedPost = await Post.findById(postId).populate("userId","_id firstName username profileImage")
+    const updatedPost = await Post.findById(postId).populate("userId","_id firstName username profileImage lastName")
     .populate({path: 'comments', populate: {path: 'userId', select: '-password'}})
     await Notification.create({
         sender: userId, 
@@ -155,7 +155,7 @@ export const deleteComment = asyncHandler(async(req, res)=> {
     const id = req.body.commentId;
     const userId = req.user.id
     const comment = await Comment.findById(id)
-    const post = await Post.findById(postId).populate("userId","firstName username profileImage")
+    const post = await Post.findById(postId).populate("userId","firstName username profileImage lastName")
 
     if(!comment){
         res.status(400).json('comment not found')
@@ -163,7 +163,7 @@ export const deleteComment = asyncHandler(async(req, res)=> {
     
     if(userId.toString() === post.userId._id.toString() || userId.toString() === comment.userId._id.toString()){
         comment.remove()
-        const updatedpost = await Post.findById(postId).populate("userId","firstName username profileImage")
+        const updatedpost = await Post.findById(postId).populate("userId","firstName username profileImage lastName")
         .populate({path: 'comments', populate: {path: 'userId', select: '-password'}})
         res.status(200).json(updatedpost) 
     } else {
@@ -185,13 +185,13 @@ export const likeComment = asyncHandler(async(req, res) => {
     } 
     if (comment.likes.includes(userId)) {
         await comment.updateOne({$pull: {likes: userId}});
-        const unlikedComment = await Post.findById(postId).populate("userId","firstName username profileImage")
+        const unlikedComment = await Post.findById(postId).populate("userId","firstName username profileImage lastName")
         .populate({path: 'comments', populate: {path: 'userId', select: '-password'}})
 
         res.status(200).json(unlikedComment)
     } else {
         await comment.updateOne({$push: {likes: userId}})
-        const likedComment = await Post.findById(postId).populate("userId","_id firstName username profileImage")
+        const likedComment = await Post.findById(postId).populate("userId","_id firstName username profileImage lastName")
         .populate({path: 'comments', populate: {path: 'userId', select: '-password'}})
         await Notification.create({
             sender: userId, 
@@ -273,7 +273,7 @@ export const getTimelinePosts = asyncHandler(async (req,res) =>{
             {userId:{$in:req.user.following}},
             {userId: req.user._id}
         ]
-    }).populate("userId","firstName username profileImage")
+    }).populate("userId","firstName username profileImage lastName")
     .populate({path: 'comments', populate: {path: 'userId', select: '-password'}})
     .sort('-createdAt')
     
@@ -286,7 +286,7 @@ export const getTimelinePosts = asyncHandler(async (req,res) =>{
 
 export const getPostLikes = asyncHandler(async(req, res) => {
     const postId = req.params.id
-    const likedUsers = await Post.findById(postId).populate('likes', 'profileImage username firstName _id')
+    const likedUsers = await Post.findById(postId).populate('likes', 'profileImage username firstName _id lastName')
     if (!likedUsers) {
         res.status(400).json('Post does not exist')
     }
@@ -295,7 +295,7 @@ export const getPostLikes = asyncHandler(async(req, res) => {
 
 export const getCommentLikes = asyncHandler(async(req, res) => {
     const commentId = req.params.id
-    const likedUsers = await Comment.findById(commentId).populate('likes', 'profileImage username firstName _id')
+    const likedUsers = await Comment.findById(commentId).populate('likes', 'profileImage username firstName _id lastName')
     if(!commentId) {
         res.status(400).json('Could not find comment')
     }

@@ -4,6 +4,7 @@ import { useEffect } from 'react'
 import { getPartner } from '../features/auth/authSlice'
 import { getUser } from '../features/users/userSlice'
 import profileCat from '../pictures/defaultCat.jpeg'
+import {setTopBarTrue} from '../features/general/generalSlice'
 
 export default function AccountabilityPartner() {
     const dispatch = useDispatch()
@@ -19,6 +20,7 @@ export default function AccountabilityPartner() {
     // }
     useEffect(() => {
         dispatch(getUser(auth.buddy))
+        dispatch(setTopBarTrue())
     },[])
     const clickPartner = () => {
         dispatch(getPartner())

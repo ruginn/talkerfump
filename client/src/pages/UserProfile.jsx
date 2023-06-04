@@ -16,6 +16,7 @@ import '../styles/pages/UserProfile.css'
 import { getChatMessages, resetChatMessages } from '../features/chat/chatSlice'
 import UserProgress from '../components/UserProgress'
 import { useNavigate } from 'react-router-dom'
+import {setTopBarTrue} from '../features/general/generalSlice'
 
 const socket = io.connect('http://localhost:8080')
 
@@ -35,7 +36,9 @@ export default function UserProfile() {
       dispatch(getUserPosts(userId))
     }, [userId, dispatch])
     
-
+    useEffect(() => {
+      dispatch(setTopBarTrue())
+    },)
 
     const onFollow =  () => {
       dispatch(followUser(userId))

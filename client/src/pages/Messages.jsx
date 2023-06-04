@@ -2,6 +2,7 @@ import io from 'socket.io-client'
 import {useState, useEffect, useRef} from 'react'
 import Chat from '../components/Chat'
 import {getUserChats} from '../features/chat/chatSlice'
+import {setTopBarFalse} from '../features/general/generalSlice'
 import { useSelector, useDispatch } from 'react-redux'
 import UserChatCard from '../components/UserChatCard'
 import { getChatMessages } from '../features/chat/chatSlice'
@@ -34,6 +35,9 @@ export default function Messages() {
     }
   }, [])
 
+  useEffect(() => {
+    dispatch(setTopBarFalse())
+  },)
 
   const username = useSelector((state) => state.auth.user.username)
   const [room, setRoom] = useState('')
