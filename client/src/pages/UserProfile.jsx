@@ -17,6 +17,9 @@ import { getChatMessages, resetChatMessages } from '../features/chat/chatSlice'
 import UserProgress from '../components/UserProgress'
 import { useNavigate } from 'react-router-dom'
 import {setTopBarTrue} from '../features/general/generalSlice'
+import ImageUploader from '../components/ImageUploader'
+import { AiOutlineCamera } from 'react-icons/ai'
+
 
 const socket = io.connect('http://localhost:8080')
 
@@ -57,6 +60,8 @@ export default function UserProfile() {
 
     const [followersModal, setFollowersModal] = useState(false)
     const [followingModal, setFollowingModal] = useState(false)
+    const [ImageUploaderModal, setImageUploaderModal] = useState(false)
+
     
 
     const openFollowersModal = () => {
@@ -98,6 +103,10 @@ export default function UserProfile() {
       })
     }
 
+    const openImageUploader = () =>{
+      setImageUploaderModal(true)
+    } 
+
   return (
     <div>
       {user && 
@@ -117,7 +126,7 @@ export default function UserProfile() {
               user && user.followers.includes(auth.id)? 
                 <button onClick={onUnfollow}>Unfollow</button>: 
                 <button onClick={onFollow}>Follow</button>  : 
-                <button>Edit Profile</button>
+                <div className='' onClick={openImageUploader}><AiOutlineCamera/></div>
             }
             {auth.id === params.userId? '':
             <Link to='/messages'><button onClick={onCreateChat}>Message</button></Link>}
@@ -158,6 +167,7 @@ export default function UserProfile() {
       }
       {user && <FollowersModal followersModal={followersModal} setFollowersModal={setFollowersModal} username= {user.username}/>}
       {user && <FollowingModal followingModal={followingModal} setFollowingModal={setFollowingModal} username= {user.username}/>}
+      {user && <ImageUploader ImageUploaderModal={ImageUploaderModal} setImageUploaderModal={setImageUploaderModal}/>}
     </div>
   )
 }

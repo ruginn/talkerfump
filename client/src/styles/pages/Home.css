@@ -84,5 +84,22 @@
 
 .content{
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+@media screen and (max-width: 1200px){
+    .content{
+        align-items:flex-start;
+    }
+}
+
+
+@media screen and (max-width: 900px){
+    .content{
+        align-items: center;
+    }
+    .gone{
+        display: none
+    }
 }

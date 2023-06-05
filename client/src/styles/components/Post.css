@@ -188,7 +188,7 @@
     justify-content: center;
 }
 
-@media screen and (max-width: 600px){
+@media screen and (max-width: 690px){
     .post--container{
         /* margin: 1rem; */
         width: 90vw;

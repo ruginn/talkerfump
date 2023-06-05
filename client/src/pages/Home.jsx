@@ -74,7 +74,6 @@ export default function Home() {
       setImageUploaderModal(true)
     } 
 
-    const [postModal, setPostModal] = useState(false)
   return (
     <div>
     {/* Need to see if user exist before using, as it will say user is null and can not retrieve user.${whatever} */}
@@ -95,10 +94,9 @@ export default function Home() {
         <span onClick={openFollowersModal}><b>{user && user.followers.length}</b> followers </span>
         <span onClick={openFollowingModal}><b>{user && user.following.length}</b> following</span>
         <br></br> */}
-        <button onClick={()=>setPostModal(true)} className='post--button'>Create a Post</button>
-        <PostModal postModal={postModal} setPostModal={setPostModal}/>
         {/* <PostForm /> */}
         <section className='content'>
+        <PostForm />
           {posts.length > 0 ? (
             <div >
               {posts.map((post) => (

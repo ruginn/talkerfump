@@ -1,7 +1,9 @@
-import {useSelector, useDispatch} from 'react-redux'
+import {useSelector, useDispatch, useRef} from 'react-redux'
 import {useState} from 'react'
 import {createPost} from '../features/posts/postSlice'
-
+import PostModal from '../components/PostModal'
+import '../styles/components/PostForm.css'
+import { Link } from 'react-router-dom'
 
 import React from 'react'
 
@@ -40,13 +42,20 @@ export default function PostForm() {
         setPostText('')
 
     }
+    const [postModal, setPostModal] = useState(false)
+
   return (
-    <div>
-        <form onSubmit={onSubmit}>
-            <label htmlFor="postText">Whats poping {user && user.firstName}? </label>
-            <input type="text" id='postText' name='postText' onChange={onChange} value={postText}  placeholder="I'm having a good day! :)"/> 
-            <button>Submit</button>
-        </form>
+    <div >
+        <div className='post--form--container' >
+            <div className='inner--form--container1'>
+            {user && <Link to={`/users/${user.id}`} >{user.profileImage? <img src={user.profileImage} className='pp--post--form'/>:''}</Link>}
+            <div onClick={()=>setPostModal(true)} className='post--input--container'>
+                <input type="text" placeholder='Enter your daily activity!'/>
+            </div>
+            </div>
+
+        </div>
+        <PostModal postModal={postModal} setPostModal={setPostModal}/>
     </div>
   )
 }

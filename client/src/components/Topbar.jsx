@@ -9,7 +9,7 @@ export default function Topbar() {
 
 
   return (
-    <div className='home--top--bar'>
+    <div className='home--top--bar gone'>
           <SearchBar className='margin--left'/>
           <Link to={`/users/${user.id}`}>
             {user && <img src={user.profileImage ? user.profileImage:defaultCat} className='profile--pic--top' />}
