@@ -206,26 +206,20 @@ export default function PostModal({postModal, setPostModal}) {
             setPreviewSource('')}}
       >
           <div className='Post--Modal--Container'>
-            <hr></hr>
-            {/* <span className='Post--Modal--Span'>span</span> */}
-            {user && <div className='Post--Modal--User'>
-             <img src={user.profileImage?user.profileImage:defaultCat} alt="" className='Post--Modal--PI' />  
-             <p >{user.username}</p>
-            </div>}
-            {/* <h1>Journal Your Daily Entry</h1> */}
+            <hr />
             <form className='Post--Form' onSubmit={handleSubmit}>
                 {blockOne && <div>
                 <div className='Post--Modal--Main'>
-                <label htmlFor="post">Whats poping {user && user.firstName}? </label>
+                <label htmlFor="post">Hi {user && user.firstName}, let's log your daily activity!</label>
                 <br></br>
-                <textarea type="text" id='post' name='post' onChange={onChange2} value={post} className='Post-General' placeholder="I'm having a good day! :)"/> 
+                <input type="text" id='post' name='post' onChange={onChange2} value={post} className='post-general' placeholder="I'm having a good day! :)"/> 
                 <p>Progress Photo</p>
                 {!previewSource && <div className='Blank--Image' onClick={()=>postRef.current.click()}>
                     <BiPhotoAlbum />
                     <p>Add a photo</p> 
                 </div>}
                 {previewSource && 
-                <div>
+                <div className='post--modal--image--div'>
                  <img src={previewSource} value={previewSource} className='Post--Modal--Image' />
                  <p onClick={()=>(setPreviewSource(false))}>x</p>
                 </div>

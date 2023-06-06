@@ -1,11 +1,22 @@
 .Post--Modal--Container{
-    height: 80%;
+    height: 800px;
 }
 
 /* .Post--Modal--Span{
     width: 100%;
     border-top: 1px solid black;
 } */
+
+.post-general{
+    width: 90%;
+    background-color: rgba(227, 227, 227, 0.587);
+    border-radius: 20px;
+    display: flex;
+    outline: none;
+    border: none;
+    height: 300px;
+}
+
 
 .Post--Form{
     display: flex;
@@ -77,6 +88,7 @@
     width: 300px;
     /* width: 100%; */
     align-self: center;
+    justify-self: center;
 }
 
 .Post--Modal--Main> textarea{
@@ -194,3 +206,13 @@ input::file-selector-button {
     display: none;
 }
 
+.post--modal--image--div {
+    display: flex;
+    justify-content: center;
+}
+
+.post--modal--image--div > img{
+    height: 400px;
+    width: 90%;
+    object-fit: cover;
+}
