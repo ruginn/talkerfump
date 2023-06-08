@@ -190,7 +190,18 @@ export default function PostModal({postModal, setPostModal}) {
         setBlockThree((prev) => !prev)
     }
 
-  
+    const form1 = () => {
+        dispatch(setModalPage1())
+        console.log(modalPage)
+    }
+    const form2 = () => {
+        dispatch(setModalPage2())
+        console.log(modalPage)
+    }
+    const form3 = () => {
+        dispatch(setModalPage3())
+        console.log(modalPage)
+    }
 
 
     return (
@@ -334,6 +345,10 @@ export default function PostModal({postModal, setPostModal}) {
                 </div>
                 <div className='Post--Progress--Bar'>
                     <div className='Post-Progress--Line'>
+                        <button type='button' onClick={form1}>1</button>
+                        <button type='button' onClick={form2}>2</button>
+                        <button type='button' onClick={form3}>3</button>
+                        
                         <div className='Progress--Cir Circ-1 Circ--Active'></div>
                         <div className='Progress--Cir Circ-2 Circ--Active'></div>
                         <div className='Progress--Cir Circ-3 Circ--Active'></div>
@@ -345,6 +360,7 @@ export default function PostModal({postModal, setPostModal}) {
                 </div>
                 </div>}
             </form>
+
           </div>
       </Modal>
     );
