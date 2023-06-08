@@ -5,6 +5,7 @@ import {useState, useRef} from 'react'
 import {BiPhotoAlbum} from 'react-icons/bi'
 import {createPost} from '../features/posts/postSlice'
 import { streak as updateStreak} from '../features/auth/authSlice';
+import { setModalPage1, setModalPage2, setModalPage3 } from '../features/general/generalSlice';
 import '../styles/components/PostModal.css'
 
 
@@ -18,7 +19,7 @@ export default function PostModal({postModal, setPostModal}) {
     const [fileInputState, setFileInputState] = useState('');
     const [selectedFile, setselectedFile] = useState('')
     const [previewSource, setPreviewSource] = useState('')
-
+    const modalPage = useSelector((state) => state.general.modalPage)
 
     const handleFileChange = ({target}) => {
         const file = target.files[0]
