@@ -23,9 +23,12 @@ export const generalSlice = createSlice({
         },
         setModalPage3: (state) =>{
             state.modalPage = 3
+        },
+        setModalPage4: (state) =>{
+            state.modalPage = 4
         }
     }
 })
 
-export const {setTopBarFalse, setTopBarTrue, setModalPage1, setModalPage2, setModalPage3} =  generalSlice.actions;
+export const {setTopBarFalse, setTopBarTrue, setModalPage1, setModalPage2, setModalPage3, setModalPage4} =  generalSlice.actions;
 export default generalSlice.reducer;

@@ -2,11 +2,18 @@ import { Modal, useMantineTheme } from '@mantine/core';
 import {useSelector, useDispatch} from 'react-redux'
 import defaultCat from '../pictures/defaultCat.jpeg'
 import {useState, useRef} from 'react'
-import {BiPhotoAlbum} from 'react-icons/bi'
+import {BiBeer, BiPhotoAlbum} from 'react-icons/bi'
 import {createPost} from '../features/posts/postSlice'
 import { streak as updateStreak} from '../features/auth/authSlice';
-import { setModalPage1, setModalPage2, setModalPage3 } from '../features/general/generalSlice';
+import { setModalPage1, setModalPage2, setModalPage3, setModalPage4 } from '../features/general/generalSlice';
 import '../styles/components/PostModal.css'
+import {FiSun } from 'react-icons/fi'
+import {GrRun } from 'react-icons/gr'
+import {BsBook} from 'react-icons/bs'
+import {TbBeerOff} from 'react-icons/tb'
+import {GiForkKnifeSpoon} from 'react-icons/gi'
+import {IoWaterOutline} from 'react-icons/io5'
+import {AiOutlineCamera} from 'react-icons/ai'
 
 
 
@@ -169,38 +176,27 @@ export default function PostModal({postModal, setPostModal}) {
             cleanEat: true, 
             water: true, 
         })
-        setBlockOne(true)
-        setBlockTwo(false)
-        setBlockThree(false)
+        form1()
         setPreviewSource(false)
     }
 
-    const [blockOne, setBlockOne] = useState(true)
-    const [blockTwo, setBlockTwo] = useState(false)
-    const [blockThree, setBlockThree] = useState(false)
+    
 
-
-    const blockOneControl = () => {
-        setBlockOne((prev) => !prev)
-        setBlockTwo((prev) => !prev)
-    }
-
-    const blockTwoControl = () => {
-        setBlockTwo((prev) => !prev)
-        setBlockThree((prev) => !prev)
-    }
+    
 
     const form1 = () => {
         dispatch(setModalPage1())
-        console.log(modalPage)
     }
     const form2 = () => {
         dispatch(setModalPage2())
-        console.log(modalPage)
+
     }
     const form3 = () => {
         dispatch(setModalPage3())
-        console.log(modalPage)
+    }
+
+    const form4 = () => {
+        dispatch(setModalPage4())
     }
 
 
@@ -218,9 +214,26 @@ export default function PostModal({postModal, setPostModal}) {
             setPreviewSource('')}}
       >
           <div className='Post--Modal--Container'>
-            <hr />
             <form className='Post--Form' onSubmit={handleSubmit}>
-                {blockOne && <div>
+                <div className='Post--modal--icons'>
+                    <button type='button' onClick={form1}>
+                      <AiOutlineCamera onClick={form1} />
+                    </button>
+                    <button type='button' onClick={form2}>
+                        <GrRun />
+                        <FiSun />
+                    </button>
+                    <button type='button' onClick={form3}>
+                        <BsBook /> 
+                    </button>
+                    <button type='button' onClick={form4}>
+                        <GiForkKnifeSpoon />
+                        <IoWaterOutline /> 
+                        <TbBeerOff />
+                    </button>
+                </div>
+                
+                {modalPage === 1 && <div>
                 <div className='Post--Modal--Main'>
                 <label htmlFor="post">Hi {user && user.firstName}, let's log your daily activity!</label>
                 <br></br>
@@ -248,34 +261,35 @@ export default function PostModal({postModal, setPostModal}) {
                 <input type="radio" name='privatePhoto' id='photoYes' value='Yes' onChange={onChange2} checked={privatePhoto === 'Yes'} />
                 <label htmlFor="photoNo">No</label>
                 <input type="radio" name='privatePhoto' id='photoNo' value='No' onChange={onChange2} checked={privatePhoto === 'No'}/>
-                {/* <p>What did you read today?</p>
-                <label htmlFor="title">Title</label>
-                <input type="text" name='title' onChange={onChange2} value={title} placeholder='The Alchemist' id='title'/>
-                <br></br>
-                <label htmlFor="author">Author</label>
-                <input type="text" name='author' onChange={onChange2} value={author} placeholder='Paulo Coelho' id='author'/>
-                <br></br>
-                <input type="number" id='pages' onChange={onChange2} value={pages} name='pages'/>
-                <label htmlFor="pages">Pages</label>
-                <br></br> */}
                 </div>
-                <div className='Post--Progress--Bar'>
-                    <div className='Post-Progress--Line'>
-                        <div className='Progress--Cir Circ-1 Circ--Active'></div>
-                        <div className='Progress--Cir Circ-2'></div>
-                        <div className='Progress--Cir Circ-3'></div>
-                    </div> 
-                </div>
-                {/* <div className='Post-Progress--Line'>
-                    <div className='Progress--Cir Circ-1'></div>
-                    <div className='Progress--Cir Circ-2'></div>
-                    <div className='Progress--Cir Circ-3'></div>
-                </div>  */}
+                
                 <div className='Post--Modal--Bottom'>
-                    <button type='button' onClick={blockOneControl} className='Post--Modal--Button'>Next</button>  
+                    <button type='button' onClick={form2} className='Post--Modal--Button'>Next</button>  
                 </div>
                 </div>}
-                {blockTwo  && <div>
+                
+                {modalPage === 2 && <div >
+                <div className='Post--Modal--Main'>
+                    <p>What exercises did you do today?</p>
+                    <div className='Workout--Block'>
+                        <label htmlFor="workout1">Exercise</label>
+                        <input type="text" name='workout1' onChange={onChange2} value={workout1} id='workout1' />
+                        <input type="number" name='duration1' onChange={onChange2} value={duration1} id='duration1'/>
+                        <label htmlFor="duration1">Minutes</label>  
+                        <label htmlFor="workout2">Outside exercise</label>
+                        <input type="text" name='workout2' onChange={onChange2} value={workout2} id='workout2'/>
+                        <input type="number" name='duration2' onChange={onChange2} value={duration2} id='duration2'/>
+                        <label htmlFor="duration2">Minutes</label>
+                    </div>
+                </div>
+                
+                <div className='Post--Modal--Bottom'>
+                    <button type='button' onClick={form1} className='Post--Modal--Button'>Back</button>
+                    <button type='button' onClick={form3} className='Post--Modal--Button'>Next</button>
+                </div>
+                </div>}
+
+                {modalPage === 3  && <div>
                 <div className='Post--Modal--Main'>
                     <p>What did you read today?</p>
                     <div className='Reading--List'>
@@ -298,31 +312,15 @@ export default function PostModal({postModal, setPostModal}) {
                     <label htmlFor="duration2">Minutes</label>
                     <br /> */}
                 </div>
-                <div className='Post--Progress--Bar'>
-                    <div className='Post-Progress--Line'>
-                        <div className='Progress--Cir Circ-1 Circ--Active'></div>
-                        <div className='Progress--Cir Circ-2 Circ--Active'></div>
-                        <div className='Progress--Cir Circ-3'></div>
-                    </div> 
-                </div>
+                
                 <div className='Post--Modal--Bottom'>
-                    <button type='button' onClick={blockOneControl} className='Post--Modal--Button'>Back</button>
-                    <button type='button' onClick={blockTwoControl} className='Post--Modal--Button'>Next</button> 
+                    <button type='button' onClick={form2} className='Post--Modal--Button'>Back</button>
+                    <button type='button' onClick={form4} className='Post--Modal--Button'>Next</button> 
                 </div>
                 </div> }
-                {blockThree && <div >
+
+                {modalPage === 4 && <div >
                 <div className='Post--Modal--Main'>
-                    <p>What exercises did you do today?</p>
-                    <div className='Workout--Block'>
-                        <label htmlFor="workout1">Exercise</label>
-                        <input type="text" name='workout1' onChange={onChange2} value={workout1} id='workout1' />
-                        <input type="number" name='duration1' onChange={onChange2} value={duration1} id='duration1'/>
-                        <label htmlFor="duration1">Minutes</label>  
-                        <label htmlFor="workout2">Outside exercise</label>
-                        <input type="text" name='workout2' onChange={onChange2} value={workout2} id='workout2'/>
-                        <input type="number" name='duration2' onChange={onChange2} value={duration2} id='duration2'/>
-                        <label htmlFor="duration2">Minutes</label>
-                    </div>
                     <p>Did you drink alcohol today?</p>
                     <label htmlFor="alcoholYes">Yes</label>
                     {/* <input type="checkbox" value={alcohol} onChange={onChange2} checked={alcohol} name='alcohol'/> */}
@@ -343,19 +341,9 @@ export default function PostModal({postModal, setPostModal}) {
                     <input type="radio" name='water' id='waterNo' value='No' onChange={onChange2} checked={water === 'No'}/>
                     <br />
                 </div>
-                <div className='Post--Progress--Bar'>
-                    <div className='Post-Progress--Line'>
-                        <button type='button' onClick={form1}>1</button>
-                        <button type='button' onClick={form2}>2</button>
-                        <button type='button' onClick={form3}>3</button>
-                        
-                        <div className='Progress--Cir Circ-1 Circ--Active'></div>
-                        <div className='Progress--Cir Circ-2 Circ--Active'></div>
-                        <div className='Progress--Cir Circ-3 Circ--Active'></div>
-                    </div> 
-                </div>
+                
                 <div className='Post--Modal--Bottom'>
-                    <button type='button' onClick={blockTwoControl} className='Post--Modal--Button'>Back</button>
+                    <button type='button' onClick={form3} className='Post--Modal--Button'>Back</button>
                     <button className='Post--Modal--Button' >Submit</button>
                 </div>
                 </div>}
