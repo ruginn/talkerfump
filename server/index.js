@@ -62,7 +62,7 @@ io.on('connection', (socket) => {
         console.log(`User ${data} logged in`)
     })
     socket.on('send_notifications', (data) => {
-        console.log(data.message)
+        console.log(data)
         socket.to(data.room).emit('recieve_notification', data)
     })
 

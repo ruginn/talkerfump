@@ -18,7 +18,10 @@ import {IoWaterOutline} from 'react-icons/io5'
 import LikesModal from './LikesModal'
 import { getPostLikes } from '../features/users/userSlice'
 import moment from 'moment'
+import io from 'socket.io-client'
 
+
+const socket = io.connect('http://localhost:8080')
 
 export default function Post({ post}) {
     const dispatch = useDispatch()
@@ -33,6 +36,11 @@ export default function Post({ post}) {
     
     const onLikePost = () => {
       dispatch(likePost(post._id))
+      const messageData = {
+        user: post._id, 
+        activity: 'notificationffffffffffffffffffffffffffffffffffffff', 
+      }
+      socket.emit('send_notifications', messageData)
     }
 
     // if (isLoading) {
