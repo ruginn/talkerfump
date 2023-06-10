@@ -5,6 +5,9 @@ import { Link } from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
 import { unfollowUser, followUser } from '../features/users/userSlice'
 import { unfollowing, following } from '../features/auth/authSlice'
+import io from 'socket.io-client'
+
+const socket = io.connect('http://localhost:8080')
 
 
 export default function FollowerCard({user, setFollowersModal, setFollowingModal}) {
@@ -26,6 +29,14 @@ export default function FollowerCard({user, setFollowersModal, setFollowingModal
     const onFollow = () => {
         dispatch(followUser(userId))
         dispatch(following(userId))
+        const messageData = {
+            room: userId, 
+            activity: 'is now following you.',
+            user: auth.username, 
+          }
+          socket.emit('join_room', userId)
+          socket.emit('send_notifications', messageData)
+          socket.emit('leave_room', userId)
     }
 
     console.log(isFollowing)

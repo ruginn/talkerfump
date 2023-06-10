@@ -47,6 +47,14 @@ export default function UserProfile() {
       dispatch(followUser(userId))
       if (auth.id !== userId){
         dispatch(following(userId))
+        const messageData = {
+          room: userId, 
+          activity: 'is now following you.',
+          user: auth.username, 
+        }
+        socket.emit('join_room', userId)
+        socket.emit('send_notifications', messageData)
+        socket.emit('leave_room', userId)
       } else {
         alert ('you can not follow yourself')
       }

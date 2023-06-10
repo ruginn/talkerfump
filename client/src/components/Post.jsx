@@ -36,11 +36,16 @@ export default function Post({ post}) {
     
     const onLikePost = () => {
       dispatch(likePost(post._id))
-      const messageData = {
-        user: post._id, 
-        activity: 'notificationffffffffffffffffffffffffffffffffffffff', 
+      if(!post.likes.includes(user.id)){
+        const messageData = {
+          room: post.userId._id, 
+          activity: 'liked your post.',
+          user: user.username, 
+        }
+        socket.emit('join_room', post.userId._id)
+        socket.emit('send_notifications', messageData)
+        socket.emit('leave_room', post.userId._id)
       }
-      socket.emit('send_notifications', messageData)
     }
 
     // if (isLoading) {

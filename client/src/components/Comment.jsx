@@ -7,6 +7,10 @@ import profileCat from '../pictures/defaultCat.jpeg'
 import {Link} from 'react-router-dom'
 import CommentItem from './CommentItem'
 import moment from 'moment'
+import io from 'socket.io-client'
+
+
+const socket = io.connect('http://localhost:8080')
 
 export default function Comment({post, expandComments, setExpandComment}) {
     const [commentText, setCommentText] = useState('')
@@ -28,6 +32,14 @@ export default function Comment({post, expandComments, setExpandComment}) {
         }
         dispatch(commentOnPost(commentData))
         setCommentText('')
+        const messageData = {
+            room: post.userId._id, 
+            activity: 'commented on your post.',
+            user: user.username, 
+          }
+          socket.emit('join_room', post.userId._id)
+          socket.emit('send_notifications', messageData)
+          socket.emit('leave_room', post.userId._id)
     }
 
     // const  [expandComments, setExpandCommment] = useState(false)

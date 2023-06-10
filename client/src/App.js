@@ -17,12 +17,19 @@ import Rules from "./pages/Rules";
 import Notifications from "./pages/Notifications";
 import AccountabilityPartner from "./pages/AccountabilityPartner";
 import TopBar from "./components/Topbar";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import io from 'socket.io-client'
+import {ToastContainer, toast} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
+import { useDispatch } from "react-redux";
+import {getNotifications} from './features/notifications/notificationsSlice'
 
 
+const socket = io.connect('http://localhost:8080')
 function App() {
   const {user} = useSelector((state) => state.auth)
   const topBarDisplay = useSelector((state) => state.general.topBar)
+  const dispatch = useDispatch()
 
   const [displayTopBar, setDisplayTopBar] = useState(true)
 
@@ -31,7 +38,31 @@ function App() {
     console.log(setDisplayTopBar)
   }
 
+  useEffect(() => {
+      if (user){
+        socket.emit('join_room', user.id)
+        console.log(`${user.username} logged in`)
+        socket.on('recieve_notification', (data) => {
+        console.log(data)
+        toast(`${data.user} ${data.activity}`, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          }) 
+          dispatch(getNotifications()) 
+        })
 
+      }
+    // socket.on('recieve_message', (data) => {
+    //     addChatMessage(data)
+    //     setMessageList((prev) => [...prev, data])
+    // })
+  }, [socket])
 
   return (
     <div className="App">
@@ -56,6 +87,17 @@ function App() {
           <Route path='/*' element={<PageNotFound />} />
         </Routes>
       </div>
+      <ToastContainer
+      position="top-right"
+      autoClose={2500}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      />
     </div>
   );
 }
