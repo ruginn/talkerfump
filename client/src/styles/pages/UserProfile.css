@@ -1,5 +1,6 @@
 .user--profile--container{
     display: flex;
+    justify-content: center;
 
 }
 .user--profile--card{

@@ -63,24 +63,7 @@
     height: 45px;
 }
 
-.home--top--bar > a{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-}
 
-.home--top--bar > a > p{
-    margin: 0 20px 0 12px;
-    font-size: .95rem;
-    font-weight: 600;
-}
-
-.margin--left{
-    margin-left: 20px;
-}
 
 .content{
     display: flex;
