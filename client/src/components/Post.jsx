@@ -84,12 +84,12 @@ export default function Post({ post}) {
           </div>
           {/* {post.progressPhoto && !post.progressPhoto.privatePhoto && <img src={post.progressPhoto.photo} className='progress--photo'/>} */}
           <div className='post--achievements'>
-            {post.workout1 ?  <GrRun className='run'/>: <ImCross/>}
-            {post.workout2 ? <FiSun className='sun'/> : <ImCross/>}
-            {post.book ? <BsBook className='book'/> : <ImCross/>}
+            {post.workout1?.exercise ?  <GrRun className='run'/>: <ImCross/>}
+            {post.workout2?.exercise ? <FiSun className='sun'/> : <ImCross/>}
+            {post.book?.title ? <BsBook className='book'/> : <ImCross/>}
             {post.cleanEat ? <GiForkKnifeSpoon className='fork'/>: <ImCross/>} 
             {post.water ? <IoWaterOutline className='water'/>: <ImCross/>}
-            {!post.alcohol ? <TbBeerOff className='beer'/>: <ImCross/>}
+            {post.alcohol ? <TbBeerOff className='beer'/>: <ImCross/>}
           </div>
           <div className='like--container'>
             <div>

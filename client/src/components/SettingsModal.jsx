@@ -56,8 +56,8 @@ export default function SettingsModal({settingsModal, setSettingsModal, hello}) 
                 <input type="text" id='email' name='email' value={userInfo.email} onChange={onChange} />
                 <label htmlFor="aboutMe">About Me</label>
                 <input type="text" id='aboutMe' name='aboutMe' value={userInfo.aboutMe} onChange={onChange} />
-              <button onClick={onSubmit}>Update</button>
             </form>
+            <button onClick={onSubmit}>Update</button>
         </div>
     </Modal>
   );

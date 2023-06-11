@@ -1,4 +1,47 @@
+.settings--container{
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+
+}
+
+.settings--container >h1{
+    margin: 0px;
+    margin-bottom: 10px;
+
+}
+
 .settings--form--container{
     display: grid;
-    grid-template-columns: 6rem 10rem ;
+    grid-gap: 0.5rem;
+    grid-template-columns: 6fr 30fr ;
+}
+
+.settings--form--container >label{
+    margin: 10px 0;
+    font-weight: 500;
+}
+
+.settings--form--container > input{
+    background-color: rgba(227, 227, 227, 0.587);
+    border: none;
+    height: 30px;
+    border-radius: 10px;
+    padding-left: 15px;
+    font-size: 16px;
+    outline: none;
+}
+
+.settings--container > button{
+    border-style: none;
+    margin-top: 8px;
+    border-radius: 10px;
+    background-color: rgb(100, 100, 100);
+    color: white;
+    padding: .66rem 4rem;
+    /* padding: 2px 20px; */
+    font-weight: 550;
+    letter-spacing: 1px;
+    cursor: pointer;
 }

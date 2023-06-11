@@ -123,10 +123,14 @@ export default function PostModal({postModal, setPostModal}) {
 
 
     const onSubmit = async(base64EncodedImage) => {
-        const alcoholVal = alcohol === 'Yes'? true: false 
+        const alcoholVal = alcohol === 'No'? true: false 
         const eatVal = cleanEat === 'Yes'? true: false
         const waterVal = water === 'Yes' ? true: false 
         const photoVal = privatePhoto  === 'Yes' ? true: false
+        const runVal = workout1 === '' ? false: workout1
+        const sunVal = workout2 === '' ? false: workout2
+        const bookVal = title === '' ? false: title
+
         const reader = new FileReader()
         reader.readAsDataURL(selectedFile)
         const createdAt = new Date()
@@ -139,16 +143,16 @@ export default function PostModal({postModal, setPostModal}) {
             postText: post, 
             userId: user.id,
             book: {
-                title,  
+                title: bookVal,  
                 author, 
                 pages,
             }, 
             workout1: {
-                exercise: workout1, 
+                exercise: runVal, 
                 duration: duration1
             }, 
             workout2: {
-                exercise: workout2, 
+                exercise: sunVal, 
                 duration: duration2
             }, 
             progressPhoto: {
@@ -211,34 +215,35 @@ export default function PostModal({postModal, setPostModal}) {
             setPostModal(false) 
             setselectedFile('')
             setFileInputState('')
-            setPreviewSource('')}}
+            setPreviewSource('')
+            form1()
+            }}
       >
           <div className='Post--Modal--Container'>
             <form className='Post--Form' onSubmit={handleSubmit}>
                 <div className='Post--modal--icons'>
-                    <button type='button' onClick={form1}>
-                      <AiOutlineCamera onClick={form1} />
+                    <button type='button' onClick={form1} className={modalPage === 1 ? 'active--tab':'not--active--tab'}>
+                      <AiOutlineCamera className='camera--modal' />
                     </button>
-                    <button type='button' onClick={form2}>
-                        <GrRun />
-                        <FiSun />
+                    <button type='button' onClick={form2} className={modalPage === 2 ? 'active--tab':'not--active--tab'}>
+                        <GrRun className='run--modal'/>
+                        <FiSun className='sun--modal'/>
                     </button>
-                    <button type='button' onClick={form3}>
-                        <BsBook /> 
+                    <button type='button' onClick={form3} className={modalPage === 3 ? 'active--tab':'not--active--tab'}>
+                        <BsBook className='book--modal'/> 
                     </button>
-                    <button type='button' onClick={form4}>
-                        <GiForkKnifeSpoon />
-                        <IoWaterOutline /> 
-                        <TbBeerOff />
+                    <button type='button' onClick={form4} className={modalPage === 4 ? 'active--tab':'not--active--tab'}>
+                        <GiForkKnifeSpoon className='spoon--modal'/>
+                        <IoWaterOutline className='water--modal'/> 
+                        <TbBeerOff className='beer--modal'/>
                     </button>
                 </div>
                 
                 {modalPage === 1 && <div>
                 <div className='Post--Modal--Main'>
-                <label htmlFor="post">Hi {user && user.firstName}, let's log your daily activity!</label>
-                <br></br>
-                <input type="text" id='post' name='post' onChange={onChange2} value={post} className='post-general' placeholder="I'm having a good day! :)"/> 
-                <p>Progress Photo</p>
+                <h2 htmlFor="post">Hi {user && user.firstName}, let's log your daily activity!</h2>
+                <input type="text" id='post' name='post' onChange={onChange2} value={post} className='post-general' placeholder="Tell us about your day..."/> 
+                <h3>Progress Photo</h3>
                 {!previewSource && <div className='Blank--Image' onClick={()=>postRef.current.click()}>
                     <BiPhotoAlbum />
                     <p>Add a photo</p> 
@@ -249,14 +254,12 @@ export default function PostModal({postModal, setPostModal}) {
                  <p onClick={()=>(setPreviewSource(false))}>x</p>
                 </div>
                 }
-                <br></br>
                 <input type="file" name="image" accept='image/' onChange={handleFileChange} placeholder='upload an image' ref={postRef} className='hide--me'/>
                 {/* value={fileInputState} */}
-                <br></br>
                 {/* {previewSource && <img src={previewSource} alt='image' value={previewSource}
                 style={{height: '300px'}}
                 />} */}
-                <p>Would you like to keep this photo private?</p>
+                <h4>Would you like to keep this photo private?</h4>
                 <label htmlFor="photoYes">Yes</label>
                 <input type="radio" name='privatePhoto' id='photoYes' value='Yes' onChange={onChange2} checked={privatePhoto === 'Yes'} />
                 <label htmlFor="photoNo">No</label>
@@ -270,7 +273,7 @@ export default function PostModal({postModal, setPostModal}) {
                 
                 {modalPage === 2 && <div >
                 <div className='Post--Modal--Main'>
-                    <p>What exercises did you do today?</p>
+                    <h4>What exercises did you do today?</h4>
                     <div className='Workout--Block'>
                         <label htmlFor="workout1">Exercise</label>
                         <input type="text" name='workout1' onChange={onChange2} value={workout1} id='workout1' />
@@ -291,12 +294,12 @@ export default function PostModal({postModal, setPostModal}) {
 
                 {modalPage === 3  && <div>
                 <div className='Post--Modal--Main'>
-                    <p>What did you read today?</p>
+                    <h4>What did you read today?</h4>
                     <div className='Reading--List'>
                         <label htmlFor="title">Book Title</label>
-                        <input type="text" name='title' onChange={onChange2} value={title} placeholder='The Alchemist' id='title'/>
+                        <input type="text" name='title' onChange={onChange2} value={title}  id='title'/>
                         <label htmlFor="author">Author</label>
-                        <input type="text" name='author' onChange={onChange2} value={author} placeholder='Paulo Coelho' id='author'/>
+                        <input type="text" name='author' onChange={onChange2} value={author}  id='author'/>
                         <label htmlFor='pages'>Pages Read</label>
                         <input type="number" id='pages' onChange={onChange2} value={pages} name='pages'/>
                     </div>
@@ -321,20 +324,20 @@ export default function PostModal({postModal, setPostModal}) {
 
                 {modalPage === 4 && <div >
                 <div className='Post--Modal--Main'>
-                    <p>Did you drink alcohol today?</p>
+                    <h4>Did you drink alcohol today?</h4>
                     <label htmlFor="alcoholYes">Yes</label>
                     {/* <input type="checkbox" value={alcohol} onChange={onChange2} checked={alcohol} name='alcohol'/> */}
                     <input type="radio" name='alcohol' id='alcoholYes' value='Yes' onChange={onChange2} checked={alcohol === 'Yes'} />
                     <label htmlFor="alcoholNo">No</label>
                     <input type="radio" name='alcohol' id='alcoholNo' value='No' onChange={onChange2} checked={alcohol === 'No'}/> 
                     
-                    <p>Did you follow your diet today?</p>
+                    <h4>Did you follow your diet today?</h4>
                     <label htmlFor="eatYes">Yes</label>
                     <input type="radio" name='cleanEat' id='eatYes' value='Yes' onChange={onChange2} checked={cleanEat === 'Yes'} />
                     <label htmlFor="eatNo">No</label>
                     <input type="radio" name='cleanEat' id='eatNo' value='No' onChange={onChange2} checked={cleanEat === 'No'}/>
                     
-                    <p>Did you drink a gallon of water today?</p>
+                    <h4>Did you drink a gallon of water today?</h4>
                     <label htmlFor="waterYes">Yes</label>
                     <input type="radio" name='water' id='waterYes' value='Yes' onChange={onChange2} checked={water === 'Yes'} />
                     <label htmlFor="waterNo">No</label>
@@ -344,7 +347,7 @@ export default function PostModal({postModal, setPostModal}) {
                 
                 <div className='Post--Modal--Bottom'>
                     <button type='button' onClick={form3} className='Post--Modal--Button'>Back</button>
-                    <button className='Post--Modal--Button' >Submit</button>
+                    <button className='Post--Modal--Button submit--button' >Post</button>
                 </div>
                 </div>}
             </form>

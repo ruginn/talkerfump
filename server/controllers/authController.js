@@ -121,6 +121,7 @@ export const updateUser = asyncHandler(async (req, res) => {
             day: updatedUser.day,
             aboutMe: updatedUser.aboutMe,
             currentBook: updatedUser.currentBook,
+            buddy: updatedUser.buddy,
             token})
     } else {
         res.status(400).json('Cant find user')

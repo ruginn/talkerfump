@@ -8,15 +8,21 @@
 } */
 
 .post-general{
-    width: 90%;
+    width: 540px;
     background-color: rgba(227, 227, 227, 0.587);
-    border-radius: 20px;
+    border-radius: 10px;
     display: flex;
     outline: none;
     border: none;
-    height: 300px;
+    padding-left: 10px;
+    font-size: 16px;
+    height: 30px;
+    margin-top: 5px;;
 }
 
+h2{
+    margin: 0px;
+}
 
 .Post--Form{
     display: flex;
@@ -33,7 +39,7 @@
 }
 
 .Post--modal--icons > button{
-    border: 0.5px solid black;
+    border: 0.5px solid rgb(215, 215, 215);
     width: 100%;
     display: flex;
     justify-content: center;
@@ -41,7 +47,7 @@
     height: 30px;
     cursor: pointer;
     border-radius: 10px 10px 0 0;
-    background-color: transparent;
+    /* background-color: white; */
 }
 
 
@@ -64,11 +70,10 @@
 
 .Post--Modal--Button{
     border-style: none;
-    border-radius: 20px;
-    background-color: black;
+    border-radius: 10px;
+    background-color: rgb(100, 100, 100);
     color: white;
-    padding: .3rem 1rem;
-    font-family: 'Montserrat', sans-serif;
+    padding: .66rem 4rem;
     font-weight: 550;
     letter-spacing: 1px;
     cursor: pointer;
@@ -116,7 +121,6 @@
     width: 95%;
     height: 50px;
     resize: None;
-    font-family: 'Montserrat', sans-serif;
 }
 .Post--Modal--Main> textarea{
     margin-top: 10px;
@@ -131,8 +135,8 @@
 
 
 
-.Post--Modal--Main> input[type=text]{
-    height: 1rem;
+.Post--Modal--Main> input[type=radio]{
+    cursor: pointer
 }
 
 .Post--Modal--Main> input[type=text]:focus{
@@ -210,17 +214,59 @@ input::file-selector-button {
 
 .Reading--List{
     margin: 1rem;
-    margin-top: 2rem;
-    display: grid; 
+    margin-top: .5rem;
+    /* display: grid; 
     grid-template-columns: .4fr 1fr;
-    grid-gap: 1rem;
+    grid-gap: 1rem; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
 }
+
+.Reading--List >label{
+    margin: 10px 0;
+    font-weight: 500;
+}
+
+.Reading--List > input{
+    background-color: rgba(227, 227, 227, 0.587);
+    border: none;
+    height: 30px;
+    border-radius: 10px;
+    padding-left: 15px;
+    font-size: 16px;
+}
+
+.Reading--List > input::placeholder{
+    margin-left: 5px;
+}
+
+
 
 .Workout--Block{
     display: grid;
     grid-template-columns: 1fr 1fr 50px 1fr;
     grid-gap: 1rem;
+    /* display: flex;
+    flex-direction: column; */
 }
+
+.Workout--Block >label{
+    margin: 10px 0;
+    font-weight: 500;
+}
+
+.Workout--Block > input{
+    background-color: rgba(227, 227, 227, 0.587);
+    border: none;
+    height: 30px;
+    border-radius: 10px;
+    padding-left: 15px;
+    font-size: 16px;
+    outline: none;
+}
+
+
 
 .hide--me{
     display: none;
@@ -235,4 +281,49 @@ input::file-selector-button {
     height: 300px;
     /* width: 100%; */
     object-fit: cover;
+}
+
+
+
+.sun--modal{
+    color: rgb(255, 170, 0);
+    fill: orange;
+}
+
+.camera--modal{
+    color: green;
+    fill: green;
+}
+
+.book--modal{
+    fill: red;
+}
+
+.beer--modal{
+    fill: transparent;
+    color: rgb(209, 155, 47)
+}
+
+.spoon--modal{
+    fill: gray;
+}
+
+.water--modal{
+    color: rgb(70, 192, 232);
+}
+
+.active--tab{
+    background-color: rgba(220, 220, 220, 0.48);
+}
+
+.not--active--tab{
+    background-color: transparent;
+}
+
+.submit--button{
+    background-color: dodgerblue;
+}
+
+h4{
+    margin: 10px 0;
 }

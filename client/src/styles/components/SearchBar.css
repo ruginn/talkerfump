@@ -28,3 +28,15 @@
 .search--bar > input::placeholder{
     color: rgb(36, 36, 36)
 }
+
+@media screen and (max-width: 1450px){
+    .search--bar{
+        width: 800px;
+    }
+}
+
+@media screen and (max-width: 1270px){
+    .search--bar{
+        width: 600px;
+    }
+}
