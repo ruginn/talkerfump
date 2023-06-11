@@ -26,6 +26,7 @@ export default function NavBar() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const auth = useSelector((state) => state.auth.user)
+    const messageNotifications = useSelector((state) => state.general.messageNotifications)
     const {notifications, count} = useSelector((state) => state.notifications)
 
     const [settingsModal, setSettingsModal] = useState(false)
@@ -110,7 +111,7 @@ export default function NavBar() {
             <div onClick={toggleNav}><Link to='/accountability' className='Nav--row' title='Gym Buddy'><FaRegHandshake /><span>Accountability Partner</span></Link></div> 
             {/* <div onClick={toggleNav}><Link to='/schedule' className='Nav--row larger--icon' title='Schedule'><BsCalendarDate /><span>Schedule</span></Link></div>  */}
             <div onClick={toggleNav}><Link to='/rules' className='Nav--row' title='Rules'><BsBook /><span>75 Hard Rules</span></Link></div> 
-            <div onClick={toggleNav}><Link to='/messages' className='Nav--row' title='Messages'><AiOutlineMessage /><span>Messages</span></Link></div> 
+            <div onClick={toggleNav}><Link to='/messages' className='Nav--row' title='Messages'><div className='notification--bell'><AiOutlineMessage />{messageNotifications > 0 ? <span className='notification--count'>{messageNotifications}</span>: ''}</div><span>Messages</span></Link></div> 
             {/* <div className='Nav--row darker--bg push--bottom' onClick={onLogout}><AiOutlineLogout/> <span>Logout</span></div>   */}
             <div className='push--bottom'> 
              <div><span className='Nav--row darker--bg' onClick={()=> setSettingsModal(true)}><AiOutlineSetting /><span>Settings</span></span></div> 

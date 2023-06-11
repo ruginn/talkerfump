@@ -5,6 +5,7 @@ import { getUser } from '../features/users/userSlice'
 import '../styles/components/UserChatCard.css'
 import profileCat from '../pictures/defaultCat.jpeg'
 import moment from 'moment'
+import { addToMessageNotifications } from '../features/general/generalSlice'
 
 export default function UserChatCard({chat, socket, setShowChat, messageList, setMessageList, chatRef}) {
     const [room, setRoom] = useState('')
@@ -12,7 +13,7 @@ export default function UserChatCard({chat, socket, setShowChat, messageList, se
     const authId = useSelector((state)=> state.auth.user.id)
     const user = chat.users.filter((user) => user._id !== authId)
     const activeChat = useSelector((state)=> state.chats.activeChat)
-
+    const [messageNotification, setMessageNotification] = useState('')
 
     const roomChange = async () =>{
       dispatch(setMobileChatTrue())
@@ -34,11 +35,12 @@ export default function UserChatCard({chat, socket, setShowChat, messageList, se
 
     let highlightChat =  activeChat && activeChat._id === chat._id? 'gray--user': ''
     
-    const [messageNotification, setMessageNotification] = useState('')
+
 
     useEffect(() => {
       if (chat?.messages[chat.messages.length -1]?.userId !== authId && chat?.messages[chat.messages.length -1]?.seen === false){
         setMessageNotification('fill--notification--dot')
+        dispatch(addToMessageNotifications())
       }
     },[])
     

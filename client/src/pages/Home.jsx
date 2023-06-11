@@ -18,7 +18,8 @@ import {getNotifications} from '../features/notifications/notificationsSlice'
 import {AiOutlineCamera} from "react-icons/ai"
 import { reset as reset2 } from '../features/posts/postSlice'
 import { findFollowers, findFollowing } from '../features/users/userSlice'
-import {setTopBarTrue} from '../features/general/generalSlice'
+import {setTopBarTrue, addToMessageNotifications} from '../features/general/generalSlice'
+
 
 
 export default function Home() {
@@ -27,6 +28,7 @@ export default function Home() {
     
     const {user} = useSelector((state)=> state.auth)
     const {posts, onLoading} = useSelector((state)=> state.post) 
+    const chats = useSelector((state) => state.chats.chats)
 
 
     useEffect(()=> {
@@ -37,6 +39,12 @@ export default function Home() {
        dispatch(getUserChats())
        dispatch(getNotifications())
        dispatch(setTopBarTrue())
+       chats.map((chat) =>{
+        if (chat?.messages[chat.messages.length -1]?.userId !== user.id && chat?.messages[chat.messages.length -1]?.seen === false){
+          dispatch(addToMessageNotifications())
+        }
+       })
+       
       //  dispatch(notificationCount())
     }, [navigate, onLoading])
     

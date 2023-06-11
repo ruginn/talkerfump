@@ -23,14 +23,17 @@ import {ToastContainer, toast} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch } from "react-redux";
 import {getNotifications} from './features/notifications/notificationsSlice'
+import { addToMessageNotifications } from "./features/general/generalSlice";
 
 
 const socket = io.connect('http://localhost:8080')
 function App() {
   const {user} = useSelector((state) => state.auth)
   const topBarDisplay = useSelector((state) => state.general.topBar)
+  const messageNotification = useSelector((state) => state.general.messageNotifications)
   const dispatch = useDispatch()
 
+  
   const [displayTopBar, setDisplayTopBar] = useState(true)
 
   const toggleTopBar = () => {
@@ -39,11 +42,10 @@ function App() {
   }
 
   useEffect(() => {
-      if (user){
+    if (user){
         socket.emit('join_room', user.id)
         console.log(`${user.username} logged in`)
         socket.on('recieve_notification', (data) => {
-        console.log(data)
         toast(`${data.user} ${data.activity}`, {
           position: "top-right",
           autoClose: 5000,
@@ -54,6 +56,9 @@ function App() {
           progress: undefined,
           theme: "light",
           }) 
+          if(data.activity === 'sent you a message.'){
+            dispatch(addToMessageNotifications())
+          }
           dispatch(getNotifications()) 
         })
 

@@ -3,6 +3,7 @@ import {createSlice} from '@reduxjs/toolkit'
 const initialState = {
     topBar: true,
     modalPage: 1,
+    messageNotifications: 0,
 }
 
 export const generalSlice = createSlice({
@@ -26,9 +27,18 @@ export const generalSlice = createSlice({
         },
         setModalPage4: (state) =>{
             state.modalPage = 4
+        },
+        addToMessageNotifications: (state) =>{
+            state.messageNotifications += 1
+        },
+        reduceMessageNotifications: (state) => {
+            state.messageNotifications -= 1
+        }, 
+        resetMessageNotifications: (state) => {
+            state.messageNotifications = 0
         }
     }
 })
 
-export const {setTopBarFalse, setTopBarTrue, setModalPage1, setModalPage2, setModalPage3, setModalPage4} =  generalSlice.actions;
+export const {setTopBarFalse, setTopBarTrue, setModalPage1, setModalPage2, setModalPage3, setModalPage4, addToMessageNotifications, reduceMessageNotifications, resetMessageNotifications} =  generalSlice.actions;
 export default generalSlice.reducer;

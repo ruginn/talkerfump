@@ -7,6 +7,7 @@ import ScrollToBottom from 'react-scroll-to-bottom'
 import '../styles/components/Chat.css'
 import {Link} from 'react-router-dom'
 import { IoIosArrowBack } from "react-icons/io";
+import { addToMessageNotifications,reduceMessageNotifications, resetMessageNotifications } from '../features/general/generalSlice'
 
 export default function Chat({socket, username, room, messageList, setMessageList, chatRef}) {
     const dispatch = useDispatch()
@@ -15,6 +16,7 @@ export default function Chat({socket, username, room, messageList, setMessageLis
     const activeChat =  useSelector((state) => state.chats.activeChat)
     const previousMessages = useSelector((state) => state.chats.chatMessages)
     const authId = useSelector((state)=> state.auth.user.id)
+    const auth = useSelector((state) => state.auth.user)
     const user = useSelector((state) => state.chats.otherUser)
     const {mobileChat} = useSelector((state) => state.chats)
     
@@ -62,6 +64,14 @@ export default function Chat({socket, username, room, messageList, setMessageLis
         //     dispatch(getUserChats())
         // })
         // setMessage('')
+        const notificationData = {
+            room: user._id, 
+            activity: 'sent you a message.',
+            user: auth.username, 
+          }
+          socket.emit('join_room', user._id)
+          socket.emit('send_notifications', notificationData)
+          socket.emit('leave_room', user._id)
     }
 
     useEffect(() => {
@@ -82,6 +92,8 @@ export default function Chat({socket, username, room, messageList, setMessageLis
                 if(!message.seen && message.userId._id !== authId){
                     dispatch(setMessageSeen(message._id))
                     console.log('set to true')
+                    dispatch(resetMessageNotifications())
+
                 }
             })
         } 
