@@ -120,7 +120,11 @@ export default function UserProfile() {
       {user && 
         <div className='user--profile--container'>
         <div className='user--profile--card'>
-          <img src= {user.profileImage? user.profileImage: profilePic} alt="" className='user--profile--image'/>
+          <div className='container--img'>
+            <img src= {user.profileImage? user.profileImage: profilePic} alt="" className='user--profile--image'/>
+            {userId === auth.id &&
+            <div className='image--click'><AiOutlineCamera onClick={openImageUploader}/></div>}
+          </div>
          <div className='profile--card--outer--container'> 
          <div className='profile--card--inner--container'>
           <h3>@{user && user.username}</h3>
