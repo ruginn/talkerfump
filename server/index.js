@@ -49,7 +49,7 @@ app.use('/api/notifications', notificationsRoute)
 
 const io = new Server(server, {
     cors: {
-        origin: 'https://effortless-gaufre-2f1e34.netlify.app//',
+        origin: 'https://effortless-gaufre-2f1e34.netlify.app/',
         methods: ['GET', 'POST'] 
     }
 })
