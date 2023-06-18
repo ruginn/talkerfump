@@ -119,15 +119,32 @@ export default function UserProfile() {
     <div>
       {user && 
         <div className='user--profile--container'>
-        <div className='user--profile--card'>
-          <div className='container--img'>
-            <img src= {user.profileImage? user.profileImage: profilePic} alt="" className='user--profile--image'/>
-            {userId === auth.id &&
-            <div className='image--click'><AiOutlineCamera onClick={openImageUploader}/></div>}
+        <div className='user--profile--info'>
+          <div className='user--profile--card'>
+            <div className='container--img'>
+              <img src= {user.profileImage? user.profileImage: profilePic} alt="" className='user--profile--image'/>
+              {userId === auth.id &&
+              <div className='image--click'><AiOutlineCamera onClick={openImageUploader}/></div>}
+            </div>
+          <div className='profile--card--outer--container'> 
+          <div className='profile--card--inner--container'>
+            <h3>@{user && user.username}</h3>
+              <p>{user.firstName} {user.lastName}</p>
+              <p><b>{posts&& posts.length}</b> {posts.length === 1? 'post':'posts'}</p>
+              <span onClick={openFollowersModal} className='pointer'><b>{user && user.followers.length}</b> followers </span>
+              <span onClick={openFollowingModal} className='pointer'><b>{user && user.following.length}</b> following</span> 
+
+              <br />
+              {auth.id !== params.userId?
+                user && user.followers.includes(auth.id)? 
+                  <button onClick={onUnfollow}>Unfollow</button>: 
+                  <button onClick={onFollow}>Follow</button>  : 
+                  ''
+              }
+              {auth.id === params.userId? '':
+              <Link to='/messages'><button onClick={onCreateChat}>Message</button></Link>}
           </div>
-         <div className='profile--card--outer--container'> 
-         <div className='profile--card--inner--container'>
-          <h3>@{user && user.username}</h3>
+          {/* <h3>@{user && user.username}</h3>
             <p>{user.firstName} {user.lastName}</p>
             <p><b>{posts&& posts.length}</b> {posts.length === 1? 'post':'posts'}</p>
             <span onClick={openFollowersModal} className='pointer'><b>{user && user.followers.length}</b> followers </span>
@@ -138,27 +155,14 @@ export default function UserProfile() {
               user && user.followers.includes(auth.id)? 
                 <button onClick={onUnfollow}>Unfollow</button>: 
                 <button onClick={onFollow}>Follow</button>  : 
-                <div className='' onClick={openImageUploader}><AiOutlineCamera/></div>
+                <button>Edit Profile</button>
             }
             {auth.id === params.userId? '':
-            <Link to='/messages'><button onClick={onCreateChat}>Message</button></Link>}
-         </div>
-         {/* <h3>@{user && user.username}</h3>
-          <p>{user.firstName} {user.lastName}</p>
-          <p><b>{posts&& posts.length}</b> {posts.length === 1? 'post':'posts'}</p>
-          <span onClick={openFollowersModal} className='pointer'><b>{user && user.followers.length}</b> followers </span>
-          <span onClick={openFollowingModal} className='pointer'><b>{user && user.following.length}</b> following</span> 
-
-          <br />
-          {auth.id !== params.userId?
-            user && user.followers.includes(auth.id)? 
-              <button onClick={onUnfollow}>Unfollow</button>: 
-              <button onClick={onFollow}>Follow</button>  : 
-              <button>Edit Profile</button>
-          }
-          {auth.id === params.userId? '':
-          <Link to='/messages'><button onClick={onCreateChat}>Message</button></Link>} */}
+            <Link to='/messages'><button onClick={onCreateChat}>Message</button></Link>} */}
+            <div className='progess--mobile'><h3>Streak</h3><UserProgress/></div>
+            </div>
           </div>
+          <div className='progress--desktop'><h3>Streak</h3><UserProgress/></div>
         </div>
         <div>
             {/* <UserProgress className='up-progress'/> */}

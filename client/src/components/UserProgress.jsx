@@ -18,7 +18,7 @@ export default function UserProgress() {
 
   return (
     <div>
-        {user?.day && <div className='outer--circle' style={{background : `conic-gradient(red ${percentCompleted}deg, rgb(221, 221, 221) ${percentCompleted}deg )`}}>
+        {user?.day && <div className='outer--circle' style={{background : `conic-gradient(blue ${percentCompleted}deg, rgb(221, 221, 221) ${percentCompleted}deg )`}}>
             <div className='inner--circle'>
               <b>{user?.day ? user.day.streak: 0}/75</b>
               <p className='M0'>Days</p>
