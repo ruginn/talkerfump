@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom'
 import '../styles/pages/Messages.css'
 
 
-const socket = io.connect('http://localhost:8080')
+const socket = io.connect('https://kma75.onrender.com')
 
 export default function Messages() {
   const dispatch = useDispatch()

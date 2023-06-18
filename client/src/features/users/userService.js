@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 // const API_URL = '/api/auth'
-const API = axios.create({baseURL: 'http://localhost:8080/'})
+const API = axios.create({baseURL: 'https://kma75.onrender.com/'})
 
 
 // get all users

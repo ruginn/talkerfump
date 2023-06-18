@@ -21,7 +21,7 @@ import ImageUploader from '../components/ImageUploader'
 import { AiOutlineCamera } from 'react-icons/ai'
 
 
-const socket = io.connect('http://localhost:8080')
+const socket = io.connect('https://kma75.onrender.com')
 
 export default function UserProfile() {
     const params = useParams()

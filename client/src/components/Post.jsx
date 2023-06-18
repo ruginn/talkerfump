@@ -21,7 +21,7 @@ import moment from 'moment'
 import io from 'socket.io-client'
 
 
-const socket = io.connect('http://localhost:8080')
+const socket = io.connect('https://kma75.onrender.com')
 
 export default function Post({ post}) {
     const dispatch = useDispatch()

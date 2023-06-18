@@ -19,7 +19,7 @@ import io from 'socket.io-client'
 import { getUsers } from '../features/users/userSlice'
 
 
-const socket = io.connect('http://localhost:8080')
+const socket = io.connect('https://kma75.onrender.com')
 
 
 export default function NavBar() {

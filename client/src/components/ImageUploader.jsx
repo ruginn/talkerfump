@@ -52,7 +52,7 @@ export default function ImageUploader({ImageUploaderModal, setImageUploaderModal
 
     const uploadImage = async (base64EncodedImage, userId, token) => {
         try {
-            await fetch('http://localhost:8080/api/auth/updateprofilepic', {
+            await fetch('https://kma75.onrender.com/api/auth/updateprofilepic', {
                 method: 'POST',
                 body: JSON.stringify({ data: base64EncodedImage,  userId: auth.id}),
                 headers: { 'Content-Type': 'application/json', 

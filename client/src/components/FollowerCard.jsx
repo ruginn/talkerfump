@@ -7,7 +7,7 @@ import { unfollowUser, followUser } from '../features/users/userSlice'
 import { unfollowing, following } from '../features/auth/authSlice'
 import io from 'socket.io-client'
 
-const socket = io.connect('http://localhost:8080')
+const socket = io.connect('https://kma75.onrender.com')
 
 
 export default function FollowerCard({user, setFollowersModal, setFollowingModal}) {
