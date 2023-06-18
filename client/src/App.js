@@ -26,7 +26,7 @@ import {getNotifications} from './features/notifications/notificationsSlice'
 import { addToMessageNotifications } from "./features/general/generalSlice";
 
 
-const socket = io.connect('http://localhost:8080')
+const socket = io.connect('https://kma75.onrender.com')
 function App() {
   const {user} = useSelector((state) => state.auth)
   const topBarDisplay = useSelector((state) => state.general.topBar)
